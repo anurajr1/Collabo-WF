@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:id="@+id/button_container"
@@ -44,4 +45,24 @@
             android:textColor="@color/caldroid_white"
             android:textSize="15sp" />
     </LinearLayout>
+
+    <com.anuraj.project.collabowf.weekview.WeekView
+        android:id="@+id/weekView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/button_container"
+        app:columnGap="1dp"
+        app:eventTextColor="@android:color/white"
+        app:headerColumnBackground="@color/caldroid_white"
+        app:headerColumnPadding="5dp"
+        app:headerColumnTextColor="@color/header_text_color"
+        app:headerRowBackgroundColor="@color/blank_space"
+        app:headerRowPadding="15dp"
+        app:headerRowTextColor="@color/header_row_text_color"
+        app:noOfVisibleDays="7"
+        app:textSize="14sp"
+        app:todayHeaderTextColor="@color/button_selected"
+        app:typeface="fonts/RalewayMedium.ttf"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 </RelativeLayout>
