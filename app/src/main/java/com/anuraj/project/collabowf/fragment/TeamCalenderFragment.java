@@ -16,7 +16,7 @@ public class TeamCalenderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.content_main, container, false);
+        View rootView = inflater.inflate(R.layout.myteamcalenderlayout, container, false);
         return rootView;
     }
 }

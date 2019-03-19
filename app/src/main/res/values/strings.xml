@@ -6,4 +6,9 @@
     <string name="nav_header_subtitle">anuraj.r@sap.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="nav_team_calender">My Team Calender</string>
+    <string name="nav_team">Team</string>
+    <string name="nav_profile">My Profile</string>
 </resources>
