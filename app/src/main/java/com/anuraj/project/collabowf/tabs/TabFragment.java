@@ -19,6 +19,12 @@ public class TabFragment extends Fragment {
     public static ViewPager viewPager;
     public static int int_items = 3;
 
+    private int[] tabIcons = {
+            R.drawable.ic_account_group,
+            R.drawable.ic_account_tie,
+            R.drawable.ic_menu_camera
+    };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,6 +35,13 @@ public class TabFragment extends Fragment {
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
 
+
+
+
+
+
+
+
         // create a new adapter for our pageViewer. This adapters returns child fragments as per the positon of the page Viewer.
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
@@ -38,10 +51,13 @@ public class TabFragment extends Fragment {
             public void run() {
                 //provide the viewPager to TabLayout.
                 tabLayout.setupWithViewPager(viewPager);
+                setupTabIcons();
             }
         });
         //to preload the adjacent tabs. This makes transition smooth.
         viewPager.setOffscreenPageLimit(2);
+
+
 
        return x;
    }
@@ -85,5 +101,11 @@ public class TabFragment extends Fragment {
             }
             return null;
         }
+    }
+
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 }

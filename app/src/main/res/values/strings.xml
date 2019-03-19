@@ -13,4 +13,8 @@
     <string name="nav_profile">My Profile</string>
 
     <string name="exit_msg">Please click BACK again to exit.</string>
+
+    <string name="action_day_view">Day</string>
+    <string name="action_week_view">Week</string>
+    <string name="action_month_view">Month</string>
 </resources>

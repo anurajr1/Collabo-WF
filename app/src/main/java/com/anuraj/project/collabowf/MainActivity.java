@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (viewId) {
             case R.id.nav_team_calender:
-                fragment = new TabFragment();
+                fragment = new TeamCalenderFragment();
                 title =getString(R.string.nav_team_calender);
                 break;
 
