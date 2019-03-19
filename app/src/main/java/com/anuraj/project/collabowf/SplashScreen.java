@@ -1,8 +1,7 @@
-/**
- * Created by anuraj on 19/03/2019.
- */
 package com.anuraj.project.collabowf;
-
+/**
+ * Created by Anuraj R(i321994) a4anurajr@gmail.com
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,9 +21,6 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen);
-
-
-
         //imageAnimation = (ImageView) findViewById(R.id.imageView1);
         //anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.animation_bounce);
         //imageAnimation.setVisibility(View.VISIBLE);
