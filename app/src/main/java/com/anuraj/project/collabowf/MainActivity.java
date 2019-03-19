@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.anuraj.project.collabowf.fragment.ProfileFragment;
 import com.anuraj.project.collabowf.fragment.TeamCalenderFragment;
 import com.anuraj.project.collabowf.fragment.TeamFragment;
+import com.anuraj.project.collabowf.tabs.TabFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (viewId) {
             case R.id.nav_team_calender:
-                fragment = new TeamCalenderFragment();
+                fragment = new TabFragment();
                 title =getString(R.string.nav_team_calender);
                 break;
 
