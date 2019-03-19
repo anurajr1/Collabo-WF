@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anuraj.project.collabowf.R;
-import com.anuraj.project.collabowf.fragment.ProfileFragment;
 
 public class TabFragment extends Fragment {
 
@@ -58,9 +57,9 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position){
-                case 0 : return new ProfileFragment();
-                case 1 : return new ProfileFragment();
-                case 2 : return new ProfileFragment();
+                case 0 : return new DayTab();
+                case 1 : return new WeekTab();
+                case 2 : return new MonthTab();
             }
             return null;
         }
