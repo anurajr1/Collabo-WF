@@ -52,4 +52,7 @@
     <color name="sapUiBaseBG">#FAFAFA</color>
     <color name="sapUiPageFooterBackground">#2F3C48</color>
 
+    <color name="sapProgressIndicator">#0070B1</color>
+
+
 </resources>
