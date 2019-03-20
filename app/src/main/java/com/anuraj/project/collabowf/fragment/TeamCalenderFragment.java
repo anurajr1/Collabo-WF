@@ -5,6 +5,8 @@ package com.anuraj.project.collabowf.fragment;
  */
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,8 @@ import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.weekview.WeekView;
 import com.anuraj.project.collabowf.weekview.WeekViewEvent;
 
+import static com.anuraj.project.collabowf.utils.AppConstants.DAY_EVENT_SIZE;
+import static com.anuraj.project.collabowf.utils.AppConstants.DAY_TEXT_SIZE;
 import static com.anuraj.project.collabowf.utils.AppConstants.DAY_VIEW;
 import static com.anuraj.project.collabowf.utils.AppConstants.DD_MMM_YYYY;
 import static com.anuraj.project.collabowf.utils.AppConstants.END;
@@ -40,6 +44,7 @@ import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_LIGHT;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_REGULAR;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_SEMI_BOLD;
 import static com.anuraj.project.collabowf.utils.AppConstants.START;
+import static com.anuraj.project.collabowf.utils.AppConstants.WEEK_EVENT_SIZE;
 import static com.anuraj.project.collabowf.utils.AppConstants.WEEK_VIEW;
 
 public class TeamCalenderFragment extends Fragment implements WeekView.MonthChangeListener,
@@ -57,7 +62,7 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     // Day view & Week view object
     private WeekView mWeekView;
     // For button background toggle
-    private Button buttonWeekView;
+    private Button buttonDayView, buttonWeekView, buttonMonthView;
 
     private SimpleDateFormat formatter;
     private Date[] startEndTime;
@@ -96,6 +101,56 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         addEvent(date,cal.getTime(),"Testing");
 
 
+        buttonDayView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewType != DAY_VIEW) {
+                    //getActivity().getSupportFragmentManager().beginTransaction().remove(customMonthCalendar).commitAllowingStateLoss();
+                    mWeekView.setVisibility(View.VISIBLE);
+
+                    // Lets change some dimensions to best fit the view.
+//                    mWeekView.setTextSize((int) TypedValue.applyDimension
+//                            (TypedValue.COMPLEX_UNIT_SP, DAY_TEXT_SIZE, getResources().getDisplayMetrics()));
+                    mWeekView.setEventTextSize((int) TypedValue.applyDimension
+                            (TypedValue.COMPLEX_UNIT_SP, DAY_EVENT_SIZE, getResources().getDisplayMetrics()));
+
+                    // Set the number of visible days to one
+                    mWeekView.setNumberOfVisibleDays(DAY_VIEW);
+                    viewType = DAY_VIEW;
+
+                    changeButtonBackground(buttonDayView);
+                    mWeekView.setFromMonthView(false);
+                }
+            }
+        });
+
+        buttonWeekView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewType != WEEK_VIEW) {
+                    //getActivity().getSupportFragmentManager().beginTransaction().remove(customMonthCalendar).commitAllowingStateLoss();
+                    mWeekView.setVisibility(View.VISIBLE);
+                    mWeekView.setEventTextSize((int) TypedValue.applyDimension
+                            (TypedValue.COMPLEX_UNIT_SP, WEEK_EVENT_SIZE, getResources().getDisplayMetrics()));
+
+                    // Set the number of visible days to seven
+                    mWeekView.setNumberOfVisibleDays(WEEK_VIEW);
+                    viewType = WEEK_VIEW;
+                    changeButtonBackground(buttonWeekView);
+
+//                    if (calendarPreference.contains(DATE_KEY_WEEK)) {
+//                        long dateInMillis = calendarPreference.getLong(DATE_KEY_WEEK, 0);
+//                        Calendar calendar = Calendar.getInstance();
+//                        calendar.setTimeInMillis(dateInMillis);
+//                        mWeekView.goToDate(calendar);
+//                        mWeekView.notifyDatasetChanged();
+//                    }
+                    mWeekView.setFromMonthView(false);
+                }
+            }
+        });
+
+
         return rootView;
     }
 
@@ -103,7 +158,7 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     // Initialize all the required components
     private void initComponents() {
         // Set the view type to Day view
-        viewType = WEEK_VIEW;
+        viewType = DAY_VIEW;
         // Initialise the typefaces
         ralewayLight = Typeface.createFromAsset(getContext().getAssets(),
                 RALEWAY_LIGHT);
@@ -113,9 +168,13 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
                 RALEWAY_SEMI_BOLD);
 
         // To record the button pressed
-
+        buttonDayView = (Button) rootView.findViewById(R.id.action_day_view);
         buttonWeekView = (Button) rootView.findViewById(R.id.action_week_view);
+        buttonMonthView = (Button) rootView.findViewById(R.id.action_month_view);
+        buttonDayView.setTypeface(ralewayRegular);
         buttonWeekView.setTypeface(ralewayRegular);
+        buttonMonthView.setTypeface(ralewayRegular);
+
         formatter = new SimpleDateFormat(DD_MMM_YYYY, Locale.getDefault());
 
         // Get a reference for the week view in the layout.
@@ -240,8 +299,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
 
     /**
      * Convert the given Calendar touch time and compute its slot
-     * Added by Muddassir
-     *
      * @param time time at which it it touched
      * @return Date[] of start and end time of the slot
      */
@@ -295,5 +352,16 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+
+
+
+    // Change the background color of the selected button
+    public void changeButtonBackground(Button button) {
+        buttonDayView.setBackgroundColor(getResources().getColor(R.color.sapUiPageFooterBackground));
+        buttonWeekView.setBackgroundColor(getResources().getColor(R.color.sapUiPageFooterBackground));
+        buttonMonthView.setBackgroundColor(getResources().getColor(R.color.sapUiPageFooterBackground));
+        button.setBackgroundColor(getResources().getColor(R.color.sapUiBaseColor));
+    }
+
 
 }
