@@ -46,4 +46,10 @@
     <color name="caldroid_background_color">#E0144E</color>
     <color name="month_text_color">#ff868384</color>
     <color name="blank_space">#EBECEC</color>
+
+
+    <color name="sapUiBaseColor">#3F5161</color>
+    <color name="sapUiBaseBG">#FAFAFA</color>
+    <color name="sapUiPageFooterBackground">#2F3C48</color>
+
 </resources>
