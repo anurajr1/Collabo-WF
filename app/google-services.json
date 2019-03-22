@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "612629879043",
+    "firebase_url": "https://collabowf.firebaseio.com",
+    "project_id": "collabowf",
+    "storage_bucket": "collabowf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612629879043:android:942b3fc4e55e6137",
+        "android_client_info": {
+          "package_name": "com.anuraj.project.collabowf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612629879043-77g4tad95tvsp1td81hbbfh69vdr5ros.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anuraj.project.collabowf",
+            "certificate_hash": "a7c9c63704dada49c75c0d100f179ec6a4e21b66"
+          }
+        },
+        {
+          "client_id": "612629879043-ksuceql8142c55njf2iae9dfe802l1q4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAavO-tByXel8L5SHt5QOI90lLBWZgbcYU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612629879043-ksuceql8142c55njf2iae9dfe802l1q4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
