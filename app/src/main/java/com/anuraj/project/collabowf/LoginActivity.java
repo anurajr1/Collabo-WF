@@ -4,8 +4,8 @@ package com.anuraj.project.collabowf;
  */
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,15 +13,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.anuraj.project.collabowf.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -31,11 +29,14 @@ public class LoginActivity extends Activity {
     User users;
     private EditText inputId, inputPassword;
     private Button btnLogin;
+    SharedPreferences pref;
  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginlayout);
+
+        pref = getApplicationContext().getSharedPreferences("com.anuraj.project.collabowf", 0); // 0 - for private mode
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
@@ -65,6 +66,15 @@ public class LoginActivity extends Activity {
                             for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
                                 users = userSnapshot.getValue(User.class);
                                 if((id.equalsIgnoreCase(users.id)) && (password.equalsIgnoreCase(users.password))){
+                                    //storing the data to shared preference
+                                    pref = getApplicationContext().getSharedPreferences("com.anuraj.project.collabowf", 0); // 0 - for private mode
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.putString("employeeId", users.id);
+                                    editor.putString("employeePassword", users.password);
+                                    editor.putString("employeeDomain", users.domain);
+                                    editor.putString("employeeName", users.name);
+                                    editor.commit(); // commit changes
+
                                     Intent i = new Intent(LoginActivity.this, SplashScreen.class);
                                     startActivity(i);
                                     finish();
@@ -85,5 +95,17 @@ public class LoginActivity extends Activity {
             }
         });
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //pref.getString("employeeId", null);
+
+        if ((pref.getString("employeeId", null))!= null) {
+            Intent intent = new Intent(this, SplashScreen.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 }
