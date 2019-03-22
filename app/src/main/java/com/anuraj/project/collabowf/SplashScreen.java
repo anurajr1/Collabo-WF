@@ -26,9 +26,6 @@ public class SplashScreen extends Activity {
         //imageAnimation.setVisibility(View.VISIBLE);
         //imageAnimation.startAnimation(anim);
         new Handler().postDelayed(new Runnable() {
- 
-           
- 
             @Override
             public void run() {
                 // This method will be executed once the timer is over
