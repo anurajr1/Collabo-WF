@@ -23,6 +23,7 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONObject;
 
 import static android.content.ContentValues.TAG;
+import static com.anuraj.project.collabowf.utils.AppConstants.LOGIN_PREFERENCES;
 
 public class LoginActivity extends Activity {
     private DatabaseReference mFirebaseDatabase;
@@ -37,7 +38,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginlayout);
 
-        pref = getApplicationContext().getSharedPreferences("com.anuraj.project.collabowf", 0); // 0 - for private mode
+        pref = getApplicationContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
@@ -87,7 +88,7 @@ public class LoginActivity extends Activity {
                                 users = userSnapshot.getValue(User.class);
                                 if((id.equalsIgnoreCase(users.id)) && (password.equalsIgnoreCase(users.password))){
                                     //storing the data to shared preference
-                                    pref = getApplicationContext().getSharedPreferences("com.anuraj.project.collabowf", 0); // 0 - for private mode
+                                    pref = getApplicationContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
                                     SharedPreferences.Editor editor = pref.edit();
                                     editor.putString("employeeId", users.id);
                                     editor.putString("employeePassword", users.password);
@@ -158,7 +159,7 @@ public class LoginActivity extends Activity {
                             users = userSnapshot.getValue(User.class);
                             if((emplyID.equalsIgnoreCase(users.id)) && (pass.equalsIgnoreCase(users.password))){
                                 //storing the data to shared preference
-                                    pref = getApplicationContext().getSharedPreferences("com.anuraj.project.collabowf", 0); // 0 - for private mode
+                                    pref = getApplicationContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
                                     SharedPreferences.Editor editor = pref.edit();
                                     editor.putString("employeeId", users.id);
                                     editor.putString("employeePassword", users.password);
