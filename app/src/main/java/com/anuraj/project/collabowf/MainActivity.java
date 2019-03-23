@@ -3,14 +3,9 @@ package com.anuraj.project.collabowf;
 /**
  * Created by Anuraj R(i321994) a4anurajr@gmail.com
  */
-
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -28,7 +23,6 @@ import android.widget.Toast;
 import com.anuraj.project.collabowf.fragment.ProfileFragment;
 import com.anuraj.project.collabowf.fragment.TeamCalenderFragment;
 import com.anuraj.project.collabowf.fragment.TeamFragment;
-import com.anuraj.project.collabowf.tabs.TabFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,19 +45,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.textView);
         navUsername.setText(pref.getString("employeeName", null));
 
-
-
         //setting the display and naviagtion drawer selection to my team calender view
         displayView(R.id.nav_team_calender);
         navigationView.setCheckedItem(R.id.nav_team_calender);
-
-
-
     }
 
     boolean doubleBackToExitPressedOnce = false;
@@ -167,7 +155,5 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-
     }
-
 }
