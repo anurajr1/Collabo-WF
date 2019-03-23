@@ -20,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.json.JSONObject;
+
 import static android.content.ContentValues.TAG;
 
 public class LoginActivity extends Activity {
@@ -47,13 +49,18 @@ public class LoginActivity extends Activity {
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnQr = (Button) findViewById(R.id.button_qrcode);
 
+
+
+
+
+
+
         //load qr layout on onclick
         btnQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Intent i = new Intent(LoginActivity.this, QrCodeActivity.class);
 //                startActivity(i);
-
                 IntentIntegrator integrator = new IntentIntegrator(LoginActivity.this);
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
                 integrator.setPrompt("Scan the QR Code");
@@ -123,19 +130,63 @@ public class LoginActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        final IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.getContents() == null) {
                 Log.e("Scan", "Cancelled scan");
-
             } else {
                 Log.e("Scan", "Scanned");
+                // Read from the database
+                mFirebaseDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String qrCodeValue = result.getContents();
+                        String emplyID = null;
+                        String pass = null;
+                        try {
+                            JSONObject reader = new JSONObject(qrCodeValue);
+                            //JSONObject sys  = reader.getJSONObject("user");
+                            emplyID = reader.getString("employeeId");
+                            pass = reader.getString("password");
+                        }
+                        catch (Exception e){
 
-                //tv_qr_readTxt.setText(result.getContents());
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                        }
+
+                        Boolean ErrorQR = true;
+                        for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                            users = userSnapshot.getValue(User.class);
+                            if((emplyID.equalsIgnoreCase(users.id)) && (pass.equalsIgnoreCase(users.password))){
+                                //storing the data to shared preference
+                                    pref = getApplicationContext().getSharedPreferences("com.anuraj.project.collabowf", 0); // 0 - for private mode
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.putString("employeeId", users.id);
+                                    editor.putString("employeePassword", users.password);
+                                    editor.putString("employeeDomain", users.domain);
+                                    editor.putString("employeeName", users.name);
+                                    editor.commit(); // commit changes
+
+                                    //setting the errorQR to true
+                                    ErrorQR = false;
+                                    Intent i = new Intent(LoginActivity.this, SplashScreen.class);
+                                    startActivity(i);
+                                    finish();
+                            }
+                        }
+                        if(ErrorQR){
+                            Toast.makeText(getApplicationContext(), "Wrong Credentials. Please re-check the QR", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+                });
+
+//                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
             }
         } else {
-            // This is important, otherwise the result will not be passed to the fragment
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
