@@ -5,6 +5,7 @@ package com.anuraj.project.collabowf;
  */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anuraj.project.collabowf.fragment.ProfileFragment;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("com.anuraj.project.collabowf", 0); // 0 - for private mode
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -46,6 +50,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.textView);
+        navUsername.setText(pref.getString("employeeName", null));
+
+
+
         //setting the display and naviagtion drawer selection to my team calender view
         displayView(R.id.nav_team_calender);
         navigationView.setCheckedItem(R.id.nav_team_calender);
