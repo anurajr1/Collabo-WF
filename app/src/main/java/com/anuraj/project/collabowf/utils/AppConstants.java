@@ -13,9 +13,7 @@ public interface AppConstants {
     public int SWIPE_THRESHOLD_VELOCITY = 200;
 
     // For Shared Preferences
-    public String CALENDAR_PREFERENCES = "Calendar date";
-    public String DATE_KEY_WEEK = "Week View";
-    public String DATE_KEY_MONTH = "Month View";
+    public String LOGIN_PREFERENCES = "com.anuraj.project.collabowf";
 
     // Title
     String SELECT_SLOT_TITLE = "Select Slot";
