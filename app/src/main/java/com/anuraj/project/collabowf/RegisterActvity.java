@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.anuraj.project.collabowf.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,19 +33,16 @@ public class RegisterActvity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registerlayout);
 
-
         inputId = (EditText) findViewById(R.id.input_employeeid);
         inputPassword = (EditText) findViewById(R.id.input_password);
         inputDomain = (EditText) findViewById(R.id.input_domain);
         inputName = (EditText) findViewById(R.id.input_name);
         btnSave = (Button) findViewById(R.id.btn_register);
 
-
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
         // get reference to 'users' node
         mFirebaseDatabase = mFirebaseInstance.getReference("users");
-
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +51,6 @@ public class RegisterActvity extends Activity {
                 String password = inputPassword.getText().toString();
                 String domain = inputDomain.getText().toString();
                 String id = inputId.getText().toString();
-
-
 
                 // Check for already existed userId
                 if (TextUtils.isEmpty(userId)) {
