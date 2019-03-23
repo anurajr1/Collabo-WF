@@ -25,7 +25,7 @@ public class LoginActivity extends Activity {
     private FirebaseDatabase mFirebaseInstance;
     User users;
     private EditText inputId, inputPassword;
-    private Button btnLogin;
+    private Button btnLogin,btnQr;
     SharedPreferences pref;
  
     @Override
@@ -40,14 +40,19 @@ public class LoginActivity extends Activity {
         // get reference to 'users' node
         mFirebaseDatabase = mFirebaseInstance.getReference("users");
 
-
-
         inputId = (EditText) findViewById(R.id.input_employeeid);
         inputPassword = (EditText) findViewById(R.id.input_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
+        btnQr = (Button) findViewById(R.id.button_qrcode);
 
-
-
+        //load qr layout on onclick
+        btnQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActivity.this, QrCodeActivity.class);
+                startActivity(i);
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
