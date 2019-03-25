@@ -19,7 +19,7 @@ public class HomeFragmentOperator extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.profilelayout, container, false);
+        View rootView = inflater.inflate(R.layout.home_operatorlayout, container, false);
         return rootView;
     }
 }
