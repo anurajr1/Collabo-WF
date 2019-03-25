@@ -57,6 +57,14 @@
             tools:replace="android:screenOrientation"
             android:stateNotNeeded="true"/>
 
+        <activity
+            android:name=".OperatorMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
