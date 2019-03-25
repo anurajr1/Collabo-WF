@@ -97,6 +97,7 @@ public class LoginActivity extends Activity {
                                     editor.commit(); // commit changes
 
                                     Intent i = new Intent(LoginActivity.this, SplashScreen.class);
+                                    i.putExtra("employeeDomain",users.domain);
                                     startActivity(i);
                                     finish();
                                 }
@@ -124,6 +125,7 @@ public class LoginActivity extends Activity {
         if ((pref.getString("employeeId", null))!= null) {
             Intent intent = new Intent(this, SplashScreen.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("employeeDomain",(pref.getString("employeeDomain", null)));
             startActivity(intent);
         }
     }
@@ -170,6 +172,7 @@ public class LoginActivity extends Activity {
                                     //setting the errorQR to true
                                     ErrorQR = false;
                                     Intent i = new Intent(LoginActivity.this, SplashScreen.class);
+                                    i.putExtra("employeeDomain",users.domain);
                                     startActivity(i);
                                     finish();
                             }
