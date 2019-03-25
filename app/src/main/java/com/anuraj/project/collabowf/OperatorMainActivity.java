@@ -30,6 +30,7 @@ import com.anuraj.project.collabowf.fragment.TeamCalenderFragment;
 import com.anuraj.project.collabowf.fragment.TeamFragment;
 
 import static com.anuraj.project.collabowf.MainActivity.setSnackBar;
+import static com.anuraj.project.collabowf.utils.AppConstants.LOGIN_PREFERENCES;
 
 public class OperatorMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +44,7 @@ public class OperatorMainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("com.anuraj.project.collabowf", 0); // 0 - for private mode
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_operator);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
