@@ -83,18 +83,6 @@ public class OperatorMainActivity extends AppCompatActivity
                 title =getString(R.string.nav_team_calender);
                 break;
 
-            case R.id.nav_team:
-                fragment = new TeamFragment();
-                title =getString(R.string.nav_team);
-                break;
-
-
-            case R.id.nav_my_profile:
-                fragment = new ProfileFragment();
-                title =getString(R.string.nav_profile);
-                break;
-
-
             case R.id.nav_share:
 //                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 //                sharingIntent.setType("text/plain");
