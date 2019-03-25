@@ -17,4 +17,8 @@
     <string name="action_day_view">Day</string>
     <string name="action_week_view">Week</string>
     <string name="action_month_view">Month</string>
+
+
+    <!--for operator-->
+    <string name="nav_my_calender">My Calender</string>
 </resources>
