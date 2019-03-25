@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.anuraj.project.collabowf.fragment.ProfileFragment;
 import com.anuraj.project.collabowf.fragment.TeamCalenderFragment;
 import com.anuraj.project.collabowf.fragment.TeamFragment;
+import com.anuraj.project.collabowf.fragment_operator.HomeFragmentOperator;
 
 import static com.anuraj.project.collabowf.MainActivity.setSnackBar;
 import static com.anuraj.project.collabowf.utils.AppConstants.LOGIN_PREFERENCES;
@@ -80,7 +81,7 @@ public class OperatorMainActivity extends AppCompatActivity
 
         switch (viewId) {
             case R.id.nav_team_calender:
-                fragment = new TeamCalenderFragment();
+                fragment = new HomeFragmentOperator();
                 title =getString(R.string.nav_team_calender);
                 break;
 
