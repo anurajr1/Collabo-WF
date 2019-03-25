@@ -31,6 +31,8 @@ import com.anuraj.project.collabowf.fragment.TeamFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public String employeeDomain = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +63,9 @@ public class MainActivity extends AppCompatActivity
         //getting the layout for snackbar
         RelativeLayout relativeLayout = findViewById(R.id.rel_main);
 
-
+        employeeDomain = pref.getString("employeeDomain", null);
         //showing welcome snackbar
-        setSnackBar(relativeLayout, "Welcome "+ pref.getString("employeeDomain", null)+ " : " +pref.getString("employeeName", null));
+        setSnackBar(relativeLayout, "Welcome "+ employeeDomain+ " : " +pref.getString("employeeName", null));
     }
 
     boolean doubleBackToExitPressedOnce = false;
