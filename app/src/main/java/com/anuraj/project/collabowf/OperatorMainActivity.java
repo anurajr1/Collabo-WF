@@ -82,7 +82,7 @@ public class OperatorMainActivity extends AppCompatActivity
         switch (viewId) {
             case R.id.nav_team_calender:
                 fragment = new HomeFragmentOperator();
-                title =getString(R.string.nav_team_calender);
+                title =getString(R.string.nav_my_calender);
                 break;
 
             case R.id.nav_share:
