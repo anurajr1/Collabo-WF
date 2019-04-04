@@ -1,0 +1,34 @@
+<LinearLayout xmlns:agendaCalendar="http://schemas.android.com/apk/res-auto"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+
+<com.github.tibolte.agendacalendarview.AgendaCalendarView
+    android:id="@+id/agenda_calendar_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    agendaCalendar:agendaCurrentDayTextColor="@color/red"
+    agendaCalendar:calendarColor="@color/sapUiNeutralElement_background"
+    agendaCalendar:calendarCurrentDayTextColor="@color/red"
+    agendaCalendar:calendarDayTextColor="@color/sapUiPageFooterBackground"
+    agendaCalendar:calendarHeaderColor="@color/sapUiCriticalElement_gold"
+    agendaCalendar:calendarPastDayTextColor="@android:color/darker_gray"
+    agendaCalendar:fabColor="@color/sapUiCriticalElement_gold" >
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_calendar_plus"
+        android:backgroundTint="@color/sapUiCriticalElement_gold"
+        android:layout_margin="16dp" />
+</com.github.tibolte.agendacalendarview.AgendaCalendarView>
+
+
+
+
+</LinearLayout>
