@@ -1,25 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ /**
-  ~  * Created by Anuraj R (a4anurajr@gmail.com) on 2019
-  ~  * Last modified 19/3/19 2:01 PM
-  ~  */
-  -->
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+<LinearLayout xmlns:agendaCalendar="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/calendarView"
-        android:text="Operator home layout" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <com.github.tibolte.agendacalendarview.AgendaCalendarView
+        android:id="@+id/agenda_calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+        android:layout_height="match_parent"
+        agendaCalendar:agendaCurrentDayTextColor="@color/sapCalenderSelectDate"
+        agendaCalendar:calendarColor="@android:color/white"
+        agendaCalendar:calendarCurrentDayTextColor="@color/red"
+        agendaCalendar:calendarDayTextColor="@color/sapCalenderSelectDate"
+        agendaCalendar:calendarHeaderColor="@color/sapUiPageFooterBackground"
+        agendaCalendar:calendarPastDayTextColor="@android:color/darker_gray"
+        agendaCalendar:fabColor="@color/theme_accent" />
+
+</LinearLayout>
