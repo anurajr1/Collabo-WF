@@ -66,9 +66,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             super(itemView);
 
-            TeamIdText = (TextView) itemView.findViewById(R.id.ShowStudentNameTextView);
+            TeamIdText = (TextView) itemView.findViewById(R.id.operator_id);
 
-            TeamNameText = (TextView) itemView.findViewById(R.id.ShowStudentNumberTextView);
+            TeamNameText = (TextView) itemView.findViewById(R.id.operator_name);
         }
     }
 }
