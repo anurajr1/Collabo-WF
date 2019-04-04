@@ -29,6 +29,7 @@ import com.anuraj.project.collabowf.fragment.ProfileFragment;
 import com.anuraj.project.collabowf.fragment.TeamCalenderFragment;
 import com.anuraj.project.collabowf.fragment.TeamFragment;
 import com.anuraj.project.collabowf.fragment_operator.HomeFragmentOperator;
+import com.anuraj.project.collabowf.fragment_operator.TeamFragmentOperator;
 
 import static com.anuraj.project.collabowf.MainActivity.setSnackBar;
 import static com.anuraj.project.collabowf.utils.AppConstants.LOGIN_PREFERENCES;
@@ -83,6 +84,11 @@ public class OperatorMainActivity extends AppCompatActivity
             case R.id.nav_team_calender:
                 fragment = new HomeFragmentOperator();
                 title =getString(R.string.nav_my_calender);
+                break;
+
+            case R.id.nav_my_team:
+                fragment = new TeamFragmentOperator();
+                title =getString(R.string.nav_team);
                 break;
 
             case R.id.nav_share:
