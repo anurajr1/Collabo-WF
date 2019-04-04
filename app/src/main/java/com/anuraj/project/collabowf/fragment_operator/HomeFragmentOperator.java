@@ -29,14 +29,18 @@ import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.SplashScreen;
 import com.anuraj.project.collabowf.operator_activity.AddEventCalender;
 import com.anuraj.project.collabowf.operator_calender.AgendaView;
+import com.anuraj.project.collabowf.operator_calender.CalendarSelectionView;
 import com.github.tibolte.agendacalendarview.AgendaCalendarView;
 import com.github.tibolte.agendacalendarview.CalendarPickerController;
+import com.github.tibolte.agendacalendarview.calendar.CalendarView;
 import com.github.tibolte.agendacalendarview.models.BaseCalendarEvent;
 import com.github.tibolte.agendacalendarview.models.CalendarEvent;
 import com.github.tibolte.agendacalendarview.models.DayItem;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -72,23 +76,27 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
             @Override
             public void onClick(View view) {
 
-//                mAgendaCalendarView.mCalendarView.mSelectedDay.mDate
+                CalendarView cal = (CalendarView) rootView.findViewById(R.id.calendar_view);
+                Date selectedDate = cal.getSelectedDay().getDate();
 
-//                Intent i = new Intent(getActivity(), AddEventCalender.class);
-//                startActivity(i);
+                //generating the suitable date format to display
+                SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+                String date =null;
+                try {
+                    date = formatter.format(selectedDate);
+                }
+                catch (Exception   e){
 
+                }
 
                 // Create custom dialog object
                 final Dialog dialog = new Dialog(getContext());
                 // Include dialog.xml file
                 dialog.setContentView(R.layout.addevent_operator_layout);
-                // Set dialog title
-                dialog.setTitle("Custom Dialog");
 
                 // set values for custom dialog components - text, image and button
                 TextView text = (TextView) dialog.findViewById(R.id.textView7);
-                //text.setText("Custom dialog Android example.");
-
+                text.setText(date);
 
                 dialog.show();
 
@@ -101,15 +109,8 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                         dialog.dismiss();
                     }
                 });
-
-
-
-
-
             }
         });
-
-
 
         return rootView;
     }
