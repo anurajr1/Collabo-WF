@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     card_view:cardElevation="5dp"
     card_view:contentPadding="5dp"
+    android:layout_margin="5dp"
     card_view:cardCornerRadius="5dp"
     card_view:cardMaxElevation="5dp"
     >
@@ -16,8 +17,8 @@
 
         <ImageView
             android:id="@+id/pro_pic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:padding="3dp"
             android:scaleType="centerCrop" />
 

@@ -56,7 +56,7 @@ public class TeamFragmentOperator extends Fragment {
 
         progressDialog = new ProgressDialog(getContext());
 
-        progressDialog.setMessage("Loading Data from Firebase Database");
+        progressDialog.setMessage("Loading Data");
 
         progressDialog.show();
 
