@@ -46,8 +46,6 @@ public class TeamFragmentOperator extends Fragment {
         View rootView = inflater.inflate(R.layout.teamfragment, container, false);
 
 
-
-
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
 
         recyclerView.setHasFixedSize(true);
