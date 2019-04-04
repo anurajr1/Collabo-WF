@@ -43,11 +43,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        TeamDetails studentDetails = MainImageUploadInfoList.get(position);
+        TeamDetails teamDetails = MainImageUploadInfoList.get(position);
 
-        holder.StudentNameTextView.setText(studentDetails.getStudentName());
+        holder.TeamIdText.setText(teamDetails.getId());
 
-        holder.StudentNumberTextView.setText(studentDetails.getStudentPhoneNumber());
+        holder.TeamNameText.setText(teamDetails.getName());
 
     }
 
@@ -59,16 +59,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView StudentNameTextView;
-        public TextView StudentNumberTextView;
+        public TextView TeamIdText;
+        public TextView TeamNameText;
 
         public ViewHolder(View itemView) {
 
             super(itemView);
 
-            StudentNameTextView = (TextView) itemView.findViewById(R.id.ShowStudentNameTextView);
+            TeamIdText = (TextView) itemView.findViewById(R.id.ShowStudentNameTextView);
 
-            StudentNumberTextView = (TextView) itemView.findViewById(R.id.ShowStudentNumberTextView);
+            TeamNameText = (TextView) itemView.findViewById(R.id.ShowStudentNumberTextView);
         }
     }
 }
