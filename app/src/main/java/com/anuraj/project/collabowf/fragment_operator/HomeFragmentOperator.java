@@ -123,38 +123,30 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                 ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_mng), startTime1, endTime1, true);
         eventList.add(event1);
 
-        Calendar startTime2 = Calendar.getInstance();
-        startTime2.add(Calendar.DAY_OF_YEAR, 1);
-        Calendar endTime2 = Calendar.getInstance();
-        endTime2.add(Calendar.DAY_OF_YEAR, 3);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+        String dateInString = "08-05-2019";
+        Calendar calendar = null;
+        try {
+            Date date = sdf.parse(dateInString);
+
+            calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+        }
+        catch (Exception e){
+
+        }
+
         BaseCalendarEvent event2 = new BaseCalendarEvent("Allocated to Evening Shift", "Evening Shift", "Assembly Area 11",
-                ContextCompat.getColor(getContext(), R.color.sapUiCriticalElement_afternoon), startTime2, endTime2, true);
+                ContextCompat.getColor(getContext(), R.color.sapUiCriticalElement_afternoon), calendar, calendar, true);
         eventList.add(event2);
 
-
-        Calendar startTime4 = Calendar.getInstance();
-        startTime4.add(Calendar.DAY_OF_YEAR, 1);
-        Calendar endTime4 = Calendar.getInstance();
-        endTime4.add(Calendar.DAY_OF_YEAR, 3);
-        BaseCalendarEvent event3 = new BaseCalendarEvent("Allocated to Night Shift", "Night Shift", "Assembly Area 10",
-                ContextCompat.getColor(getContext(), R.color.sapUiPositiveElement_night), startTime2, endTime2, true);
+        BaseCalendarEvent event3 = new BaseCalendarEvent("On Leave", "Leave", "unavailable",
+                ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_red), calendar, calendar, true);
         eventList.add(event3);
 
 
-        Calendar startTime3 = Calendar.getInstance();
-        Calendar endTime3 = Calendar.getInstance();
-        startTime3.set(Calendar.HOUR_OF_DAY, 14);
-        startTime3.set(Calendar.MINUTE, 0);
-        endTime3.set(Calendar.HOUR_OF_DAY, 15);
-        endTime3.set(Calendar.MINUTE, 0);
-
-
-
-
-
-//        DrawableCalendarEvent event3 = new DrawableCalendarEvent("Visit of Harpa", "", "Dalvík",
-//                ContextCompat.getColor(this, R.color.blue_dark), startTime3, endTime3, false, android.R.drawable.ic_dialog_info);
-//        eventList.add(event3);
     }
 
     @Override
