@@ -35,4 +35,7 @@ dependencies {
 
     //qr code
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
+
+    //agenda calender
+    implementation 'com.github.tibolte:agendacalendarview:1.0.4'
 }
