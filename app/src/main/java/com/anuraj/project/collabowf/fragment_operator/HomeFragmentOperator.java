@@ -6,6 +6,8 @@
  */
 
 package com.anuraj.project.collabowf.fragment_operator;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,9 +19,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
+import com.anuraj.project.collabowf.OperatorMainActivity;
 import com.anuraj.project.collabowf.R;
+import com.anuraj.project.collabowf.SplashScreen;
+import com.anuraj.project.collabowf.operator_activity.AddEventCalender;
 import com.anuraj.project.collabowf.operator_calender.AgendaView;
 import com.github.tibolte.agendacalendarview.AgendaCalendarView;
 import com.github.tibolte.agendacalendarview.CalendarPickerController;
@@ -63,8 +71,41 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+//                mAgendaCalendarView.mCalendarView.mSelectedDay.mDate
+
+//                Intent i = new Intent(getActivity(), AddEventCalender.class);
+//                startActivity(i);
+
+
+                // Create custom dialog object
+                final Dialog dialog = new Dialog(getContext());
+                // Include dialog.xml file
+                dialog.setContentView(R.layout.addevent_operator_layout);
+                // Set dialog title
+                dialog.setTitle("Custom Dialog");
+
+                // set values for custom dialog components - text, image and button
+                TextView text = (TextView) dialog.findViewById(R.id.textView7);
+                //text.setText("Custom dialog Android example.");
+
+
+                dialog.show();
+
+                Button declineButton = (Button) dialog.findViewById(R.id.declineButton);
+                // if decline button is clicked, close the custom dialog
+                declineButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Close dialog
+                        dialog.dismiss();
+                    }
+                });
+
+
+
+
+
             }
         });
 
