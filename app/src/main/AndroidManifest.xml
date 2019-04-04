@@ -67,6 +67,15 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
+        <!--<activity android:name=".operator_calender.EditActivity"-->
+            <!--android:windowSoftInputMode="adjustResize">-->
+        <!--</activity>-->
+
+        <activity android:name=".operator_activity.AddEventCalender"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>
