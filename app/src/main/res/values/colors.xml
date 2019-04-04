@@ -55,4 +55,17 @@
     <color name="sapProgressIndicator">#0070B1</color>
     <color name="sapWhite">#FFFFFF</color>
     <color name="sapTextColor">#333333</color>
+
+    <color name="sapCalenderSelectDate">#427CAC</color>
+
+    <color name="sapUiNegativeElement_mng">#FF8888</color>
+    <color name="sapUiCriticalElement_afternoon">#FABD64</color>
+    <color name="sapUiPositiveElement_night">#ABE2AB</color>
+    <color name="sapUiNeutralElement_background">#D3D7D9</color>
+    <color name="sapUiCriticalElement_gold">#E78C07</color>
+
+    <!--<color name="sapUiCriticalElement_gold">#E78C07</color>-->
+    <!--<color name="sapUiCriticalElement_gold">#E78C07</color>-->
+
+
 </resources>
