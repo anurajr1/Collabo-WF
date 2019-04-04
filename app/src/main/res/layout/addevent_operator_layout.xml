@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/addEventLinearaction"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+
+            <!--<android.support.v7.widget.Toolbar-->
+                <!--android:id="@+id/toolbar"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--android:background="?attr/colorPrimary"-->
+                <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+        <!--</android.support.design.widget.AppBarLayout>-->
+    <!--</RelativeLayout>-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rel_head"
+                android:background="@color/sapUiPageFooterBackground"
+                android:padding="10dp"
+                android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Selected Date"
+                        android:textSize="15dp"
+                        android:textColor="@color/sapWhite"
+                        android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tue 20th 2018"
+                        android:textColor="@color/sapWhite"
+                        android:textSize="25dp"
+                        android:gravity="center"/>
+
+
+            </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/rel_head"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:layout_marginTop="10dp"
+                    android:layout_marginLeft="70dp"
+                    android:entries="@array/operator_request_array" />
+
+                <LinearLayout
+                    android:layout_width="426dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_margin="10dp">
+
+                    <Button
+                        android:id="@+id/declineButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/calendar_text_default"
+                        android:padding="12dp"
+                        android:text="Cancel"
+                        android:textAllCaps="true"
+                        android:textColor="@color/sapWhite" />
+
+                    <Button
+                        android:id="@+id/Save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/sapProgressIndicator"
+                        android:padding="12dp"
+                        android:text="save"
+                        android:textAllCaps="true"
+                        android:textColor="@color/sapWhite" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
