@@ -51,6 +51,7 @@
     <color name="sapUiBaseColor">#3F5161</color>
     <color name="sapUiBaseBG">#FAFAFA</color>
     <color name="sapUiPageFooterBackground">#2F3C48</color>
+    <color name="sapUiNegativeElement_red">#BB0000</color>
 
     <color name="sapProgressIndicator">#0070B1</color>
     <color name="sapWhite">#FFFFFF</color>
