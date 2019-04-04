@@ -8,6 +8,7 @@
 package com.anuraj.project.collabowf.fragment_operator;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -56,6 +57,18 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         mAgendaCalendarView = rootView.findViewById(R.id.agenda_calendar_view);
 
         mAgendaCalendarView.init(eventList, minDate, maxDate, Locale.getDefault(), this);
+
+
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+
 
         return rootView;
     }
