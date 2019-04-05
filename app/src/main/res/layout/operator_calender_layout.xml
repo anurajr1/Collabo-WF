@@ -5,16 +5,20 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical">
 
-
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:background="@color/sapUiPageFooterBackground"
+        android:layout_height="10dp" />
 <com.github.tibolte.agendacalendarview.AgendaCalendarView
     android:id="@+id/agenda_calendar_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     agendaCalendar:agendaCurrentDayTextColor="@color/red"
-    agendaCalendar:calendarColor="@color/sapUiNeutralElement_background"
+    agendaCalendar:calendarColor="@color/sapUiPageFooterBackground"
     agendaCalendar:calendarCurrentDayTextColor="@color/red"
-    agendaCalendar:calendarDayTextColor="@color/sapUiPageFooterBackground"
-    agendaCalendar:calendarHeaderColor="@color/sapUiCriticalElement_gold"
+    agendaCalendar:calendarDayTextColor="@color/sapWhite"
+    agendaCalendar:calendarHeaderColor="@color/sapUiBaseColor"
     agendaCalendar:calendarPastDayTextColor="@android:color/darker_gray"
     agendaCalendar:fabColor="@color/sapUiCriticalElement_gold" >
 
