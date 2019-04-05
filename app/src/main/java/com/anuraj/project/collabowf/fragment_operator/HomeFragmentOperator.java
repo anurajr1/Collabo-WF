@@ -7,29 +7,17 @@
 
 package com.anuraj.project.collabowf.fragment_operator;
 import android.app.Dialog;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.TextView;
-import android.widget.Toolbar;
-
-import com.anuraj.project.collabowf.OperatorMainActivity;
 import com.anuraj.project.collabowf.R;
-import com.anuraj.project.collabowf.SplashScreen;
-import com.anuraj.project.collabowf.operator_activity.AddEventCalender;
-import com.anuraj.project.collabowf.operator_calender.AgendaView;
-import com.anuraj.project.collabowf.operator_calender.CalendarSelectionView;
 import com.github.tibolte.agendacalendarview.AgendaCalendarView;
 import com.github.tibolte.agendacalendarview.CalendarPickerController;
 import com.github.tibolte.agendacalendarview.calendar.CalendarView;
@@ -69,6 +57,20 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         mAgendaCalendarView = rootView.findViewById(R.id.agenda_calendar_view);
 
         mAgendaCalendarView.init(eventList, minDate, maxDate, Locale.getDefault(), this);
+
+        CalendarView cal = (CalendarView) rootView.findViewById(R.id.calendar_view);
+        cal.findViewById(R.id.month_label);
+
+
+        View view;
+        LayoutInflater inflater1 = (LayoutInflater)   getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = inflater1.inflate(R.layout.view_agenda_event, null);
+
+
+
+
+
+
 
 
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
@@ -143,7 +145,7 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         eventList.add(event2);
 
         BaseCalendarEvent event3 = new BaseCalendarEvent("On Leave", "Leave", "unavailable",
-                ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_red), calendar, calendar, true);
+                ContextCompat.getColor(getContext(), R.color.sapUiNeutralElement_grey), calendar, calendar, true);
         eventList.add(event3);
 
 
