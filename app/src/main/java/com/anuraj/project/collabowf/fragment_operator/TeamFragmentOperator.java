@@ -89,8 +89,5 @@ public class TeamFragmentOperator extends Fragment {
 
         return rootView;
 
-
-
-
     }
 }
