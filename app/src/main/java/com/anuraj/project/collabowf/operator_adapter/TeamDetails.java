@@ -13,6 +13,18 @@ public class TeamDetails {
     private String id;
     private String name;
     private String domain;
+    private String propic;
+
+
+    public String getPropic() {
+        return propic;
+    }
+
+    public void setPropic(String propic) {
+        this.propic = propic;
+    }
+
+
 
     public String getId() {
         return id;
