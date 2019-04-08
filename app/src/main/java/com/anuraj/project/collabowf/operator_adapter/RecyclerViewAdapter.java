@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.image_util.ImageLoader;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
