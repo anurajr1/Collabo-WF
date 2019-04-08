@@ -18,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
 }
 
@@ -38,4 +42,9 @@ dependencies {
 
     //agenda calender
     implementation 'com.github.tibolte:agendacalendarview:1.0.4'
+
+
+    //sticky header
+//    implementation 'se.emilsjolander:stickylistheaders:2.7.0'
+//    implementation 'io.reactivex:rxjava:1.1.1'
 }
