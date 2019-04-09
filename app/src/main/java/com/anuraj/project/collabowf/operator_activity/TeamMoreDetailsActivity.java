@@ -13,9 +13,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anuraj.project.collabowf.R;
+import com.anuraj.project.collabowf.image_util.ImageLoader;
 import com.anuraj.project.collabowf.operator_adapter.RecyclerViewAdapter;
 import com.anuraj.project.collabowf.operator_adapter.TeamDetails;
 import com.google.firebase.database.ChildEventListener;
@@ -27,10 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class TeamMoreDetailsActivity extends AppCompatActivity {
 
-    TextView operatorName;
+    TextView operatorName, operatorDomain;
+    ImageView proPic;
     String employeeID;
     DatabaseReference databaseReference;
-
+    ImageLoader imageLoader;
 
     ProgressDialog progressDialog;
     @Override
@@ -44,6 +47,8 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
 
 
         progressDialog = new ProgressDialog(TeamMoreDetailsActivity.this);
+
+        imageLoader = new ImageLoader(TeamMoreDetailsActivity.this);
 
         progressDialog.setMessage("Loading Data");
 
@@ -59,8 +64,15 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
                 TeamDetails teamDetails = dataSnapshot.getValue(TeamDetails.class);
 
                 operatorName = findViewById(R.id.textView3);
-                operatorName.setText(teamDetails.getName());
+                operatorDomain = findViewById(R.id.textView5);
+                proPic = findViewById(R.id.profile_pic_imageview);
 
+
+                imageLoader.DisplayImage(teamDetails.getPropic(),proPic);
+                operatorName.setText(teamDetails.getName());
+                operatorDomain.setText(teamDetails.getDomain());
+
+                //closing the progress bar
                 progressDialog.dismiss();
             }
 
