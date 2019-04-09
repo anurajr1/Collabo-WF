@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Collabo WF</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -21,4 +21,17 @@
 
     <!--for operator-->
     <string name="nav_my_calender">My Calender</string>
+
+
+
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+
+
+
+    <string-array name="operator_request_array">
+        <item>Leave</item>
+        <item>Unavailable</item>
+    </string-array>
+
 </resources>
