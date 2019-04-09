@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 public class TeamMoreDetailsActivity extends AppCompatActivity {
 
     TextView operatorName, operatorDomain;
-    ImageView proPic;
+    ImageView proPic, closeImage;
     String employeeID;
     DatabaseReference databaseReference;
     ImageLoader imageLoader;
@@ -45,6 +46,15 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         employeeID = intent.getExtras().getString("OperatorId");
 
+
+        closeImage = findViewById(R.id.header_title_pro);
+
+        closeImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                finish(); // close this activity as oppose to navigating back
+            }
+        });
 
         progressDialog = new ProgressDialog(TeamMoreDetailsActivity.this);
 
