@@ -43,34 +43,13 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
         employeeID = intent.getExtras().getString("OperatorId");
 
 
-        progressDialog = new ProgressDialog(getApplicationContext());
+        progressDialog = new ProgressDialog(TeamMoreDetailsActivity.this);
 
         progressDialog.setMessage("Loading Data");
 
-    //    progressDialog.show();
+        progressDialog.show();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
-
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//
-//                    TeamDetails teamDetails = dataSnapshot.getValue(TeamDetails.class);
-//
-//                    list.add(teamDetails);
-//                }
-//                progressDialog.dismiss();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//                progressDialog.dismiss();
-//
-//            }
-//        });
 
 
         databaseReference.orderByChild("id").equalTo(employeeID).addChildEventListener(new ChildEventListener() {
@@ -81,6 +60,8 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
 
                 operatorName = findViewById(R.id.textView3);
                 operatorName.setText(teamDetails.getName());
+
+                progressDialog.dismiss();
             }
 
             @Override
@@ -100,7 +81,7 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                progressDialog.dismiss();
             }
 
         });
