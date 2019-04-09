@@ -89,7 +89,7 @@ android:layout_height="match_parent">
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="136dp"
+                android:layout_marginStart="135dp"
                 android:layout_marginBottom="47dp"
                 android:src="@drawable/ic_email_white" />
 
@@ -99,7 +99,7 @@ android:layout_height="match_parent">
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="178dp"
+                android:layout_marginStart="185dp"
                 android:layout_marginBottom="47dp"
                 android:src="@drawable/ic_phone_white" />
 
@@ -109,7 +109,7 @@ android:layout_height="match_parent">
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="220dp"
+                android:layout_marginStart="235dp"
                 android:layout_marginBottom="47dp"
                 android:src="@drawable/ic_info_white" />
         </RelativeLayout>
