@@ -408,6 +408,8 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
             event.setColor(getResources().getColor(R.color.sapUiPositiveElement_night));
         }else if(eventTitle.equalsIgnoreCase("On Leave")){
             event.setColor(getResources().getColor(R.color.sapUiNeutralElement_grey));
+        }else if(eventTitle.equalsIgnoreCase("Holiday")){
+            event.setColor(getResources().getColor(R.color.sapUiNegativeElement_red));
         }
 
         events.add(event);
