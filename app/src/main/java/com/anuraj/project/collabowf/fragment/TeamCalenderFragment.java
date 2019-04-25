@@ -3,9 +3,13 @@ package com.anuraj.project.collabowf.fragment;
 /**
  * Created by Anuraj R(i321994) a4anurajr@gmail.com
  */
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,17 +33,29 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import com.anuraj.project.collabowf.LoginActivity;
 import com.anuraj.project.collabowf.R;
+import com.anuraj.project.collabowf.SplashScreen;
+import com.anuraj.project.collabowf.model.RecordModel;
+import com.anuraj.project.collabowf.model.User;
 import com.anuraj.project.collabowf.weekview.WeekView;
 import com.anuraj.project.collabowf.weekview.WeekViewEvent;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import static android.content.ContentValues.TAG;
 import static com.anuraj.project.collabowf.utils.AppConstants.DAY_EVENT_SIZE;
 import static com.anuraj.project.collabowf.utils.AppConstants.DAY_TEXT_SIZE;
 import static com.anuraj.project.collabowf.utils.AppConstants.DAY_VIEW;
 import static com.anuraj.project.collabowf.utils.AppConstants.DD_MMM_YYYY;
 import static com.anuraj.project.collabowf.utils.AppConstants.END;
 import static com.anuraj.project.collabowf.utils.AppConstants.EVENT_ADD_FAILURE_MESSAGE;
+import static com.anuraj.project.collabowf.utils.AppConstants.LOGIN_PREFERENCES;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_LIGHT;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_REGULAR;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_SEMI_BOLD;
@@ -75,30 +91,48 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     List<WeekViewEvent> events;
     View rootView;
 
+    private DatabaseReference mFirebaseDatabase,mFirebaseDatabaseRecords;
+    private FirebaseDatabase mFirebaseInstance;
+    private String userId;
+
+    RecordModel records;
+    Date prevDate = null;
+
     public TeamCalenderFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.myteamcalenderlayout, container, false);
+
+
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+
+        // get reference to 'recordmodel' node
+        mFirebaseDatabase = mFirebaseInstance.getReference("recordmodel");
+
         // Initialize all the required components
         initComponents();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
-        String nameMap = "01:30:00";
-        String dateInString = "Mar 20,"+" "+ nameMap + " 2019";
-        Date date =null;
-        try {
-            date = formatter.parse(dateInString);
-        }
-        catch (Exception   e){
+        parsedataRecords();
 
-        }
-        //setting the time and add 15mins
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.MINUTE, 15);
-        //adding the event
-        addEvent(date,cal.getTime(),"Testing");
+
+
+//        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
+//        String nameMap = "00:45:00";
+//        String dateInString = "Apr 25,"+" "+ nameMap + " 2019";
+//        Date date =null;
+//        try {
+//            date = formatter.parse(dateInString);
+//        }
+//        catch (Exception   e){
+//
+//        }
+//        //setting the time and add 15mins
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(date);
+//        cal.add(Calendar.MINUTE, 15);
+//        //adding the event
+//        addEvent(date,cal.getTime(),"Morning Shift");
 
 
         buttonDayView.setOnClickListener(new View.OnClickListener() {
@@ -150,9 +184,105 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
             }
         });
 
+     //   createUser("02002","Anuraj","Morning shift");
+
+
+
+
+
 
         return rootView;
     }
+
+
+    private void parsedataRecords(){
+
+        // get reference to 'recordmodel' node
+        mFirebaseDatabaseRecords = mFirebaseInstance.getReference("recordmodel");
+        // Read from the database
+        mFirebaseDatabaseRecords.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Map<String, Object> user = (Map<String, Object>) dataSnapshot.getValue();
+                for (String key : user.keySet()) {
+                    for (DataSnapshot userSnapshot : dataSnapshot.child(key).getChildren()) {
+                        records = userSnapshot.getValue(RecordModel.class);
+
+                        String[] splitValue = key.split(",");
+                        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
+                        String nameMap = "00:00:00";
+                        String dateInString = splitValue[0]+","+" "+ nameMap + " "+splitValue[1];
+
+                        Date date = prevDate;
+
+                        try {
+                            if(prevDate==null) {
+                                date = formatter.parse(dateInString);
+                            }else{
+                                date = prevDate;
+                            }
+                        }
+                        catch (Exception   e){
+
+                        }
+                        //setting the time and add 15mins
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(date);
+                        cal.add(Calendar.MINUTE, 15);
+
+                        prevDate = cal.getTime();
+
+                        //adding the event
+                        addEvent(date,cal.getTime(),records.getStatus());
+
+                    }
+                    System.out.println("next day records fetch starts");
+                    prevDate = null;
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+
+//        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
+//        String nameMap = "00:45:00";
+//        String dateInString = "Apr 25,"+" "+ nameMap + " 2019";
+//        Date date =null;
+//        try {
+//            date = formatter.parse(dateInString);
+//        }
+//        catch (Exception   e){
+//
+//        }
+//        //setting the time and add 15mins
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(date);
+//        cal.add(Calendar.MINUTE, 15);
+//        //adding the event
+//        addEvent(date,cal.getTime(),"Morning Shift");
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
 
 
     // Initialize all the required components
@@ -264,11 +394,22 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         endEventTime.setTime(endTime);
         events = extractEvent(month + 1);
         event = new WeekViewEvent(count, eventTitle, startEventTime, endEventTime);
-        if (startTime.getTime() < today.getTime()) {
-            event.setColor(getResources().getColor(R.color.event_color_past));
-        } else {
-            event.setColor(getResources().getColor(R.color.event_color_upcoming));
+//        if (startTime.getTime() < today.getTime()) {
+//            event.setColor(getResources().getColor(R.color.event_color_past));
+//        } else {
+
+       // }
+
+        if(eventTitle.equalsIgnoreCase("Morning Shift")){
+            event.setColor(getResources().getColor(R.color.sapUiNegativeElement_mng));
+        }else if(eventTitle.equalsIgnoreCase("Afternoon Shift")){
+            event.setColor(getResources().getColor(R.color.sapUiCriticalElement_afternoon));
+        }else if(eventTitle.equalsIgnoreCase("Night Shift")){
+            event.setColor(getResources().getColor(R.color.sapUiPositiveElement_night));
+        }else if(eventTitle.equalsIgnoreCase("On Leave")){
+            event.setColor(getResources().getColor(R.color.sapUiNeutralElement_grey));
         }
+
         events.add(event);
         eventMap.put(month + 1, events);
         mWeekView.notifyDatasetChanged();
@@ -363,5 +504,26 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         button.setBackgroundColor(getResources().getColor(R.color.sapUiBaseColor));
     }
 
+
+
+
+    /**
+     * Creating new user node under 'recordmodel'
+     */
+    private void createUser(String id, String name, String status) {
+        // TODO
+        // In real apps this userId should be fetched
+        // by implementing firebase auth
+        if (TextUtils.isEmpty(userId)) {
+            userId = mFirebaseDatabase.push().getKey();
+        }
+
+        RecordModel recordmod = new RecordModel(id,name,status);
+
+        //mFirebaseDatabase.child("Apr 26,2019").setValue(recordmod);
+        mFirebaseDatabase.child(("Apr 25,2019")).child("O2007").setValue(recordmod);
+
+       // addUserChangeListener();
+    }
 
 }
