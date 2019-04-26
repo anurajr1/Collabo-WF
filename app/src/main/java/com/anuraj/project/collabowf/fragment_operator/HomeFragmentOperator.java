@@ -8,16 +8,20 @@
 package com.anuraj.project.collabowf.fragment_operator;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.anuraj.project.collabowf.OperatorMainActivity;
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.model.RecordModel;
 import com.github.tibolte.agendacalendarview.AgendaCalendarView;
@@ -42,6 +46,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
+import static com.anuraj.project.collabowf.utils.AppConstants.LOGIN_PREFERENCES;
 
 public class HomeFragmentOperator extends Fragment implements CalendarPickerController {
 
@@ -59,6 +64,9 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
 
     TextView alertInfo;
 
+    String dateSelected =null;
+    SharedPreferences pref;
+
     public HomeFragmentOperator(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +79,8 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         mFirebaseDatabaseRecords = mFirebaseInstance.getReference("recordmodel");
 
 
+        //shared prefereance insatnce
+        pref = getContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
 
         minDate = Calendar.getInstance();
         maxDate = Calendar.getInstance();
@@ -90,17 +100,9 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         CalendarView cal = (CalendarView) rootView.findViewById(R.id.calendar_view);
         cal.findViewById(R.id.month_label);
 
-
         View view;
         LayoutInflater inflater1 = (LayoutInflater)   getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater1.inflate(R.layout.view_agenda_event, null);
-
-
-
-
-
-
-
 
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -112,9 +114,9 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
 
                 //generating the suitable date format to display
                 SimpleDateFormat formatter = new SimpleDateFormat("MMM d,yyyy");
-                String date =null;
+
                 try {
-                    date = formatter.format(selectedDate);
+                    dateSelected = formatter.format(selectedDate);
                 }
                 catch (Exception   e){
 
@@ -127,10 +129,10 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
 
                 // set values for custom dialog components - text, image and button
                 TextView text = (TextView) dialog.findViewById(R.id.textView7);
-                text.setText(date);
+                text.setText(dateSelected);
 
                 //getting the event based on the date
-                getEventParticularDate(date);
+                getEventParticularDate(dateSelected);
 
                 alertInfo = (TextView) dialog.findViewById(R.id.textView8);
 
@@ -142,6 +144,17 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                 declineButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Close dialog
+                        dialog.dismiss();
+                    }
+                });
+
+                Button SaveButton = (Button) dialog.findViewById(R.id.Save);
+                // if decline button is clicked, close the custom dialog
+                SaveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateEventCalender(dateSelected);
                         // Close dialog
                         dialog.dismiss();
                     }
@@ -166,7 +179,7 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                     Calendar calendar = null;
                     if (dataSnapshot.child(key).hasChildren()) {
 
-                        records = dataSnapshot.child(key).child("O2001").getValue(RecordModel.class);
+                        records = dataSnapshot.child(key).child(pref.getString("employeeId", null)).getValue(RecordModel.class);
 
                         String[] splitValue = key.split(",");
                         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
@@ -201,9 +214,6 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                         BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiListBorderColor), calendar, calendar, true);
                         eventList.add(event2);
                     }
-
-
-
                     System.out.println("next day records fetch starts");
                 }
                 refresh(eventList);
@@ -219,8 +229,6 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
             }
 
         });
-
-
 
 
 //        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
@@ -283,7 +291,7 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                 Map<String, Object> user = (Map<String, Object>) dataSnapshot.getValue();
                     //Calendar calendar = null;
                     if (dataSnapshot.child(SelectedDate.toString()).hasChildren()) {
-                        records = dataSnapshot.child(SelectedDate).child("O2001").getValue(RecordModel.class);
+                        records = dataSnapshot.child(SelectedDate).child(pref.getString("employeeId", null)).getValue(RecordModel.class);
 
                         alertInfo.setText(records.getStatus());
 
@@ -298,13 +306,6 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                         }else if(records.getStatus().equalsIgnoreCase("Holiday")){
                             alertInfo.setBackgroundColor(getResources().getColor(R.color.sapUiNegativeElement_red));
                         }
-
-
-
-
-
-
-
 
 //                        String[] splitValue = key.split(",");
 //                        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
@@ -328,5 +329,35 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+    }
+
+
+    public void updateEventCalender(String SelectedDate){
+    // get reference to 'recordmodel/date' node
+        mFirebaseDatabaseDate = mFirebaseInstance.getReference("recordmodel");
+        // Read from the database
+        mFirebaseDatabaseDate.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Map<String, Object> user = (Map<String, Object>) dataSnapshot.getValue();
+                //Calendar calendar = null;
+                if (dataSnapshot.child(SelectedDate.toString()).hasChildren()) {
+                    records = dataSnapshot.child(SelectedDate).child(pref.getString("employeeId", null)).getValue(RecordModel.class);
+
+//                    alertInfo.setText(records.getStatus());
+//                    if (!TextUtils.isEmpty(id))
+//                        mFirebaseDatabaseDate.child(userId).child("id").setValue(id);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
     }
 }
