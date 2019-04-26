@@ -55,7 +55,7 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
     AgendaCalendarView mAgendaCalendarView;
 
 
-    private DatabaseReference mFirebaseDatabaseRecords,mFirebaseDatabaseDate;
+    private DatabaseReference mFirebaseDatabaseRecords,mFirebaseDatabaseDate,mFirebaseDatabaseAlert;
     private FirebaseDatabase mFirebaseInstance;
     RecordModel records;
     List<CalendarEvent> eventList;
@@ -77,6 +77,9 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
 
         // get reference to 'recordmodel' node
         mFirebaseDatabaseRecords = mFirebaseInstance.getReference("recordmodel");
+
+        //for alert model
+        mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
 
 
         //shared prefereance insatnce
@@ -341,7 +344,14 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Calendar calendar = null;
                 if (dataSnapshot.child(SelectedDate).child(pref.getString("employeeId", null)).getValue()!=null) {
+                    //update in record table
                     mFirebaseDatabaseDate.child(SelectedDate).child(pref.getString("employeeId", null)).child("status").setValue("On Leave");
+
+                    //update the record in alert table
+                    RecordModel recordmod = new RecordModel(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave");
+                    mFirebaseDatabaseAlert.child((dateSelected)).child(pref.getString("employeeId", null)).setValue(recordmod);
+                }else{
+                    createEvent(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave");
                 }
             }
 
@@ -352,5 +362,18 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
             }
         });
 
+    }
+
+
+    private void createEvent(String id, String name, String status) {
+
+        RecordModel recordmod = new RecordModel(id,name,status);
+
+        //update the record in records table
+        mFirebaseDatabaseRecords.child((dateSelected)).child(id).setValue(recordmod);
+        //update the record in alert table
+        mFirebaseDatabaseAlert.child((dateSelected)).child(id).setValue(recordmod);
+
+        // addUserChangeListener();
     }
 }
