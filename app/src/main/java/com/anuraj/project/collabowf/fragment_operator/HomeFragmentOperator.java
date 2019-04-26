@@ -67,6 +67,8 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
     String dateSelected =null;
     SharedPreferences pref;
 
+    private Context baseContext;
+
     public HomeFragmentOperator(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,9 +80,8 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         // get reference to 'recordmodel' node
         mFirebaseDatabaseRecords = mFirebaseInstance.getReference("recordmodel");
 
-        //for alert model
-        mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
 
+        baseContext = getContext();
 
         //shared prefereance insatnce
         pref = getContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
@@ -95,6 +96,7 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         eventList = new ArrayList<>();
 
         mockList(eventList);
+
 
         mAgendaCalendarView = rootView.findViewById(R.id.agenda_calendar_view);
 
@@ -111,6 +113,9 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //for alert model
+                mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
 
                 CalendarView cal = (CalendarView) rootView.findViewById(R.id.calendar_view);
                 Date selectedDate = cal.getSelectedDay().getDate();
@@ -198,24 +203,28 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
 
                         }
                     }
-                    if(records.getStatus().equalsIgnoreCase("Morning Shift")) {
-                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_mng), calendar, calendar, true);
-                        eventList.add(event2);
-                    }else if(records.getStatus().equalsIgnoreCase("Afternoon Shift")){
-                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiCriticalElement_afternoon), calendar, calendar, true);
-                        eventList.add(event2);
-                    }else if(records.getStatus().equalsIgnoreCase("Night Shift")){
-                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiPositiveElement_night), calendar, calendar, true);
-                        eventList.add(event2);
-                    }else if(records.getStatus().equalsIgnoreCase("On Leave")){
-                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "", ContextCompat.getColor(getContext(), R.color.sapUiNeutralElement_grey), calendar, calendar, true);
-                        eventList.add(event2);
-                    }else if(records.getStatus().equalsIgnoreCase("Holiday")){
-                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "", ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_red), calendar, calendar, true);
-                        eventList.add(event2);
-                    }else{
-                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiListBorderColor), calendar, calendar, true);
-                        eventList.add(event2);
+                    try {
+                        if (records.getStatus().equalsIgnoreCase("Morning Shift")) {
+                            BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", getResources().getColor(R.color.sapUiNegativeElement_mng), calendar, calendar, true);
+                            eventList.add(event2);
+                        } else if (records.getStatus().equalsIgnoreCase("Afternoon Shift")) {
+                            BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", getResources().getColor(R.color.sapUiCriticalElement_afternoon), calendar, calendar, true);
+                            eventList.add(event2);
+                        } else if (records.getStatus().equalsIgnoreCase("Night Shift")) {
+                            BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", getResources().getColor(R.color.sapUiPositiveElement_night), calendar, calendar, true);
+                            eventList.add(event2);
+                        } else if (records.getStatus().equalsIgnoreCase("On Leave")) {
+                            BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "", getResources().getColor(R.color.sapUiNeutralElement_grey), calendar, calendar, true);
+                            eventList.add(event2);
+                        } else if (records.getStatus().equalsIgnoreCase("Holiday")) {
+                            BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "", getResources().getColor(R.color.sapUiNegativeElement_red), calendar, calendar, true);
+                            eventList.add(event2);
+                        } else {
+                            BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", getResources().getColor(R.color.sapUiListBorderColor), calendar, calendar, true);
+                            eventList.add(event2);
+                        }
+                    }catch (Exception e){
+                        System.out.println("error block");
                     }
                     System.out.println("next day records fetch starts");
                 }
@@ -375,5 +384,10 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         mFirebaseDatabaseAlert.child((dateSelected)).child(id).setValue(recordmod);
 
         // addUserChangeListener();
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        baseContext = context;
     }
 }
