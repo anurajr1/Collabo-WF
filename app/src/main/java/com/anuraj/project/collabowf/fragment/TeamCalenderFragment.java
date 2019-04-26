@@ -38,6 +38,7 @@ import java.util.Map;
 import com.anuraj.project.collabowf.LoginActivity;
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.SplashScreen;
+import com.anuraj.project.collabowf.bottom_sheet.BottomSheetFragment;
 import com.anuraj.project.collabowf.model.RecordModel;
 import com.anuraj.project.collabowf.model.User;
 import com.anuraj.project.collabowf.weekview.WeekView;
@@ -338,7 +339,11 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(getContext(), "Pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+
+        BottomSheetFragment fragment = new BottomSheetFragment();
+        fragment.show(getFragmentManager(), TAG);
+
     }
 
     @Override
