@@ -30,7 +30,7 @@
 
 
     <string-array name="operator_request_array">
-        <item>Leave</item>
+        <item>Request Leave</item>
         <item>Unavailable</item>
     </string-array>
 
