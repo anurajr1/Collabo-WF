@@ -111,7 +111,7 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                 Date selectedDate = cal.getSelectedDay().getDate();
 
                 //generating the suitable date format to display
-                SimpleDateFormat formatter = new SimpleDateFormat("MMM dd,yyyy");
+                SimpleDateFormat formatter = new SimpleDateFormat("MMM d,yyyy");
                 String date =null;
                 try {
                     date = formatter.format(selectedDate);
