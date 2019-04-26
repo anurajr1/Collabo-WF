@@ -287,6 +287,25 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
 
                         alertInfo.setText(records.getStatus());
 
+                        if(records.getStatus().equalsIgnoreCase("Morning Shift")) {
+                            alertInfo.setBackgroundColor(getResources().getColor(R.color.sapUiNegativeElement_mng));
+                        }else if(records.getStatus().equalsIgnoreCase("Afternoon Shift")){
+                            alertInfo.setBackgroundColor(getResources().getColor(R.color.sapUiCriticalElement_afternoon));
+                        }else if(records.getStatus().equalsIgnoreCase("Night Shift")){
+                            alertInfo.setBackgroundColor(getResources().getColor(R.color.sapUiPositiveElement_night));
+                        }else if(records.getStatus().equalsIgnoreCase("On Leave")){
+                            alertInfo.setBackgroundColor(getResources().getColor(R.color.sapUiNeutralElement_grey));
+                        }else if(records.getStatus().equalsIgnoreCase("Holiday")){
+                            alertInfo.setBackgroundColor(getResources().getColor(R.color.sapUiNegativeElement_red));
+                        }
+
+
+
+
+
+
+
+
 //                        String[] splitValue = key.split(",");
 //                        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
 //                        String nameMap = "00:00:00";
