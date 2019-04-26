@@ -205,10 +205,10 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                         BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiPositiveElement_night), calendar, calendar, true);
                         eventList.add(event2);
                     }else if(records.getStatus().equalsIgnoreCase("On Leave")){
-                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiNeutralElement_grey), calendar, calendar, true);
+                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "", ContextCompat.getColor(getContext(), R.color.sapUiNeutralElement_grey), calendar, calendar, true);
                         eventList.add(event2);
                     }else if(records.getStatus().equalsIgnoreCase("Holiday")){
-                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_red), calendar, calendar, true);
+                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "", ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_red), calendar, calendar, true);
                         eventList.add(event2);
                     }else{
                         BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiListBorderColor), calendar, calendar, true);
