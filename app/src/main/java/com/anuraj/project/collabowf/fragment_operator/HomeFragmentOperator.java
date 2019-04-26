@@ -1,7 +1,7 @@
 /*
  * *
  *  * Created by Anuraj R (a4anurajr@gmail.com) on 2019
- *  * Last modified 19/3/19 2:01 PM
+ *  * Last modified 26/4/19 2:01 PM
  *
  */
 
@@ -339,16 +339,9 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         mFirebaseDatabaseDate.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Map<String, Object> user = (Map<String, Object>) dataSnapshot.getValue();
                 //Calendar calendar = null;
-                if (dataSnapshot.child(SelectedDate.toString()).hasChildren()) {
-                    records = dataSnapshot.child(SelectedDate).child(pref.getString("employeeId", null)).getValue(RecordModel.class);
-
-//                    alertInfo.setText(records.getStatus());
-//                    if (!TextUtils.isEmpty(id))
-//                        mFirebaseDatabaseDate.child(userId).child("id").setValue(id);
-
+                if (dataSnapshot.child(SelectedDate).child(pref.getString("employeeId", null)).getValue()!=null) {
+                    mFirebaseDatabaseDate.child(SelectedDate).child(pref.getString("employeeId", null)).child("status").setValue("On Leave");
                 }
             }
 
