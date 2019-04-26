@@ -12,18 +12,26 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import com.anuraj.project.collabowf.R;
+import com.anuraj.project.collabowf.model.RecordModel;
 import com.github.tibolte.agendacalendarview.AgendaCalendarView;
+import com.github.tibolte.agendacalendarview.CalendarManager;
 import com.github.tibolte.agendacalendarview.CalendarPickerController;
 import com.github.tibolte.agendacalendarview.calendar.CalendarView;
 import com.github.tibolte.agendacalendarview.models.BaseCalendarEvent;
 import com.github.tibolte.agendacalendarview.models.CalendarEvent;
 import com.github.tibolte.agendacalendarview.models.DayItem;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +39,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 public class HomeFragmentOperator extends Fragment implements CalendarPickerController {
 
@@ -39,21 +50,37 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
     AgendaCalendarView mAgendaCalendarView;
 
 
+    private DatabaseReference mFirebaseDatabaseRecords;
+    private FirebaseDatabase mFirebaseInstance;
+    RecordModel records;
+    List<CalendarEvent> eventList;
+    Calendar minDate;
+    Calendar maxDate;
+
     public HomeFragmentOperator(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.operator_calender_layout, container, false);
 
-        Calendar minDate = Calendar.getInstance();
-        Calendar maxDate = Calendar.getInstance();
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+
+        // get reference to 'recordmodel' node
+        mFirebaseDatabaseRecords = mFirebaseInstance.getReference("recordmodel");
+
+
+
+        minDate = Calendar.getInstance();
+        maxDate = Calendar.getInstance();
 
         minDate.add(Calendar.MONTH, -5);
         minDate.set(Calendar.DAY_OF_MONTH, 1);
         maxDate.add(Calendar.YEAR, 4);
 
-        List<CalendarEvent> eventList = new ArrayList<>();
+        eventList = new ArrayList<>();
+
         mockList(eventList);
+
         mAgendaCalendarView = rootView.findViewById(R.id.agenda_calendar_view);
 
         mAgendaCalendarView.init(eventList, minDate, maxDate, Locale.getDefault(), this);
@@ -118,35 +145,94 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
     }
 
     private void mockList(List<CalendarEvent> eventList) {
-        Calendar startTime1 = Calendar.getInstance();
-        Calendar endTime1 = Calendar.getInstance();
-        endTime1.add(Calendar.MONTH, 1);
-        BaseCalendarEvent event1 = new BaseCalendarEvent("Allocated to Morning Shift", "Morning Shift", "Assembly Area 12",
-                ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_mng), startTime1, endTime1, true);
-        eventList.add(event1);
+
+        // get reference to 'recordmodel' node
+        mFirebaseDatabaseRecords = mFirebaseInstance.getReference("recordmodel");
+        // Read from the database
+        mFirebaseDatabaseRecords.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Map<String, Object> user = (Map<String, Object>) dataSnapshot.getValue();
+                for (String key : user.keySet()) {
+                    Calendar calendar = null;
+                    if (dataSnapshot.child(key).hasChildren()) {
+
+                        records = dataSnapshot.child(key).child("O2001").getValue(RecordModel.class);
+
+                        String[] splitValue = key.split(",");
+                        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
+                        String nameMap = "00:00:00";
+                        String dateInString = splitValue[0]+","+" "+ nameMap + " "+splitValue[1];
+                        Date date = null;
+                        calendar = null;
+                        try {
+                            date = formatter.parse(dateInString);
+                            calendar = Calendar.getInstance();
+                            calendar.setTime(date);
+                        }catch (Exception e){
+
+                        }
+                    }
+                    if(records.getStatus().equalsIgnoreCase("Morning Shift")) {
+                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_mng), calendar, calendar, true);
+                        eventList.add(event2);
+                    }else if(records.getStatus().equalsIgnoreCase("Afternoon Shift")){
+                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiCriticalElement_afternoon), calendar, calendar, true);
+                        eventList.add(event2);
+                    }else if(records.getStatus().equalsIgnoreCase("Night Shift")){
+                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiPositiveElement_night), calendar, calendar, true);
+                        eventList.add(event2);
+                    }else if(records.getStatus().equalsIgnoreCase("On Leave")){
+                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiNeutralElement_grey), calendar, calendar, true);
+                        eventList.add(event2);
+                    }else if(records.getStatus().equalsIgnoreCase("Holiday")){
+                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiNegativeElement_red), calendar, calendar, true);
+                        eventList.add(event2);
+                    }else{
+                        BaseCalendarEvent event2 = new BaseCalendarEvent(records.getStatus(), "Shift", "Assembly Area 11", ContextCompat.getColor(getContext(), R.color.sapUiListBorderColor), calendar, calendar, true);
+                        eventList.add(event2);
+                    }
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
-        String dateInString = "08-05-2019";
-        Calendar calendar = null;
-        try {
-            Date date = sdf.parse(dateInString);
 
-            calendar = Calendar.getInstance();
-            calendar.setTime(date);
+                    System.out.println("next day records fetch starts");
+                }
+                refresh(eventList);
+                //clear the existing data to avoid duplicate values.
+                eventList.clear();
 
-        }
-        catch (Exception e){
+            }
 
-        }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
 
-        BaseCalendarEvent event2 = new BaseCalendarEvent("Allocated to Evening Shift", "Evening Shift", "Assembly Area 11",
-                ContextCompat.getColor(getContext(), R.color.sapUiCriticalElement_afternoon), calendar, calendar, true);
-        eventList.add(event2);
+        });
 
-        BaseCalendarEvent event3 = new BaseCalendarEvent("On Leave", "Leave", "unavailable",
-                ContextCompat.getColor(getContext(), R.color.sapUiNeutralElement_grey), calendar, calendar, true);
-        eventList.add(event3);
+
+
+
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+//        String dateInString = "27-04-2019";
+//        Calendar calendar = null;
+//        try {
+//            Date date = sdf.parse(dateInString);
+//
+//            calendar = Calendar.getInstance();
+//            calendar.setTime(date);
+//
+//        }
+//        catch (Exception e){
+//
+//        }
+//
+//
+//        BaseCalendarEvent event2 = new BaseCalendarEvent("Allocated to Evening Shift", "Evening Shift", "Assembly Area 11",
+//                ContextCompat.getColor(getContext(), R.color.sapUiCriticalElement_afternoon), calendar, calendar, true);
+//        eventList.add(event2);
 
 
     }
@@ -168,11 +254,9 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
 //        }
     }
 
-
-
-
-
-
-
-
+    public void refresh(List<CalendarEvent> eventList) {
+        CalendarManager m = CalendarManager.getInstance(getContext());
+        m.buildCal(minDate, maxDate, m.getLocale());
+        m.loadEvents(eventList);
+    }
 }
