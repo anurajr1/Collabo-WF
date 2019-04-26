@@ -50,12 +50,14 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
     AgendaCalendarView mAgendaCalendarView;
 
 
-    private DatabaseReference mFirebaseDatabaseRecords;
+    private DatabaseReference mFirebaseDatabaseRecords,mFirebaseDatabaseDate;
     private FirebaseDatabase mFirebaseInstance;
     RecordModel records;
     List<CalendarEvent> eventList;
     Calendar minDate;
     Calendar maxDate;
+
+    TextView alertInfo;
 
     public HomeFragmentOperator(){}
     @Override
@@ -109,7 +111,7 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                 Date selectedDate = cal.getSelectedDay().getDate();
 
                 //generating the suitable date format to display
-                SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+                SimpleDateFormat formatter = new SimpleDateFormat("MMM dd,yyyy");
                 String date =null;
                 try {
                     date = formatter.format(selectedDate);
@@ -126,6 +128,12 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                 // set values for custom dialog components - text, image and button
                 TextView text = (TextView) dialog.findViewById(R.id.textView7);
                 text.setText(date);
+
+                //getting the event based on the date
+                getEventParticularDate(date);
+
+                alertInfo = (TextView) dialog.findViewById(R.id.textView8);
+
 
                 dialog.show();
 
@@ -258,5 +266,48 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         CalendarManager m = CalendarManager.getInstance(getContext());
         m.buildCal(minDate, maxDate, m.getLocale());
         m.loadEvents(eventList);
+    }
+
+
+
+
+    public void getEventParticularDate(String SelectedDate){
+
+        // get reference to 'recordmodel/date' node
+        mFirebaseDatabaseDate = mFirebaseInstance.getReference("recordmodel");
+        // Read from the database
+        mFirebaseDatabaseDate.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Map<String, Object> user = (Map<String, Object>) dataSnapshot.getValue();
+                    //Calendar calendar = null;
+                    if (dataSnapshot.child(SelectedDate.toString()).hasChildren()) {
+                        records = dataSnapshot.child(SelectedDate).child("O2001").getValue(RecordModel.class);
+
+                        alertInfo.setText(records.getStatus());
+
+//                        String[] splitValue = key.split(",");
+//                        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
+//                        String nameMap = "00:00:00";
+//                        String dateInString = splitValue[0]+","+" "+ nameMap + " "+splitValue[1];
+//                        Date date = null;
+//                        calendar = null;
+//                        try {
+//                            date = formatter.parse(dateInString);
+//                            calendar = Calendar.getInstance();
+//                            calendar.setTime(date);
+//                        }catch (Exception e){
+//
+//                        }
+                    }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
     }
 }
