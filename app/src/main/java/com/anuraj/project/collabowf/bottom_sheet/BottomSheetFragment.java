@@ -21,6 +21,11 @@ import android.widget.TextView;
 import com.anuraj.project.collabowf.MainActivity;
 import com.anuraj.project.collabowf.R;
 
+import static com.anuraj.project.collabowf.utils.AppConstants.AFTERNOON_SHIFT;
+import static com.anuraj.project.collabowf.utils.AppConstants.MORNING_SHIFT;
+import static com.anuraj.project.collabowf.utils.AppConstants.NIGHT_SHIFT;
+import static com.anuraj.project.collabowf.utils.AppConstants.ON_LEAVE;
+
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
     MainActivity main;
@@ -35,7 +40,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         dialog.setContentView(view);
         main = new MainActivity();
 
-        String shift = getArguments().getString("shift");
+        shift = getArguments().getString("shift");
 
         tickMng = (ImageView) view.findViewById(R.id.imageView5);
         tickMng.setVisibility(View.GONE);
@@ -46,13 +51,13 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         tickLeave = (ImageView) view.findViewById(R.id.imageView8);
         tickLeave.setVisibility(View.GONE);
 
-        if(shift.equalsIgnoreCase("Morning Shift")){
+        if(shift.equalsIgnoreCase(MORNING_SHIFT)){
             tickMng.setVisibility(View.VISIBLE);
-        }else if(shift.equalsIgnoreCase("Afternoon Shift")){
+        }else if(shift.equalsIgnoreCase(AFTERNOON_SHIFT)){
             tickAfternoon.setVisibility(View.VISIBLE);
-        }else if(shift.equalsIgnoreCase("Night Shift")){
+        }else if(shift.equalsIgnoreCase(NIGHT_SHIFT)){
             tickNight.setVisibility(View.VISIBLE);
-        }else if(shift.equalsIgnoreCase("On Leave")){
+        }else if(shift.equalsIgnoreCase(ON_LEAVE)){
             tickLeave.setVisibility(View.VISIBLE);
         }else{
             System.out.println("Do Nothing");
@@ -117,11 +122,48 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
 
+                shiftSelected(MORNING_SHIFT);
+                //to close the bottom sheet
+                ((BottomSheetBehavior) behavior).setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+        });
+        //onclick on mng tick
+        TextView tickAfternoon = (TextView) view.findViewById(R.id.textView10);
+        tickAfternoon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shiftSelected(AFTERNOON_SHIFT);
                 //to close the bottom sheet
                 ((BottomSheetBehavior) behavior).setState(BottomSheetBehavior.STATE_HIDDEN);
             }
         });
 
+        //onclick on mng tick
+        TextView tickNight = (TextView) view.findViewById(R.id.textView11);
+        tickNight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shiftSelected(NIGHT_SHIFT);
+                //to close the bottom sheet
+                ((BottomSheetBehavior) behavior).setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+        });
+
+        //onclick on mng tick
+        TextView tickOnLeave = (TextView) view.findViewById(R.id.textView12);
+        tickOnLeave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shiftSelected(ON_LEAVE);
+                //to close the bottom sheet
+                ((BottomSheetBehavior) behavior).setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+        });
+
+
+    }
+
+    public void shiftSelected(String shiftSelect){
 
     }
 
