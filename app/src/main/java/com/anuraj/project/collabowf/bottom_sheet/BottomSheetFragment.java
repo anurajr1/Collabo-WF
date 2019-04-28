@@ -8,6 +8,7 @@
 package com.anuraj.project.collabowf.bottom_sheet;
 
 import android.app.Dialog;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -15,12 +16,16 @@ import android.support.design.widget.CoordinatorLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.anuraj.project.collabowf.MainActivity;
 import com.anuraj.project.collabowf.R;
 
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
     MainActivity main;
+    String shift;
+    ImageView tickMng,tickAfternoon,tickNight,tickLeave;
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
@@ -29,6 +34,30 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet, null);
         dialog.setContentView(view);
         main = new MainActivity();
+
+        String shift = getArguments().getString("shift");
+
+        tickMng = (ImageView) view.findViewById(R.id.imageView5);
+        tickMng.setVisibility(View.GONE);
+        tickAfternoon = (ImageView) view.findViewById(R.id.imageView6);
+        tickAfternoon.setVisibility(View.GONE);
+        tickNight = (ImageView) view.findViewById(R.id.imageView7);
+        tickNight.setVisibility(View.GONE);
+        tickLeave = (ImageView) view.findViewById(R.id.imageView8);
+        tickLeave.setVisibility(View.GONE);
+
+        if(shift.equalsIgnoreCase("Morning Shift")){
+            tickMng.setVisibility(View.VISIBLE);
+        }else if(shift.equalsIgnoreCase("Afternoon Shift")){
+            tickAfternoon.setVisibility(View.VISIBLE);
+        }else if(shift.equalsIgnoreCase("Night Shift")){
+            tickNight.setVisibility(View.VISIBLE);
+        }else if(shift.equalsIgnoreCase("On Leave")){
+            tickLeave.setVisibility(View.VISIBLE);
+        }else{
+            System.out.println("Do Nothing");
+        }
+
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) view.getParent()).getLayoutParams();
         final CoordinatorLayout.Behavior behavior = params.getBehavior();
@@ -82,16 +111,16 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
-        //onclick on english language
-//        ImageView flagEnglish = (ImageView) view.findViewById(R.id.flagView_english);
-//        flagEnglish.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setLocale("en");
-//                //to close the bottom sheet
-//                ((BottomSheetBehavior) behavior).setState(BottomSheetBehavior.STATE_HIDDEN);
-//            }
-//        });
+        //onclick on mng tick
+        TextView tickMng = (TextView) view.findViewById(R.id.textView9);
+        tickMng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //to close the bottom sheet
+                ((BottomSheetBehavior) behavior).setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+        });
 
 
     }

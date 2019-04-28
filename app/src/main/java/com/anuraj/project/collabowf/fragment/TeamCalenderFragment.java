@@ -340,8 +340,10 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         //Toast.makeText(getContext(), "Pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
-
+        Bundle bundle=new Bundle();
+        bundle.putString("shift", event.getName());
         BottomSheetFragment fragment = new BottomSheetFragment();
+        fragment.setArguments(bundle);
         fragment.show(getFragmentManager(), TAG);
 
     }
