@@ -37,4 +37,10 @@ public interface AppConstants {
 
     // Messages
     String EVENT_ADD_FAILURE_MESSAGE = "Failed to add event";
+
+
+    String MORNING_SHIFT = "Morning Shift";
+    String AFTERNOON_SHIFT = "Afternoon Shift";
+    String NIGHT_SHIFT = "Night Shift";
+    String ON_LEAVE = "On Leave";
 }
