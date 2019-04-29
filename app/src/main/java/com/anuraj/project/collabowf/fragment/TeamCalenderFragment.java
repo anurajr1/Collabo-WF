@@ -23,6 +23,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.security.spec.ECField;
@@ -36,6 +38,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.anuraj.project.collabowf.LoginActivity;
+import com.anuraj.project.collabowf.MainActivity;
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.SplashScreen;
 import com.anuraj.project.collabowf.bottom_sheet.BottomSheetFragment;
@@ -85,10 +88,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     private SimpleDateFormat formatter;
     private Date[] startEndTime;
 
-//    String[] strOperator = {"Anuraj R","Ben johnson","Captain philip","Allen, Agnes","Blake, William","Crockett, Davy","Finney, Albert"
-//            ,"Golding, W","Han Shan","Jones, Norah","King, William","Kruk, John","Meir, Golda","Roth, Philip","West, Mae","Zola, Emile","Young, Neil"};
-
-
     WeekViewEvent event;
     List<WeekViewEvent> events;
     View rootView;
@@ -100,7 +99,7 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     RecordModel records;
     OperatorList opList;
     Date prevDate = null;
-
+    ProgressBar progressBar;
 
     List<OperatorList> operatorNameList = new ArrayList<OperatorList>();
 
@@ -110,36 +109,13 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.myteamcalenderlayout, container, false);
 
-
         mFirebaseInstance = FirebaseDatabase.getInstance();
-
         // get reference to 'recordmodel' node
         mFirebaseDatabase = mFirebaseInstance.getReference("recordmodel");
 
         // Initialize all the required components
         initComponents();
-
         parsedataRecords();
-
-
-
-//        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
-//        String nameMap = "00:45:00";
-//        String dateInString = "Apr 25,"+" "+ nameMap + " 2019";
-//        Date date =null;
-//        try {
-//            date = formatter.parse(dateInString);
-//        }
-//        catch (Exception   e){
-//
-//        }
-//        //setting the time and add 15mins
-//        Calendar cal = Calendar.getInstance();
-//        cal.setTime(date);
-//        cal.add(Calendar.MINUTE, 15);
-//        //adding the event
-//        addEvent(date,cal.getTime(),"Morning Shift");
-
 
         buttonDayView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,14 +165,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
                 }
             }
         });
-
-     //   createUser("02002","Anuraj","Morning shift");
-
-
-
-
-
-
         return rootView;
     }
 
@@ -253,34 +221,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
-
-//        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
-//        String nameMap = "00:45:00";
-//        String dateInString = "Apr 25,"+" "+ nameMap + " 2019";
-//        Date date =null;
-//        try {
-//            date = formatter.parse(dateInString);
-//        }
-//        catch (Exception   e){
-//
-//        }
-//        //setting the time and add 15mins
-//        Calendar cal = Calendar.getInstance();
-//        cal.setTime(date);
-//        cal.add(Calendar.MINUTE, 15);
-//        //adding the event
-//        addEvent(date,cal.getTime(),"Morning Shift");
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -336,13 +276,8 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
                     operatorNameList.add(opList);
 
                 }
-                System.out.println("");
                 for(int i =0;i<operatorNameList.size();i++){
                     opStringList.add(operatorNameList.get(i).getName());
-                }
-
-                for (String opNameList : opStringList) {
-                    System.err.println(opNameList);
                 }
                 String[] stringArray = opStringList.toArray(new String[0]);
                 mWeekView.setOperatorNames(stringArray);
@@ -353,11 +288,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
-
-
-
 
        // mWeekView.setOperatorNames(strOperator);
         //mWeekView.setOperatorLength(3);
