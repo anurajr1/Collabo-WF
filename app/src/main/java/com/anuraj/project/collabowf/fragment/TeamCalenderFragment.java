@@ -372,19 +372,22 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
 //        } else {
 
        // }
-
-        if(eventTitle.equalsIgnoreCase("Morning Shift")){
-            event.setColor(getResources().getColor(R.color.sapUiNegativeElement_mng));
-        }else if(eventTitle.equalsIgnoreCase("Afternoon Shift")){
-            event.setColor(getResources().getColor(R.color.sapUiCriticalElement_afternoon));
-        }else if(eventTitle.equalsIgnoreCase("Night Shift")){
-            event.setColor(getResources().getColor(R.color.sapUiPositiveElement_night));
-        }else if(eventTitle.equalsIgnoreCase("On Leave")){
-            event.setColor(getResources().getColor(R.color.sapUiNeutralElement_grey));
-        }else if(eventTitle.equalsIgnoreCase("Holiday")){
-            event.setColor(getResources().getColor(R.color.sapUiNegativeElement_red));
+        try {
+            if (eventTitle.equalsIgnoreCase("Morning Shift")) {
+                event.setColor(getResources().getColor(R.color.sapUiNegativeElement_mng));
+            } else if (eventTitle.equalsIgnoreCase("Afternoon Shift")) {
+                event.setColor(getResources().getColor(R.color.sapUiCriticalElement_afternoon));
+            } else if (eventTitle.equalsIgnoreCase("Night Shift")) {
+                event.setColor(getResources().getColor(R.color.sapUiPositiveElement_night));
+            } else if (eventTitle.equalsIgnoreCase("On Leave")) {
+                event.setColor(getResources().getColor(R.color.sapUiNeutralElement_grey));
+            } else if (eventTitle.equalsIgnoreCase("Holiday")) {
+                event.setColor(getResources().getColor(R.color.sapUiNegativeElement_red));
+            }
         }
+        catch (Exception e){
 
+        }
         events.add(event);
         eventMap.put(month + 1, events);
         mWeekView.notifyDatasetChanged();
