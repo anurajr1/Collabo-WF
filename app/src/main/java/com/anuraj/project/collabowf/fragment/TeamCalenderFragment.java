@@ -299,6 +299,7 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         for(int j =0; j<operatorNameList.size();j++){
             if(operatorNameList.get(j).listmap.equalsIgnoreCase(sdf.format(event.getStartTime().getTime()))){
                 bundle.putString("opName", operatorNameList.get(j).getName());
+                bundle.putString("opID", operatorNameList.get(j).getId());
                 bundle.putString("opNameListTime", sdf.format(event.getStartTime().getTime()));
             }
         }
