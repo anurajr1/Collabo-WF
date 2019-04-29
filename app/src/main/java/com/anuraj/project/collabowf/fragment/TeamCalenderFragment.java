@@ -3,31 +3,18 @@ package com.anuraj.project.collabowf.fragment;
 /**
  * Created by Anuraj R(i321994) a4anurajr@gmail.com
  */
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import java.security.spec.ECField;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,15 +23,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import com.anuraj.project.collabowf.LoginActivity;
-import com.anuraj.project.collabowf.MainActivity;
 import com.anuraj.project.collabowf.R;
-import com.anuraj.project.collabowf.SplashScreen;
 import com.anuraj.project.collabowf.bottom_sheet.BottomSheetFragment;
 import com.anuraj.project.collabowf.model.OperatorList;
 import com.anuraj.project.collabowf.model.RecordModel;
-import com.anuraj.project.collabowf.model.User;
 import com.anuraj.project.collabowf.weekview.WeekView;
 import com.anuraj.project.collabowf.weekview.WeekViewEvent;
 import com.google.firebase.database.DataSnapshot;
@@ -55,12 +37,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import static android.content.ContentValues.TAG;
 import static com.anuraj.project.collabowf.utils.AppConstants.DAY_EVENT_SIZE;
-import static com.anuraj.project.collabowf.utils.AppConstants.DAY_TEXT_SIZE;
 import static com.anuraj.project.collabowf.utils.AppConstants.DAY_VIEW;
 import static com.anuraj.project.collabowf.utils.AppConstants.DD_MMM_YYYY;
 import static com.anuraj.project.collabowf.utils.AppConstants.END;
 import static com.anuraj.project.collabowf.utils.AppConstants.EVENT_ADD_FAILURE_MESSAGE;
-import static com.anuraj.project.collabowf.utils.AppConstants.LOGIN_PREFERENCES;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_LIGHT;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_REGULAR;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_SEMI_BOLD;
@@ -99,7 +79,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     RecordModel records;
     OperatorList opList;
     Date prevDate = null;
-    ProgressBar progressBar;
 
     List<OperatorList> operatorNameList = new ArrayList<OperatorList>();
 
@@ -223,8 +202,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         });
     }
 
-
-
     // Initialize all the required components
     private void initComponents() {
         // Set the view type to Day view
@@ -260,8 +237,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         // Setup start and end time of the calendar view
 //        mWeekView.setmEndMinute("24:00:00");
 //        mWeekView.setmStartMinute("01:00:00");
-
-        final String[] strOperator = {"Anu"};
         List<String> opStringList = new ArrayList<>();
 
         // Read from the database
@@ -484,7 +459,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
 //    }
 
 
-
     // Change the background color of the selected button
     public void changeButtonBackground(Button button) {
         buttonDayView.setBackgroundColor(getResources().getColor(R.color.sapUiPageFooterBackground));
@@ -492,9 +466,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         buttonMonthView.setBackgroundColor(getResources().getColor(R.color.sapUiPageFooterBackground));
         button.setBackgroundColor(getResources().getColor(R.color.sapUiBaseColor));
     }
-
-
-
 
     /**
      * Creating new user node under 'recordmodel'
