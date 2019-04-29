@@ -39,6 +39,7 @@ import com.anuraj.project.collabowf.LoginActivity;
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.SplashScreen;
 import com.anuraj.project.collabowf.bottom_sheet.BottomSheetFragment;
+import com.anuraj.project.collabowf.model.OperatorList;
 import com.anuraj.project.collabowf.model.RecordModel;
 import com.anuraj.project.collabowf.model.User;
 import com.anuraj.project.collabowf.weekview.WeekView;
@@ -84,20 +85,24 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     private SimpleDateFormat formatter;
     private Date[] startEndTime;
 
-    String[] strOperator = {"Anuraj R","Ben johnson","Captain philip","Allen, Agnes","Blake, William","Crockett, Davy","Finney, Albert"
-            ,"Golding, W","Han Shan","Jones, Norah","King, William","Kruk, John","Meir, Golda","Roth, Philip","West, Mae","Zola, Emile","Young, Neil"};
+//    String[] strOperator = {"Anuraj R","Ben johnson","Captain philip","Allen, Agnes","Blake, William","Crockett, Davy","Finney, Albert"
+//            ,"Golding, W","Han Shan","Jones, Norah","King, William","Kruk, John","Meir, Golda","Roth, Philip","West, Mae","Zola, Emile","Young, Neil"};
 
 
     WeekViewEvent event;
     List<WeekViewEvent> events;
     View rootView;
 
-    private DatabaseReference mFirebaseDatabase,mFirebaseDatabaseRecords;
+    private DatabaseReference mFirebaseDatabase,mFirebaseDatabaseRecords,mFirebaseDatabaseOperator;
     private FirebaseDatabase mFirebaseInstance;
     private String userId;
 
     RecordModel records;
+    OperatorList opList;
     Date prevDate = null;
+
+
+    List<OperatorList> operatorNameList = new ArrayList<OperatorList>();
 
     public TeamCalenderFragment(){}
     @Override
@@ -280,12 +285,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
 
 
 
-
-
-
-
-
-
     // Initialize all the required components
     private void initComponents() {
         // Set the view type to Day view
@@ -321,7 +320,46 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         // Setup start and end time of the calendar view
 //        mWeekView.setmEndMinute("24:00:00");
 //        mWeekView.setmStartMinute("01:00:00");
-        mWeekView.setOperatorNames(strOperator);
+
+        final String[] strOperator = {"Anu"};
+        List<String> opStringList = new ArrayList<>();
+
+        // Read from the database
+        // get reference to 'recordmodel' node
+        mFirebaseDatabaseOperator = mFirebaseInstance.getReference("operatorlist");
+        mFirebaseDatabaseOperator.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                    opList = userSnapshot.getValue(OperatorList.class);
+                    operatorNameList.add(opList);
+
+                }
+                System.out.println("");
+                for(int i =0;i<operatorNameList.size();i++){
+                    opStringList.add(operatorNameList.get(i).getName());
+                }
+
+                for (String opNameList : opStringList) {
+                    System.err.println(opNameList);
+                }
+                String[] stringArray = opStringList.toArray(new String[0]);
+                mWeekView.setOperatorNames(stringArray);
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+
+
+
+
+       // mWeekView.setOperatorNames(strOperator);
         //mWeekView.setOperatorLength(3);
         mWeekView.setEmptyViewClickListener(this);
     }
@@ -336,12 +374,24 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         return events;
     }
 
+    public static String[] toStringArr(StringBuffer sb[]) {
+        if (sb == null) return null;
+        String str[] = new String[sb.length];
+        for (int i = 0; i < sb.length; i++) {
+            if (sb[i] != null) {
+                str[i] = sb[i].toString();
+            }
+        }
+        return str;
+    }
+
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         //Toast.makeText(getContext(), "Pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
         Bundle bundle=new Bundle();
         bundle.putString("shift", event.getName());
+        bundle.putString("opNameListTime", event.getStartTime().getTime().toString());
         BottomSheetFragment fragment = new BottomSheetFragment();
         fragment.setArguments(bundle);
         fragment.show(getFragmentManager(), TAG);
