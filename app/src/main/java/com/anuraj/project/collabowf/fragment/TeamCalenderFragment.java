@@ -294,9 +294,19 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         //Toast.makeText(getContext(), "Pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Bundle bundle=new Bundle();
+        for(int j =0; j<operatorNameList.size();j++){
+            if(operatorNameList.get(j).listmap.equalsIgnoreCase(sdf.format(event.getStartTime().getTime()))){
+                bundle.putString("opName", operatorNameList.get(j).getName());
+                bundle.putString("opNameListTime", sdf.format(event.getStartTime().getTime()));
+            }
+        }
         bundle.putString("shift", event.getName());
-        bundle.putString("opNameListTime", event.getStartTime().getTime().toString());
+        SimpleDateFormat dateSelectedFormat = new SimpleDateFormat("E, MMM dd yyyy");
+        bundle.putString("selectedTime", dateSelectedFormat.format(event.getStartTime().getTime()));
+
+
         BottomSheetFragment fragment = new BottomSheetFragment();
         fragment.setArguments(bundle);
         fragment.show(getFragmentManager(), TAG);
