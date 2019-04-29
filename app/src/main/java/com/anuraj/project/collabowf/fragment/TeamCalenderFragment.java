@@ -303,7 +303,7 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
             }
         }
         bundle.putString("shift", event.getName());
-        SimpleDateFormat dateSelectedFormat = new SimpleDateFormat("E, MMM dd yyyy");
+        SimpleDateFormat dateSelectedFormat = new SimpleDateFormat("MMM d,yyyy");
         bundle.putString("selectedTime", dateSelectedFormat.format(event.getStartTime().getTime()));
 
 
