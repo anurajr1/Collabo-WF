@@ -13,6 +13,15 @@ public class User {
     public String mailid;
     public String qualification;
     public String certificate;
+    public String propic;
+
+    public String getPropic() {
+        return propic;
+    }
+
+    public void setPropic(String propic) {
+        this.propic = propic;
+    }
 
     public String getMobile() {
         return mobile;
