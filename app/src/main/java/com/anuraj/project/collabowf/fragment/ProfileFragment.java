@@ -39,6 +39,7 @@ public class ProfileFragment extends Fragment {
 
     ProgressDialog progressDialog;
     User users;
+    TextView navUsername,navUserdomain;
 
     List<TeamDetails> list = new ArrayList<>();
     public ProfileFragment(){}
@@ -46,6 +47,10 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.profilelayout, container, false);
+
+        navUsername = (TextView) rootView.findViewById(R.id.textView_name);
+        navUserdomain = (TextView) rootView.findViewById(R.id.textView_domain);
+
 
         SharedPreferences pref = getContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
 
@@ -65,10 +70,9 @@ public class ProfileFragment extends Fragment {
                     users = userSnapshot.getValue(User.class);
                     if(((pref.getString("employeeId",null)).equalsIgnoreCase(users.id))){
 
-                        TextView navUsername = (TextView) rootView.findViewById(R.id.textView_name);
-                        navUsername.setText(pref.getString("employeeName", null));
-                        TextView navUserdomain = (TextView) rootView.findViewById(R.id.textView5);
-                        navUsername.setText(pref.getString("employeeDomain", null));
+
+                        navUsername.setText(users.getName());
+                        navUserdomain.setText(users.getDomain());
 
                     }
                 }
