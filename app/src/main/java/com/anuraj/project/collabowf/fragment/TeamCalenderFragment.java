@@ -317,9 +317,9 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     @Override
     // It will implement the swipe on the events to cancel it
     public void onEventSwipe(WeekViewEvent event, RectF eventRect) {
-        if (cancelEvent(event)) {
-            Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
-        }
+//        if (cancelEvent(event)) {
+//            Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
+//        }
     }
 
 
