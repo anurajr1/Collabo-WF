@@ -79,6 +79,10 @@ public class ProfileFragment extends Fragment {
                         navUsername.setText(users.getName());
                         navUserdomain.setText(users.getDomain());
                         empID.setText(users.getId());
+                        empMail.setText(users.getMailid());
+                        empMob.setText(users.getMobile());
+                        empQuali.setText(users.getQualification());
+                        empCerti.setText(users.getCertificate());
 
                     }
                 }
