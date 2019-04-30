@@ -39,7 +39,7 @@ public class ProfileFragment extends Fragment {
 
     ProgressDialog progressDialog;
     User users;
-    TextView navUsername,navUserdomain;
+    TextView navUsername,navUserdomain,empID,empQuali,empCerti,empMob,empMail;
 
     List<TeamDetails> list = new ArrayList<>();
     public ProfileFragment(){}
@@ -50,6 +50,11 @@ public class ProfileFragment extends Fragment {
 
         navUsername = (TextView) rootView.findViewById(R.id.textView_name);
         navUserdomain = (TextView) rootView.findViewById(R.id.textView_domain);
+        empID = (TextView) rootView.findViewById(R.id.emp_ID);
+        empMail = (TextView) rootView.findViewById(R.id.empMailID);
+        empMob = (TextView) rootView.findViewById(R.id.empMobile);
+        empQuali = (TextView) rootView.findViewById(R.id.empQuali);
+        empCerti = (TextView) rootView.findViewById(R.id.empCerti);
 
 
         SharedPreferences pref = getContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
@@ -73,6 +78,7 @@ public class ProfileFragment extends Fragment {
 
                         navUsername.setText(users.getName());
                         navUserdomain.setText(users.getDomain());
+                        empID.setText(users.getId());
 
                     }
                 }
