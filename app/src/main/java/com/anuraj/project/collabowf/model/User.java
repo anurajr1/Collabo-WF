@@ -9,6 +9,42 @@ public class User {
     public String name;
     public String password;
     public String domain;
+    public String mobile;
+    public String mailid;
+    public String qualification;
+    public String certificate;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getMailid() {
+        return mailid;
+    }
+
+    public void setMailid(String mailid) {
+        this.mailid = mailid;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(String certificate) {
+        this.certificate = certificate;
+    }
 
     public User() {
     }
@@ -50,5 +86,7 @@ public class User {
         this.name = name;
         this.password = password;
         this.domain = domain;
+
+
     }
 }
