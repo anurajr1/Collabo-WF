@@ -15,12 +15,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anuraj.project.collabowf.LoginActivity;
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.SplashScreen;
+import com.anuraj.project.collabowf.image_util.ImageLoader;
 import com.anuraj.project.collabowf.model.User;
+import com.anuraj.project.collabowf.operator_activity.TeamMoreDetailsActivity;
 import com.anuraj.project.collabowf.operator_adapter.RecyclerViewAdapter;
 import com.anuraj.project.collabowf.operator_adapter.TeamDetails;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +43,8 @@ public class ProfileFragment extends Fragment {
     ProgressDialog progressDialog;
     User users;
     TextView navUsername,navUserdomain,empID,empQuali,empCerti,empMob,empMail;
+    ImageLoader imageLoader;
+    ImageView proPic;
 
     List<TeamDetails> list = new ArrayList<>();
     public ProfileFragment(){}
@@ -55,9 +60,13 @@ public class ProfileFragment extends Fragment {
         empMob = (TextView) rootView.findViewById(R.id.empMobile);
         empQuali = (TextView) rootView.findViewById(R.id.empQuali);
         empCerti = (TextView) rootView.findViewById(R.id.empCerti);
+        proPic = (ImageView) rootView.findViewById(R.id.profile_pic_imageview);
+
 
 
         SharedPreferences pref = getContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
+
+        imageLoader = new ImageLoader(getContext());
 
         progressDialog = new ProgressDialog(getContext());
 
@@ -75,7 +84,6 @@ public class ProfileFragment extends Fragment {
                     users = userSnapshot.getValue(User.class);
                     if(((pref.getString("employeeId",null)).equalsIgnoreCase(users.id))){
 
-
                         navUsername.setText(users.getName());
                         navUserdomain.setText(users.getDomain());
                         empID.setText(users.getId());
@@ -83,6 +91,7 @@ public class ProfileFragment extends Fragment {
                         empMob.setText(users.getMobile());
                         empQuali.setText(users.getQualification());
                         empCerti.setText(users.getCertificate());
+                        imageLoader.DisplayImage(users.getPropic(),proPic);
 
                     }
                 }
