@@ -102,16 +102,6 @@ android:layout_height="match_parent">
                 android:layout_marginStart="185dp"
                 android:layout_marginBottom="47dp"
                 android:src="@drawable/ic_phone_white" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="235dp"
-                android:layout_marginBottom="47dp"
-                android:src="@drawable/ic_info_white" />
         </RelativeLayout>
 
         <android.support.v7.widget.Toolbar
@@ -180,11 +170,12 @@ android:layout_height="match_parent">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Domain"
+                    android:text="Employee ID"
                     android:textColor="@color/colorPrimary"
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/emp_ID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
@@ -200,21 +191,80 @@ android:layout_height="match_parent">
 
             </LinearLayout>
 
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Mail ID"-->
+                    <!--android:textColor="@color/colorPrimaryDark"-->
+                    <!--android:textSize="13sp" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/empMailID"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:fontFamily="sans-serif-light"-->
+                    <!--android:text="@string/app_name"-->
+                    <!--android:textColor="#000000"-->
+                    <!--android:textSize="18sp" />-->
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:background="@color/sapUiListBorderColor" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Mobile"-->
+                    <!--android:textColor="@color/colorPrimaryDark"-->
+                    <!--android:textSize="13sp" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/empMobile"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:fontFamily="sans-serif-light"-->
+                    <!--android:text="@string/app_name"-->
+                    <!--android:textColor="#000000"-->
+                    <!--android:textSize="18sp" />-->
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:background="@color/sapUiListBorderColor" />-->
+
+            <!--</LinearLayout>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="User Information"-->
-                <!--android:textColor="@color/colorPrimaryDark"-->
-                <!--android:textSize="13sp" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qualification"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/privacy_text"
+                    android:id="@+id/empQuali"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
@@ -229,68 +279,36 @@ android:layout_height="match_parent">
                     android:background="@color/sapUiListBorderColor" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Certificates"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="13sp" />
 
+                <TextView
+                    android:id="@+id/empCerti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/app_name"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/sapUiListBorderColor" />
+
+            </LinearLayout>
         </LinearLayout>
-        <!--<TextView-->
-            <!--android:id="@+id/setting_text"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@+id/layout_general"-->
-            <!--android:fontFamily="sans-serif-light"-->
-            <!--android:text="Settings"-->
-            <!--android:textStyle="bold"-->
-            <!--android:layout_marginLeft="15dp"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:textColor="#000000"-->
-            <!--android:textSize="18sp" />-->
-
-
-        <!--<LinearLayout-->
-            <!--android:id="@+id/layout_setting"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@+id/setting_text"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:layout_marginLeft="30dp"-->
-            <!--android:layout_marginRight="30dp"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:orientation="vertical">-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical">-->
-
-
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Password"-->
-                    <!--android:textColor="@color/colorPrimary"-->
-                    <!--android:textSize="13sp" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/change_pin"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:fontFamily="sans-serif-light"-->
-                    <!--android:text="Change Password"-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:textSize="18sp" />-->
-
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:layout_marginTop="15dp"-->
-                    <!--android:background="@color/sapUiListBorderColor" />-->
-
-            <!--</LinearLayout>-->
-
-        <!--</LinearLayout>-->
-
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
