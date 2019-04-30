@@ -1,12 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    >
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+<!--
+  ~ /**
+  ~  * Created by Anuraj R (a4anurajr@gmail.com) on 2019
+  ~  * Last modified 22/3/19 10:35 AM
+  ~  */
+  -->
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="profile TextView" />
-</RelativeLayout>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/colorPrimary"
+            app:titleEnabled="false">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                app:layout_collapseMode="parallax"
+                android:scaleType="centerCrop"
+                />
+
+
+            <RelativeLayout
+                android:id="@+id/rellay1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/imgUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/circle_border">
+
+                    <ImageView
+                        android:id="@+id/profile_pic_imageview"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:adjustViewBounds="false"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/company_profile_image" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="135dp"
+                    android:layout_marginBottom="122dp"
+                    android:text="Operator Name"
+                    android:textColor="@color/sapWhite"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="136dp"
+                    android:layout_marginBottom="94dp"
+                    android:text="Domain"
+                    android:textColor="@color/sapWhite"
+                    android:textSize="17dp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="135dp"
+                    android:layout_marginBottom="47dp"
+                    android:src="@drawable/ic_email_white" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="185dp"
+                    android:layout_marginBottom="47dp"
+                    android:src="@drawable/ic_phone_white" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar1"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title=""/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:paddingTop="32dp"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linlay1">
+            <TextView
+                android:id="@+id/general_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="General"
+                android:textStyle="bold"
+                android:layout_marginLeft="15dp"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+            <LinearLayout
+                android:id="@+id/layout_general"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/general_text"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Domain"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/app_name"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/sapUiListBorderColor" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="User Information"-->
+                    <!--android:textColor="@color/colorPrimaryDark"-->
+                    <!--android:textSize="13sp" />-->
+
+                    <TextView
+                        android:id="@+id/privacy_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/app_name"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/sapUiListBorderColor" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/setting_text"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/layout_general"-->
+            <!--android:fontFamily="sans-serif-light"-->
+            <!--android:text="Settings"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:textColor="#000000"-->
+            <!--android:textSize="18sp" />-->
+
+
+            <!--<LinearLayout-->
+            <!--android:id="@+id/layout_setting"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/setting_text"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:layout_marginRight="30dp"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+
+
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Password"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:textSize="13sp" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/change_pin"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:fontFamily="sans-serif-light"-->
+            <!--android:text="Change Password"-->
+            <!--android:textColor="#000000"-->
+            <!--android:textSize="18sp" />-->
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:background="@color/sapUiListBorderColor" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--</LinearLayout>-->
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
