@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anuraj.project.collabowf.MainActivity;
 import com.anuraj.project.collabowf.R;
@@ -210,6 +211,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         //update the record in alert table
                         RecordModel recordmod = new RecordModel(opID, opName, shiftSelect);
                         mFirebaseDatabaseAlert.child((SelectedDate)).child(opID).setValue(recordmod);
+                        //Toast.makeText(getActivity(), "Operator "+ opName + " assigned to"+ shiftSelect + " on "+ SelectedDate, Toast.LENGTH_SHORT).show();
                     }
                 }
 
