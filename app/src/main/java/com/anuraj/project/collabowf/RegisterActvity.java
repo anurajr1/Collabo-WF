@@ -74,7 +74,7 @@ public class RegisterActvity extends Activity {
             userId = mFirebaseDatabase.push().getKey();
         }
 
-        User user = new User(id,name,password,domain);
+        User user = new User(id,name,password,domain,"","","","","");
 
         mFirebaseDatabase.child(userId).setValue(user);
 
