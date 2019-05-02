@@ -8,6 +8,7 @@
 package com.anuraj.project.collabowf.operator_activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.image_util.ImageLoader;
+import com.anuraj.project.collabowf.model.User;
 import com.anuraj.project.collabowf.operator_adapter.RecyclerViewAdapter;
 import com.anuraj.project.collabowf.operator_adapter.TeamDetails;
 import com.google.firebase.database.ChildEventListener;
@@ -30,11 +32,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class TeamMoreDetailsActivity extends AppCompatActivity {
 
-    TextView operatorName, operatorDomain;
-    ImageView proPic, closeImage;
+    TextView operatorName, operatorDomain,empQuali,empID,empCerti;
+    ImageView proPic, closeImage,emailImage,MobileImage;
     String employeeID;
     DatabaseReference databaseReference;
     ImageLoader imageLoader;
+    User user;
 
     ProgressDialog progressDialog;
     @Override
@@ -56,6 +59,30 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
             }
         });
 
+        emailImage = findViewById(R.id.imageView2);
+
+        emailImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("plain/text");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { user.getMailid() });
+                startActivity(Intent.createChooser(intent, ""));
+            }
+        });
+
+
+        MobileImage = findViewById(R.id.imageView3);
+
+        MobileImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+user.getMobile()));
+                startActivity(intent);
+            }
+        });
+
         progressDialog = new ProgressDialog(TeamMoreDetailsActivity.this);
 
         imageLoader = new ImageLoader(TeamMoreDetailsActivity.this);
@@ -71,16 +98,22 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 //filtered entry added to the class
-                TeamDetails teamDetails = dataSnapshot.getValue(TeamDetails.class);
+                user = dataSnapshot.getValue(User.class);
 
                 operatorName = findViewById(R.id.textView3);
                 operatorDomain = findViewById(R.id.textView5);
                 proPic = findViewById(R.id.profile_pic_imageview);
+                empQuali = findViewById(R.id.empQuali);
+                empID = findViewById(R.id.emp_ID);
+                empCerti = findViewById(R.id.empCerti);
 
+                imageLoader.DisplayImage(user.getPropic(),proPic);
+                operatorName.setText(user.getName());
+                operatorDomain.setText(user.getDomain());
+                empQuali.setText(user.getQualification());
+                empID.setText(user.getId());
+                empCerti.setText(user.getCertificate());
 
-                imageLoader.DisplayImage(teamDetails.getPropic(),proPic);
-                operatorName.setText(teamDetails.getName());
-                operatorDomain.setText(teamDetails.getDomain());
 
                 //closing the progress bar
                 progressDialog.dismiss();
