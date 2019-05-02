@@ -90,12 +90,15 @@ public class User {
         this.domain = domain;
     }
 
-    public User(String id, String name, String password, String domain) {
+    public User(String id, String name, String password, String domain, String mobile, String mailid, String qualification, String certificate, String propic) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.domain = domain;
-
-
+        this.mobile = mobile;
+        this.mailid = mailid;
+        this.qualification = qualification;
+        this.certificate = certificate;
+        this.propic = propic;
     }
 }
