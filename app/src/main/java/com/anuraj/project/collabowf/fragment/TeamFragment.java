@@ -63,8 +63,10 @@ public class TeamFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                     TeamDetails teamDetails = dataSnapshot.getValue(TeamDetails.class);
-
-                    list.add(teamDetails);
+                    //filter to filter only operator list
+                    if(teamDetails.getDomain().equalsIgnoreCase("Operator")){
+                        list.add(teamDetails);
+                    }
                 }
 
                 adapter = new RecyclerViewAdapter(getActivity(), list);
