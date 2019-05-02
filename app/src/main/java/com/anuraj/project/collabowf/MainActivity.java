@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anuraj.project.collabowf.fragment.AlertFragment;
 import com.anuraj.project.collabowf.fragment.ProfileFragment;
 import com.anuraj.project.collabowf.fragment.TeamCalenderFragment;
 import com.anuraj.project.collabowf.fragment.TeamFragment;
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_alert:
-                fragment = new ProfileFragment();
+                fragment = new AlertFragment();
                 title =getString(R.string.nav_alert);
                 break;
 
