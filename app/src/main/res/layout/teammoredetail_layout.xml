@@ -31,7 +31,6 @@ android:layout_height="match_parent">
             android:scaleType="centerCrop"
            />
 
-
         <RelativeLayout
             android:id="@+id/rellay1"
             android:layout_width="match_parent"
@@ -43,7 +42,6 @@ android:layout_height="match_parent">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="50dp"
                 android:background="@drawable/circle_border">
@@ -165,8 +163,6 @@ android:layout_height="match_parent">
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -191,65 +187,6 @@ android:layout_height="match_parent">
 
             </LinearLayout>
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="15dp"-->
-                <!--android:orientation="vertical">-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Mail ID"-->
-                    <!--android:textColor="@color/colorPrimaryDark"-->
-                    <!--android:textSize="13sp" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/empMailID"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:fontFamily="sans-serif-light"-->
-                    <!--android:text="@string/app_name"-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:textSize="18sp" />-->
-
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:layout_marginTop="15dp"-->
-                    <!--android:background="@color/sapUiListBorderColor" />-->
-
-            <!--</LinearLayout>-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="15dp"-->
-                <!--android:orientation="vertical">-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Mobile"-->
-                    <!--android:textColor="@color/colorPrimaryDark"-->
-                    <!--android:textSize="13sp" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/empMobile"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:fontFamily="sans-serif-light"-->
-                    <!--android:text="@string/app_name"-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:textSize="18sp" />-->
-
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:layout_marginTop="15dp"-->
-                    <!--android:background="@color/sapUiListBorderColor" />-->
-
-            <!--</LinearLayout>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
