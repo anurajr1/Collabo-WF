@@ -145,6 +145,16 @@ public class MainActivity extends AppCompatActivity
                 title =getString(R.string.nav_profile);
                 break;
 
+            case R.id.nav_alert:
+                fragment = new ProfileFragment();
+                title =getString(R.string.nav_profile);
+                break;
+
+            case R.id.nav_send:
+                fragment = new ProfileFragment();
+                title =getString(R.string.nav_profile);
+                break;
+
 
             case R.id.nav_share:
 //                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
