@@ -147,12 +147,11 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_alert:
                 fragment = new ProfileFragment();
-                title =getString(R.string.nav_profile);
+                title =getString(R.string.nav_alert);
                 break;
 
             case R.id.nav_send:
-                fragment = new ProfileFragment();
-                title =getString(R.string.nav_profile);
+
                 break;
 
 
