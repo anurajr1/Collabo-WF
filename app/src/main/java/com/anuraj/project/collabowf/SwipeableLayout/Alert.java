@@ -4,8 +4,6 @@
  *  * Last modified 2/5/19 6:28 PM
  *
  */
-
-// Player.java
 package com.anuraj.project.collabowf.SwipeableLayout;
 
 public class Alert {
