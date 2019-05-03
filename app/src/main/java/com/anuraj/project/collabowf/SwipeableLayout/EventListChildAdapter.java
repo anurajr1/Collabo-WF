@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 public class EventListChildAdapter extends RecyclerView.Adapter<EventListChildAdapter.MyViewHolder> {
 
-    //private List<Movie> moviesList;
-
     private EventInformation eventInformation;
     private ArrayList<Events> eventsArrayList;
     private Activity activity;
