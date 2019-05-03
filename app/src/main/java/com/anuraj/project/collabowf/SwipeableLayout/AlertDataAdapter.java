@@ -17,13 +17,13 @@ import com.anuraj.project.collabowf.R;
 
 import java.util.List;
 
-public class AlertDataAdapter extends RecyclerView.Adapter<AlertDataAdapter.PlayerViewHolder> {
+public class AlertDataAdapter extends RecyclerView.Adapter<AlertDataAdapter.AlertViewHolder> {
     public List<Alert> alerts;
 
-    public class PlayerViewHolder extends RecyclerView.ViewHolder {
+    public class AlertViewHolder extends RecyclerView.ViewHolder {
         private TextView name, nationality, club, rating, age;
 
-        public PlayerViewHolder(View view) {
+        public AlertViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
             nationality = (TextView) view.findViewById(R.id.nationality);
@@ -38,15 +38,15 @@ public class AlertDataAdapter extends RecyclerView.Adapter<AlertDataAdapter.Play
     }
 
     @Override
-    public PlayerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AlertViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.alert_row, parent, false);
 
-        return new PlayerViewHolder(itemView);
+        return new AlertViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(PlayerViewHolder holder, int position) {
+    public void onBindViewHolder(AlertViewHolder holder, int position) {
         Alert player = alerts.get(position);
         holder.name.setText(player.getName());
         holder.nationality.setText(player.getNationality());
