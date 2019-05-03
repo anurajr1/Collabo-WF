@@ -94,22 +94,16 @@ public class AlertFragment extends Fragment {
         });
 
         try {
-            //pasing json data
-            JSONObject jsonObject = new JSONObject(jsonString);
-            JSONArray jsonDatesArray = jsonObject.getJSONArray("Event info");
             eventDatesArrayList = new ArrayList<>();
-            for (int indexDates=0;indexDates<jsonDatesArray.length();indexDates++){
+            for (int indexDates=0;indexDates<5;indexDates++){
                 EventDates eventDates = new EventDates();
-                JSONObject jsonDateobject = jsonDatesArray.getJSONObject(indexDates);
-                String date = jsonDateobject.getString("Date");
+                String date = "12/10/19";
                 eventDates.setDate(date);
-                JSONArray jsonArrayevents = jsonDateobject.getJSONArray("events");
                 ArrayList<Events> eventsArrayList = new ArrayList<>();
-                for (int indexEvents=0;indexEvents<jsonArrayevents.length();indexEvents++){
+                for (int indexEvents=0;indexEvents<4;indexEvents++){
                     Events events = new Events();
-                    JSONObject eventObj = jsonArrayevents.getJSONObject(indexEvents);
-                    events.setEventId(eventObj.getString("eventId"));
-                    events.setEventName(eventObj.getString("eventName"));
+                    events.setEventId("1");
+                    events.setEventName("anuraj");
                     eventsArrayList.add(events);
                 }
                 eventDates.setEventsArrayList(eventsArrayList);
