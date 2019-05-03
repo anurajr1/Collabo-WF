@@ -18,8 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.anuraj.project.collabowf.R;
-import com.anuraj.project.collabowf.SwipeableLayout.Player;
-import com.anuraj.project.collabowf.SwipeableLayout.PlayersDataAdapter;
+import com.anuraj.project.collabowf.SwipeableLayout.Alert;
+import com.anuraj.project.collabowf.SwipeableLayout.AlertDataAdapter;
 import com.anuraj.project.collabowf.SwipeableLayout.SwipeController;
 import com.anuraj.project.collabowf.SwipeableLayout.SwipeControllerActions;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +35,7 @@ public class AlertFragment extends Fragment {
     DatabaseReference databaseReference;
 
     ProgressDialog progressDialog;
-    private PlayersDataAdapter mAdapter;
+    private AlertDataAdapter mAdapter;
     SwipeController swipeController = null;
     View rootView;
 
@@ -78,9 +78,9 @@ public class AlertFragment extends Fragment {
         return rootView;
     }
     private void setPlayersDataAdapter() {
-        List<Player> players = new ArrayList<>();
+        List<Alert> players = new ArrayList<>();
 
-        Player player = new Player();
+        Alert player = new Alert();
         player.setName("Anu");
         player.setNationality("Indian");
         player.setClub("Mexico");
@@ -88,7 +88,7 @@ public class AlertFragment extends Fragment {
         player.setAge(25);
         players.add(player);
 
-        mAdapter = new PlayersDataAdapter(players);
+        mAdapter = new AlertDataAdapter(players);
     }
 
     private void setupRecyclerView() {
@@ -100,7 +100,7 @@ public class AlertFragment extends Fragment {
         swipeController = new SwipeController(new SwipeControllerActions() {
             @Override
             public void onRightClicked(int position) {
-                mAdapter.players.remove(position);
+                mAdapter.alerts.remove(position);
                 mAdapter.notifyItemRemoved(position);
                 mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
             }
