@@ -142,28 +142,6 @@ public class AlertFragment extends Fragment {
 //        });
 
 
-
-
-
-
-//
-//        ArrayList<EventDates> eventDatesArrayList = new ArrayList<>();
-//        EventInformation eventInformation = new EventInformation();
-//        EventDates eventDates = new EventDates();
-//        eventDates.setDate("10/12/19");
-//        ArrayList<Events> eventsArrayList = new ArrayList<>();
-//        Events events = new Events();
-//        events.setEventId("1");
-//        events.setEventName("anu");
-//        eventsArrayList.add(events);
-//        eventDates.setEventsArrayList(eventsArrayList);
-//        eventDatesArrayList.add(eventDates);
-//        eventInformation.setEventsDatesList(eventDatesArrayList);
-
-
-
-
-
         //parent recyclerview
         event_recycler_view_parent = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         //child = (RecyclerView) rootView.findViewById(R.id.event_recycler_view_child);
