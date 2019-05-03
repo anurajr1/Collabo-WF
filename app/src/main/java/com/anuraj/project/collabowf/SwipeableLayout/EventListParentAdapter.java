@@ -23,8 +23,6 @@ import java.util.List;
 
 public class EventListParentAdapter extends RecyclerView.Adapter<EventListParentAdapter.MyViewHolder> {
 
-    //private List<Movie> moviesList;
-
     private EventInformation eventInformation;
     private Activity activity;
     public List<Alert> alerts;
