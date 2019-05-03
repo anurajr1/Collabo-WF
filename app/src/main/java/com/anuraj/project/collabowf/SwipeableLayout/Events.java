@@ -4,7 +4,6 @@
  *  * Last modified 3/5/19 11:34 AM
  *
  */
-
 package com.anuraj.project.collabowf.SwipeableLayout;
 
 public class Events {
