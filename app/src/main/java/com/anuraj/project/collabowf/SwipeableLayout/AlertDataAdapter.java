@@ -47,12 +47,12 @@ public class AlertDataAdapter extends RecyclerView.Adapter<AlertDataAdapter.Aler
 
     @Override
     public void onBindViewHolder(AlertViewHolder holder, int position) {
-        Alert player = alerts.get(position);
-        holder.name.setText(player.getName());
-        holder.nationality.setText(player.getNationality());
-        holder.club.setText(player.getClub());
-        holder.rating.setText(player.getRating().toString());
-        holder.age.setText(player.getAge().toString());
+        Alert alert = alerts.get(position);
+        holder.name.setText(alert.getName());
+        holder.nationality.setText(alert.getNationality());
+        holder.club.setText(alert.getClub());
+        holder.rating.setText(alert.getRating().toString());
+        holder.age.setText(alert.getAge().toString());
     }
 
     @Override
