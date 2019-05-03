@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anuraj.project.collabowf.R;
+import com.anuraj.project.collabowf.model.EventDates;
+import com.anuraj.project.collabowf.model.EventInformation;
 
 import java.util.List;
 
