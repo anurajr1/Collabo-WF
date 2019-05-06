@@ -365,7 +365,7 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                     AlertModel recordmod = new AlertModel(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false", format.format(date));
                     mFirebaseDatabaseAlert.child((dateSelected)).child(pref.getString("employeeId", null)).setValue(recordmod);
                 }else{
-                    createEvent(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave");
+                    createEvent(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false",format.format(date));
                 }
             }
 
@@ -379,14 +379,15 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
     }
 
 
-    private void createEvent(String id, String name, String status) {
+    private void createEvent(String id, String name, String status, String operatorseen, String supervisorseen, String selecteddate) {
 
         RecordModel recordmod = new RecordModel(id,name,status);
+        AlertModel alertNew = new AlertModel(id,name,status,operatorseen,supervisorseen,selecteddate);
 
         //update the record in records table
         mFirebaseDatabaseRecords.child((dateSelected)).child(id).setValue(recordmod);
         //update the record in alert table
-        mFirebaseDatabaseAlert.child((dateSelected)).child(id).setValue(recordmod);
+        mFirebaseDatabaseAlert.child((dateSelected)).child(id).setValue(alertNew);
 
         // addUserChangeListener();
     }
