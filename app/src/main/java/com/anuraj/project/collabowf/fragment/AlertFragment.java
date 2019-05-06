@@ -18,14 +18,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.anuraj.project.collabowf.R;
-import com.anuraj.project.collabowf.SwipeableLayout.AlertDataAdapter;
 import com.anuraj.project.collabowf.SwipeableLayout.EventListParentAdapter;
-import com.anuraj.project.collabowf.SwipeableLayout.SwipeController;
 import com.anuraj.project.collabowf.model.AlertModel;
 import com.anuraj.project.collabowf.model.EventDates;
 import com.anuraj.project.collabowf.model.EventInformation;
 import com.anuraj.project.collabowf.model.Events;
-import com.anuraj.project.collabowf.model.RecordModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,18 +31,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class AlertFragment extends Fragment {
+
     DatabaseReference databaseReference;
-
     ProgressDialog progressDialog;
-    private AlertDataAdapter mAdapter;
-    SwipeController swipeController = null;
     View rootView;
-    RecordModel records;
     AlertModel alertModel;
-
-    RecyclerView event_recycler_view_parent, child;
+    RecyclerView event_recycler_view_parent;
     EventListParentAdapter event_list_parent_adapter;
-
     EventInformation eventInformation = new EventInformation();;
 
     public AlertFragment(){}
@@ -53,23 +45,16 @@ public class AlertFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.alertfragment, container, false);
-
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading Data");
-
         progressDialog.show();
-
         setAlertsDataAdapterAndRecyclerView();
         return rootView;
     }
 
-
     private void setAlertsDataAdapterAndRecyclerView() {
-
         ArrayList<EventDates> eventDatesArrayList;
-
         eventDatesArrayList = new ArrayList<>();
-
         databaseReference = FirebaseDatabase.getInstance().getReference("alerts");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,7 +87,6 @@ public class AlertFragment extends Fragment {
                 event_recycler_view_parent.setAdapter(event_list_parent_adapter);
                 progressDialog.dismiss();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
