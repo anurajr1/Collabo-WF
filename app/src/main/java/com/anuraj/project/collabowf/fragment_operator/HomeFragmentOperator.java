@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.anuraj.project.collabowf.OperatorMainActivity;
 import com.anuraj.project.collabowf.R;
+import com.anuraj.project.collabowf.model.AlertModel;
 import com.anuraj.project.collabowf.model.RecordModel;
 import com.github.tibolte.agendacalendarview.AgendaCalendarView;
 import com.github.tibolte.agendacalendarview.CalendarManager;
@@ -345,6 +346,10 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
 
 
     public void updateEventCalender(String SelectedDate){
+        //get current date
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
+
     // get reference to 'recordmodel/date' node
         mFirebaseDatabaseDate = mFirebaseInstance.getReference("recordmodel");
         // Read from the database
@@ -357,7 +362,7 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                     mFirebaseDatabaseDate.child(SelectedDate).child(pref.getString("employeeId", null)).child("status").setValue("On Leave");
 
                     //update the record in alert table
-                    RecordModel recordmod = new RecordModel(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave");
+                    AlertModel recordmod = new AlertModel(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false", format.format(date));
                     mFirebaseDatabaseAlert.child((dateSelected)).child(pref.getString("employeeId", null)).setValue(recordmod);
                 }else{
                     createEvent(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave");
