@@ -3,7 +3,6 @@ package com.anuraj.project.collabowf;
  * Created by Anuraj R(i321994) a4anurajr@gmail.com
  */
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -80,6 +79,7 @@ public class RegisterActvity extends Activity {
 
         addUserChangeListener();
     }
+
     /**
      * User data change listener
      */
@@ -97,13 +97,6 @@ public class RegisterActvity extends Activity {
                 }
 
                 Log.e(TAG, "User data is changed!" + user.name + ", " + user.id);
-
-                // Display newly updated name and email
-            //    txtDetails.setText(user.name + ", " + user.email);
-
-                // clear edit text
-            //    inputEmail.setText("");
-            //    inputName.setText("");
             }
 
             @Override
