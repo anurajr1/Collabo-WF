@@ -57,6 +57,10 @@ public class EventListParentAdapter extends RecyclerView.Adapter<EventListParent
             @Override
             public void onRightClicked(int position) {
                 //eventListChildAdapter.alerts.remove(position);
+               // eventListChildAdapter.eventsArrayList.remove(position);
+                eventListChildAdapter.eventsArrayList.get(position).getEventDate();
+                eventListChildAdapter.eventsArrayList.get(position).getEventId();
+
                 eventListChildAdapter.notifyItemRemoved(position);
                 eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
             }
