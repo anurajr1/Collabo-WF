@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.anuraj.project.collabowf.MainActivity;
 import com.anuraj.project.collabowf.R;
+import com.anuraj.project.collabowf.model.AlertModel;
 import com.anuraj.project.collabowf.model.OperatorList;
 import com.anuraj.project.collabowf.model.RecordModel;
 import com.google.firebase.database.DataSnapshot;
@@ -192,6 +193,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     public void shiftSelected(String shiftSelect) {
+        //get current date
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
 
         try {
             // Read from the database
@@ -209,8 +213,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         mFirebaseDatabaseDate.child(SelectedDate).child(opID).child("status").setValue(shiftSelect);
 
                         //update the record in alert table
-                        RecordModel recordmod = new RecordModel(opID, opName, shiftSelect);
-                        mFirebaseDatabaseAlert.child((SelectedDate)).child(opID).setValue(recordmod);
+                        AlertModel alertmod = new AlertModel(opID, opName, shiftSelect,"false","false",format.format(date));
+                        mFirebaseDatabaseAlert.child((SelectedDate)).child(opID).setValue(alertmod);
                         //Toast.makeText(getActivity(), "Operator "+ opName + " assigned to"+ shiftSelect + " on "+ SelectedDate, Toast.LENGTH_SHORT).show();
                     }
                 }
