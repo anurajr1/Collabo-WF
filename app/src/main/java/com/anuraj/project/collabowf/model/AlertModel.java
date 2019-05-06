@@ -1,7 +1,7 @@
 /*
  * *
  *  * Created by Anuraj R (a4anurajr@gmail.com) on 2019
- *  * Last modified 25/4/19 1:33 PM
+ *  * Last modified 7/5/19 1:52 PM
  *
  */
 package com.anuraj.project.collabowf.model;
@@ -13,7 +13,6 @@ public class AlertModel {
 
     public String name;
     public String id;
-    public String alerts;
     public String status;
 
 
@@ -24,15 +23,6 @@ public class AlertModel {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public String getAlerts() {
-        return alerts;
-    }
-
-    public void setAlerts(String alerts) {
-        this.alerts = alerts;
-    }
-
     public AlertModel() {
     }
 
@@ -52,11 +42,11 @@ public class AlertModel {
         this.name = name;
     }
 
-    public AlertModel(String id, String name, String alerts) {
+    public AlertModel(String id, String name, String status) {
 
         this.name = name;
         this.id = id;
-        this.alerts = alerts;
+        this.status = status;
     }
 
 }
