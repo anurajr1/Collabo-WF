@@ -14,6 +14,24 @@ public class AlertModel {
     public String name;
     public String id;
     public String alerts;
+    public String status;
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAlerts() {
+        return alerts;
+    }
+
+    public void setAlerts(String alerts) {
+        this.alerts = alerts;
+    }
 
     public AlertModel() {
     }
@@ -40,15 +58,5 @@ public class AlertModel {
         this.id = id;
         this.alerts = alerts;
     }
-
-    public String getalerts() {
-        return alerts;
-    }
-
-    public void setalerts(String alerts) {
-        this.alerts = alerts;
-    }
-
-
 
 }
