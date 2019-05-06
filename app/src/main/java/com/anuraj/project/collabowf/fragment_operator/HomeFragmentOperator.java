@@ -362,10 +362,10 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
                     mFirebaseDatabaseDate.child(SelectedDate).child(pref.getString("employeeId", null)).child("status").setValue("On Leave");
 
                     //update the record in alert table
-                    AlertModel recordmod = new AlertModel(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false", format.format(date));
-                    mFirebaseDatabaseAlert.child((dateSelected)).child(pref.getString("employeeId", null)).setValue(recordmod);
+                    AlertModel recordmod = new AlertModel(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false", dateSelected);
+                    mFirebaseDatabaseAlert.child((format.format(date))).child(pref.getString("employeeId", null)).setValue(recordmod);
                 }else{
-                    createEvent(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false",format.format(date));
+                    createEvent(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false",dateSelected);
                 }
             }
 
@@ -385,9 +385,9 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         AlertModel alertNew = new AlertModel(id,name,status,operatorseen,supervisorseen,selecteddate);
 
         //update the record in records table
-        mFirebaseDatabaseRecords.child((dateSelected)).child(id).setValue(recordmod);
+        mFirebaseDatabaseRecords.child((selecteddate)).child(id).setValue(recordmod);
         //update the record in alert table
-        mFirebaseDatabaseAlert.child((dateSelected)).child(id).setValue(alertNew);
+        mFirebaseDatabaseAlert.child((selecteddate)).child(id).setValue(alertNew);
 
         // addUserChangeListener();
     }
