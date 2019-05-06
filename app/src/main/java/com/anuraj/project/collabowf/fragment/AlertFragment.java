@@ -21,16 +21,22 @@ import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.SwipeableLayout.AlertDataAdapter;
 import com.anuraj.project.collabowf.SwipeableLayout.EventListParentAdapter;
 import com.anuraj.project.collabowf.SwipeableLayout.SwipeController;
+import com.anuraj.project.collabowf.model.AlertModel;
 import com.anuraj.project.collabowf.model.EventDates;
 import com.anuraj.project.collabowf.model.EventInformation;
 import com.anuraj.project.collabowf.model.Events;
+import com.anuraj.project.collabowf.model.RecordModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 public class AlertFragment extends Fragment {
     DatabaseReference databaseReference;
@@ -39,11 +45,13 @@ public class AlertFragment extends Fragment {
     private AlertDataAdapter mAdapter;
     SwipeController swipeController = null;
     View rootView;
+    RecordModel records;
+    AlertModel alertModel;
 
     RecyclerView event_recycler_view_parent, child;
     EventListParentAdapter event_list_parent_adapter;
 
-    EventInformation eventInformation;
+    EventInformation eventInformation = new EventInformation();;
 
     public AlertFragment(){}
     @Override
@@ -67,18 +75,39 @@ public class AlertFragment extends Fragment {
     private void setPlayersDataAdapter() {
 
         ArrayList<EventDates> eventDatesArrayList;
-        eventInformation = new EventInformation();
 
+        eventDatesArrayList = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        databaseReference = FirebaseDatabase.getInstance().getReference("alerts");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    EventDates eventDates = new EventDates();
+                    eventDates.setDate(dataSnapshot.getKey());
+                    ArrayList<Events> eventsArrayList = new ArrayList<>();
 
-
+                    for (DataSnapshot dataAlert : dataSnapshot.getChildren()) {
+                        alertModel = dataAlert.getValue(AlertModel.class);
+                        Events events = new Events();
+                        events.setEventId(alertModel.getId());
+                        events.setEventName(alertModel.getName());
+                        eventsArrayList.add(events);
                 }
+                    eventDates.setEventsArrayList(eventsArrayList);
+                    eventDatesArrayList.add(eventDates);
+                }
+                eventInformation.setEventsDatesList(eventDatesArrayList);
+                Log.d("Alert",eventInformation.toString());
+                //parent recyclerview
+                event_recycler_view_parent = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+                event_list_parent_adapter = new EventListParentAdapter(eventInformation,getActivity());
+                event_recycler_view_parent.setHasFixedSize(true);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+                event_recycler_view_parent.setLayoutManager(mLayoutManager);
+                event_recycler_view_parent.setItemAnimator(new DefaultItemAnimator());
+                event_recycler_view_parent.setAdapter(event_list_parent_adapter);
                 progressDialog.dismiss();
             }
 
@@ -90,27 +119,27 @@ public class AlertFragment extends Fragment {
             }
         });
 
-        try {
-            eventDatesArrayList = new ArrayList<>();
-            for (int indexDates=0;indexDates<5;indexDates++){
-                EventDates eventDates = new EventDates();
-                String date = "12/10/19";
-                eventDates.setDate(date);
-                ArrayList<Events> eventsArrayList = new ArrayList<>();
-                for (int indexEvents=0;indexEvents<4;indexEvents++){
-                    Events events = new Events();
-                    events.setEventId("1");
-                    events.setEventName("anuraj");
-                    eventsArrayList.add(events);
-                }
-                eventDates.setEventsArrayList(eventsArrayList);
-                eventDatesArrayList.add(eventDates);
-            }
-            eventInformation.setEventsDatesList(eventDatesArrayList);
-            Log.d("message",eventInformation.toString());
-        }catch (Exception e){
-
-        }
+//        try {
+//
+//            for (int indexDates=0;indexDates<5;indexDates++){
+//                EventDates eventDates = new EventDates();
+//                String date = "12/10/19";
+//                eventDates.setDate(date);
+//                ArrayList<Events> eventsArrayList = new ArrayList<>();
+//                for (int indexEvents=0;indexEvents<4;indexEvents++){
+//                    Events events = new Events();
+//                    events.setEventId("1");
+//                    events.setEventName("anuraj");
+//                    eventsArrayList.add(events);
+//                }
+//                eventDates.setEventsArrayList(eventsArrayList);
+//                eventDatesArrayList.add(eventDates);
+//            }
+//            eventInformation.setEventsDatesList(eventDatesArrayList);
+//            Log.d("message",eventInformation.toString());
+//        }catch (Exception e){
+//
+//        }
     }
 
     private void setupRecyclerView() {
@@ -138,17 +167,6 @@ public class AlertFragment extends Fragment {
 //            }
 //        });
 
-
-        //parent recyclerview
-        event_recycler_view_parent = (RecyclerView) rootView.findViewById(R.id.recyclerView);
-        //child = (RecyclerView) rootView.findViewById(R.id.event_recycler_view_child);
-
-        event_list_parent_adapter = new EventListParentAdapter(eventInformation,getActivity());
-        event_recycler_view_parent.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        event_recycler_view_parent.setLayoutManager(mLayoutManager);
-        event_recycler_view_parent.setItemAnimator(new DefaultItemAnimator());
-        event_recycler_view_parent.setAdapter(event_list_parent_adapter);
 
     }
 }
