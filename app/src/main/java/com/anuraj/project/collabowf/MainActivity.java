@@ -155,16 +155,6 @@ public class MainActivity extends AppCompatActivity
 
                 break;
 
-
-            case R.id.nav_share:
-//                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-//                sharingIntent.setType("text/plain");
-//                String shareBody = "Download From Playstore :-) \n"+"https://goo.gl/YFnyUD";
-//                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Spread word");
-//                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-//                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-                break;
-
         }
 
         if (fragment != null) {
