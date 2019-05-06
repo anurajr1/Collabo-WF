@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class EventListChildAdapter extends RecyclerView.Adapter<EventListChildAdapter.MyViewHolder> {
 
     private EventInformation eventInformation;
-    private ArrayList<Events> eventsArrayList;
+    public ArrayList<Events> eventsArrayList;
     private Activity activity;
 
     public EventListChildAdapter(Activity activity, ArrayList<Events> eventsArrayList) {
