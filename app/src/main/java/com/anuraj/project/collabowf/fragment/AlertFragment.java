@@ -1,7 +1,7 @@
 /*
  * *
  *  * Created by Anuraj R (a4anurajr@gmail.com) on 2019
- *  * Last modified 3/5/19 11:25 AM
+ *  * Last modified 6/5/19 11:25 AM
  *
  */
 
@@ -31,12 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
 
 public class AlertFragment extends Fragment {
     DatabaseReference databaseReference;
@@ -60,19 +55,16 @@ public class AlertFragment extends Fragment {
         rootView = inflater.inflate(R.layout.alertfragment, container, false);
 
         progressDialog = new ProgressDialog(getContext());
-
         progressDialog.setMessage("Loading Data");
 
         progressDialog.show();
 
-        setPlayersDataAdapter();
-        setupRecyclerView();
-
+        setAlertsDataAdapterAndRecyclerView();
         return rootView;
     }
 
 
-    private void setPlayersDataAdapter() {
+    private void setAlertsDataAdapterAndRecyclerView() {
 
         ArrayList<EventDates> eventDatesArrayList;
 
@@ -118,55 +110,5 @@ public class AlertFragment extends Fragment {
 
             }
         });
-
-//        try {
-//
-//            for (int indexDates=0;indexDates<5;indexDates++){
-//                EventDates eventDates = new EventDates();
-//                String date = "12/10/19";
-//                eventDates.setDate(date);
-//                ArrayList<Events> eventsArrayList = new ArrayList<>();
-//                for (int indexEvents=0;indexEvents<4;indexEvents++){
-//                    Events events = new Events();
-//                    events.setEventId("1");
-//                    events.setEventName("anuraj");
-//                    eventsArrayList.add(events);
-//                }
-//                eventDates.setEventsArrayList(eventsArrayList);
-//                eventDatesArrayList.add(eventDates);
-//            }
-//            eventInformation.setEventsDatesList(eventDatesArrayList);
-//            Log.d("message",eventInformation.toString());
-//        }catch (Exception e){
-//
-//        }
-    }
-
-    private void setupRecyclerView() {
-//        RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-//        recyclerView.setAdapter(mAdapter);
-//
-//        swipeController = new SwipeController(new SwipeControllerActions() {
-//            @Override
-//            public void onRightClicked(int position) {
-//                mAdapter.alerts.remove(position);
-//                mAdapter.notifyItemRemoved(position);
-//                mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
-//            }
-//        });
-//
-//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-//        itemTouchhelper.attachToRecyclerView(recyclerView);
-//
-//        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-//            @Override
-//            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-//                swipeController.onDraw(c);
-//            }
-//        });
-
-
     }
 }
