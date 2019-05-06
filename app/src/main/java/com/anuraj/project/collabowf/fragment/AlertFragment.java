@@ -68,16 +68,22 @@ public class AlertFragment extends Fragment {
                     for (DataSnapshot dataAlert : dataSnapshot.getChildren()) {
                         alertModel = dataAlert.getValue(AlertModel.class);
                         Events events = new Events();
-                        events.setEventId(alertModel.getId());
-                        if(alertModel.getStatus().equalsIgnoreCase("On Leave")) {
+                        if((alertModel.getStatus().equalsIgnoreCase("On Leave")) && (alertModel.getSupervisorseen().equalsIgnoreCase("false"))) {
+                            events.setEventId(alertModel.getId());
                             events.setEventName(alertModel.getName() + " requested for Leave");
-                        }else{
+                        }else if(alertModel.getSupervisorseen().equalsIgnoreCase("false")){
+                            events.setEventId(alertModel.getId());
                             events.setEventName(alertModel.getName() + " assigned to " + alertModel.getStatus());
                         }
-                        eventsArrayList.add(events);
+                        //to handle the null alert listing
+                        if(events.getEventId()!=null){
+                            eventsArrayList.add(events);
+                        }
                 }
-                    eventDates.setEventsArrayList(eventsArrayList);
-                    eventDatesArrayList.add(eventDates);
+                    if(!eventsArrayList.isEmpty()){
+                        eventDates.setEventsArrayList(eventsArrayList);
+                        eventDatesArrayList.add(eventDates);
+                    }
                 }
                 eventInformation.setEventsDatesList(eventDatesArrayList);
                 Log.d("Alert",eventInformation.toString());
