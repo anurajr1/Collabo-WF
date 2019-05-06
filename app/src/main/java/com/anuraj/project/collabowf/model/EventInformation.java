@@ -4,13 +4,6 @@
  *  * Last modified 3/5/19 3:50 PM
  *
  */
-
-/*
- * *
- *  * Created by Anuraj R (a4anurajr@gmail.com) on 2019
- *  * Last modified 3/5/19 11:34 AM
- *
- */
 package com.anuraj.project.collabowf.model;
 
 import java.util.ArrayList;
