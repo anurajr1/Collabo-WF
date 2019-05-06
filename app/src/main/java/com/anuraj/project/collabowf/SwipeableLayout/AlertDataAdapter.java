@@ -28,8 +28,8 @@ public class AlertDataAdapter extends RecyclerView.Adapter<AlertDataAdapter.Aler
             name = (TextView) view.findViewById(R.id.name);
             nationality = (TextView) view.findViewById(R.id.nationality);
             club = (TextView) view.findViewById(R.id.club);
-            rating = (TextView) view.findViewById(R.id.rating);
-            age = (TextView) view.findViewById(R.id.age);
+//            rating = (TextView) view.findViewById(R.id.rating);
+//            age = (TextView) view.findViewById(R.id.age);
         }
     }
 
@@ -51,8 +51,8 @@ public class AlertDataAdapter extends RecyclerView.Adapter<AlertDataAdapter.Aler
         holder.name.setText(alert.getName());
         holder.nationality.setText(alert.getNationality());
         holder.club.setText(alert.getClub());
-        holder.rating.setText(alert.getRating().toString());
-        holder.age.setText(alert.getAge().toString());
+//        holder.rating.setText(alert.getRating().toString());
+//        holder.age.setText(alert.getAge().toString());
     }
 
     @Override
