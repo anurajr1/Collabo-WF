@@ -14,7 +14,33 @@ public class AlertModel {
     public String name;
     public String id;
     public String status;
+    public String operatorseen;
+    public String supervisorseen;
+    public String selecteddate;
 
+    public String getOperatorseen() {
+        return operatorseen;
+    }
+
+    public void setOperatorseen(String operatorseen) {
+        this.operatorseen = operatorseen;
+    }
+
+    public String getSupervisorseen() {
+        return supervisorseen;
+    }
+
+    public void setSupervisorseen(String supervisorseen) {
+        this.supervisorseen = supervisorseen;
+    }
+
+    public String getSelecteddate() {
+        return selecteddate;
+    }
+
+    public void setSelecteddate(String selecteddate) {
+        this.selecteddate = selecteddate;
+    }
 
     public String getStatus() {
         return status;
@@ -42,11 +68,14 @@ public class AlertModel {
         this.name = name;
     }
 
-    public AlertModel(String id, String name, String status) {
+    public AlertModel(String id, String name, String status, String operatorseen, String supervisorseen, String selecteddate) {
 
         this.name = name;
         this.id = id;
         this.status = status;
+        this.operatorseen =operatorseen;
+        this.supervisorseen = supervisorseen;
+        this.selecteddate = selecteddate;
     }
 
 }
