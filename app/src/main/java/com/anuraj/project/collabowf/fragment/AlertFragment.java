@@ -69,7 +69,11 @@ public class AlertFragment extends Fragment {
                         alertModel = dataAlert.getValue(AlertModel.class);
                         Events events = new Events();
                         events.setEventId(alertModel.getId());
-                        events.setEventName(alertModel.getName());
+                        if(alertModel.getStatus().equalsIgnoreCase("On Leave")) {
+                            events.setEventName(alertModel.getName() + " requested for Leave");
+                        }else{
+                            events.setEventName(alertModel.getName() + " assigned to " + alertModel.getStatus());
+                        }
                         eventsArrayList.add(events);
                 }
                     eventDates.setEventsArrayList(eventsArrayList);
