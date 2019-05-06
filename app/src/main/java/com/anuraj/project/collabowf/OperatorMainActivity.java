@@ -91,7 +91,7 @@ public class OperatorMainActivity extends AppCompatActivity
                 title =getString(R.string.nav_team);
                 break;
 
-            case R.id.nav_share:
+            case R.id.nav_send:
 //                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 //                sharingIntent.setType("text/plain");
 //                String shareBody = "Download From Playstore :-) \n"+"https://goo.gl/YFnyUD";
