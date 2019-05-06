@@ -6,7 +6,10 @@
     android:layout_height="wrap_content"
     android:focusable="true"
     android:clickable="true"
-    android:layout_margin="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="5dp"
     android:background="?android:attr/selectableItemBackground">
 
     <LinearLayout
@@ -23,7 +26,6 @@
             <TextView
                 android:id="@+id/name"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Robert Lewandowski"/>
@@ -33,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
-                tools:text="Poland" />
+                tools:text="" />
 
         </LinearLayout>
 
@@ -46,7 +48,7 @@
                 android:id="@+id/club"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Bayern Munchen"/>
+                tools:text=""/>
 
         </LinearLayout>
 
