@@ -70,10 +70,10 @@ public class AlertFragment extends Fragment {
                         Events events = new Events();
                         if((alertModel.getStatus().equalsIgnoreCase("On Leave")) && (alertModel.getSupervisorseen().equalsIgnoreCase("false"))) {
                             events.setEventId(alertModel.getId());
-                            events.setEventName(alertModel.getName() + " requested for Leave");
+                            events.setEventName(alertModel.getName() + " requested for Leave on " + alertModel.getSelecteddate());
                         }else if(alertModel.getSupervisorseen().equalsIgnoreCase("false")){
                             events.setEventId(alertModel.getId());
-                            events.setEventName(alertModel.getName() + " assigned to " + alertModel.getStatus());
+                            events.setEventName(alertModel.getName() + " assigned to " + alertModel.getStatus() + " on " + alertModel.getSelecteddate());
                         }
                         //to handle the null alert listing
                         if(events.getEventId()!=null){
