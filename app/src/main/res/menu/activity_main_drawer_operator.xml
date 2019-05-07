@@ -19,6 +19,10 @@
             android:id="@+id/nav_my_team"
             android:icon="@drawable/ic_account_group"
             android:title="My Team" />
+        <item
+            android:id="@+id/nav_alert"
+            android:icon="@drawable/ic_bell_alert"
+            android:title="Alerts" />
     </group>
 
     <item android:title="Communicate">
