@@ -12,7 +12,15 @@ public class Events {
     private String eventDate;
     private  String eventAlertDate;
     private  String eventStatus;
+    private  String eventOPName;
 
+    public String getEventOPName() {
+        return eventOPName;
+    }
+
+    public void setEventOPName(String eventOPName) {
+        this.eventOPName = eventOPName;
+    }
 
     public String getEventAlertDate() {
         return eventAlertDate;
