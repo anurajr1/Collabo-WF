@@ -12,22 +12,34 @@ import android.graphics.Canvas;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anuraj.project.collabowf.R;
+import com.anuraj.project.collabowf.model.AlertModel;
 import com.anuraj.project.collabowf.model.EventDates;
 import com.anuraj.project.collabowf.model.EventInformation;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class EventListParentAdapter extends RecyclerView.Adapter<EventListParentAdapter.MyViewHolder> {
 
     private EventInformation eventInformation;
     private Activity activity;
     public List<Alert> alerts;
+
+    private FirebaseDatabase mFirebaseInstance;
+    private DatabaseReference mFirebaseDatabaseAlert;
 
     public EventListParentAdapter(EventInformation eventInformation, Activity activity) {
         this.eventInformation = eventInformation;
@@ -58,11 +70,36 @@ public class EventListParentAdapter extends RecyclerView.Adapter<EventListParent
             public void onRightClicked(int position) {
                 //eventListChildAdapter.alerts.remove(position);
                // eventListChildAdapter.eventsArrayList.remove(position);
-                eventListChildAdapter.eventsArrayList.get(position).getEventDate();
-                eventListChildAdapter.eventsArrayList.get(position).getEventId();
 
-                eventListChildAdapter.notifyItemRemoved(position);
-                eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
+                //for alert model
+                mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
+                // Read from the database
+                mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.child(eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate()).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).getValue() != null) {
+                            //update the record in alert table
+                            AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"false","true",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
+
+                            mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).setValue(alertmod);
+
+                          //  eventListChildAdapter.notifyItemRemoved(position);
+                          //  eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
+
+                            eventListChildAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+                });
+
+
+
             }
         });
 
@@ -91,6 +128,7 @@ public class EventListParentAdapter extends RecyclerView.Adapter<EventListParent
             super(view);
             event_list_parent_date = (TextView) view.findViewById(R.id.event_list_parent_date);
             event_recycler_view_child = (RecyclerView)view.findViewById(R.id.event_recycler_view_child);
+            mFirebaseInstance = FirebaseDatabase.getInstance();
         }
     }
 }
