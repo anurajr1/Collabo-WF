@@ -68,8 +68,6 @@ public class EventListParentAdapter extends RecyclerView.Adapter<EventListParent
         SwipeController swipeController = new SwipeController(new SwipeControllerActions() {
             @Override
             public void onRightClicked(int position) {
-                //eventListChildAdapter.alerts.remove(position);
-               // eventListChildAdapter.eventsArrayList.remove(position);
 
                 //for alert model
                 mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
