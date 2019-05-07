@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anuraj.project.collabowf.R;
-import com.anuraj.project.collabowf.SwipeableLayout.EventListParentAdapter;
+import com.anuraj.project.collabowf.SwipeableLayout.EventListParentAdapterOperator;
 import com.anuraj.project.collabowf.model.AlertModel;
 import com.anuraj.project.collabowf.model.EventDates;
 import com.anuraj.project.collabowf.model.EventInformation;
@@ -41,7 +41,7 @@ public class AlertFragmentOperator extends Fragment {
     View rootView;
     AlertModel alertModel;
     RecyclerView event_recycler_view_parent;
-    EventListParentAdapter event_list_parent_adapter;
+    EventListParentAdapterOperator event_list_parent_adapter;
     EventInformation eventInformation = new EventInformation();
     ArrayList<EventDates> eventDatesArrayList;
 
@@ -108,7 +108,7 @@ public class AlertFragmentOperator extends Fragment {
                 Log.d("Alert",eventInformation.toString());
                 //parent recyclerview
                 event_recycler_view_parent = (RecyclerView) rootView.findViewById(R.id.recyclerView);
-                event_list_parent_adapter = new EventListParentAdapter(eventInformation,getActivity());
+                event_list_parent_adapter = new EventListParentAdapterOperator(eventInformation,getActivity());
                 event_recycler_view_parent.setHasFixedSize(true);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
                 event_recycler_view_parent.setLayoutManager(mLayoutManager);
