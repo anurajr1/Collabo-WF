@@ -7,6 +7,7 @@
 package com.anuraj.project.collabowf.fragment_operator;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -31,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.anuraj.project.collabowf.utils.AppConstants.LOGIN_PREFERENCES;
+
 public class AlertFragmentOperator extends Fragment {
 
     DatabaseReference databaseReference;
@@ -42,11 +45,15 @@ public class AlertFragmentOperator extends Fragment {
     EventInformation eventInformation = new EventInformation();
     ArrayList<EventDates> eventDatesArrayList;
 
+    SharedPreferences pref;
+
     public AlertFragmentOperator(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.alertfragment, container, false);
+        //shared prefereance insatnce
+        pref = getContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading Data");
         progressDialog.show();
@@ -85,9 +92,11 @@ public class AlertFragmentOperator extends Fragment {
                             events.setEventStatus(alertModel.getStatus());
                             events.setEventName(alertModel.getName() + " assigned to " + alertModel.getStatus() + " on " + alertModel.getSelecteddate());
                         }
-                        //to handle the null alert listing
-                        if(events.getEventId()!=null){
-                            eventsArrayList.add(events);
+                        //to handle the null alert listing and filtering of only specific operator related alerts
+                        if(events.getEventId()!=null) {
+                            if (events.getEventId().equalsIgnoreCase(pref.getString("employeeId", null))) {
+                                eventsArrayList.add(events);
+                            }
                         }
                 }
                     if(!eventsArrayList.isEmpty()){
