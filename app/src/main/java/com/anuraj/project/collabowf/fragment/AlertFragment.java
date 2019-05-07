@@ -38,7 +38,8 @@ public class AlertFragment extends Fragment {
     AlertModel alertModel;
     RecyclerView event_recycler_view_parent;
     EventListParentAdapter event_list_parent_adapter;
-    EventInformation eventInformation = new EventInformation();;
+    EventInformation eventInformation = new EventInformation();
+    ArrayList<EventDates> eventDatesArrayList;
 
     public AlertFragment(){}
     @Override
@@ -53,13 +54,13 @@ public class AlertFragment extends Fragment {
     }
 
     private void setAlertsDataAdapterAndRecyclerView() {
-        ArrayList<EventDates> eventDatesArrayList;
-        eventDatesArrayList = new ArrayList<>();
+
+
         databaseReference = FirebaseDatabase.getInstance().getReference("alerts");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
+                eventDatesArrayList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     EventDates eventDates = new EventDates();
                     eventDates.setDate(dataSnapshot.getKey());
@@ -71,10 +72,16 @@ public class AlertFragment extends Fragment {
                         if((alertModel.getStatus().equalsIgnoreCase("On Leave")) && (alertModel.getSupervisorseen().equalsIgnoreCase("false"))) {
                             events.setEventId(alertModel.getId());
                             events.setEventDate(alertModel.getSelecteddate());
+                            events.setEventAlertDate(eventDates.getDate());
+                            events.setEventOPName(alertModel.getName());
+                            events.setEventStatus(alertModel.getStatus());
                             events.setEventName(alertModel.getName() + " requested for Leave on " + alertModel.getSelecteddate());
                         }else if(alertModel.getSupervisorseen().equalsIgnoreCase("false")){
                             events.setEventId(alertModel.getId());
                             events.setEventDate(alertModel.getSelecteddate());
+                            events.setEventAlertDate(eventDates.getDate());
+                            events.setEventOPName(alertModel.getName());
+                            events.setEventStatus(alertModel.getStatus());
                             events.setEventName(alertModel.getName() + " assigned to " + alertModel.getStatus() + " on " + alertModel.getSelecteddate());
                         }
                         //to handle the null alert listing
