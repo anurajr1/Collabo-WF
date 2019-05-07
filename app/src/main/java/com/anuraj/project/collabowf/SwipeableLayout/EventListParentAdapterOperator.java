@@ -97,40 +97,6 @@ public class EventListParentAdapterOperator extends RecyclerView.Adapter<EventLi
 
 
             }
-
-
-
-            @Override
-            public void onLeftClicked(int position) {
-                //for alert model
-                mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
-                // Read from the database
-                mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.child(eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate()).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).getValue() != null) {
-                            //update the record in alert table
-                            AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"true","true",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
-
-                            mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).setValue(alertmod);
-
-                            //  eventListChildAdapter.notifyItemRemoved(position);
-                            //  eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
-
-                            eventListChildAdapter.notifyDataSetChanged();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-                        Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
-            }
-
-
         });
 
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
