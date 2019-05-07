@@ -1,7 +1,7 @@
 /*
  * *
  *  * Created by Anuraj R (a4anurajr@gmail.com) on 2019
- *  * Last modified 3/5/19 3:52 PM
+ *  * Last modified 7/5/19 11:10 AM
  *
  */
 package com.anuraj.project.collabowf.model;
@@ -10,6 +10,25 @@ public class Events {
     private String eventId;
     private String eventName;
     private String eventDate;
+    private  String eventAlertDate;
+    private  String eventStatus;
+
+
+    public String getEventAlertDate() {
+        return eventAlertDate;
+    }
+
+    public void setEventAlertDate(String eventAlertDate) {
+        this.eventAlertDate = eventAlertDate;
+    }
+
+    public String getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(String eventStatus) {
+        this.eventStatus = eventStatus;
+    }
 
     public String getEventDate() {
         return eventDate;
