@@ -25,9 +25,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anuraj.project.collabowf.fragment.AlertFragment;
 import com.anuraj.project.collabowf.fragment.ProfileFragment;
 import com.anuraj.project.collabowf.fragment.TeamCalenderFragment;
 import com.anuraj.project.collabowf.fragment.TeamFragment;
+import com.anuraj.project.collabowf.fragment_operator.AlertFragmentOperator;
 import com.anuraj.project.collabowf.fragment_operator.HomeFragmentOperator;
 import com.anuraj.project.collabowf.fragment_operator.TeamFragmentOperator;
 
@@ -89,6 +91,11 @@ public class OperatorMainActivity extends AppCompatActivity
             case R.id.nav_my_team:
                 fragment = new TeamFragmentOperator();
                 title =getString(R.string.nav_team);
+                break;
+
+            case R.id.nav_alert:
+                fragment = new AlertFragmentOperator();
+                title =getString(R.string.nav_alert);
                 break;
 
             case R.id.nav_send:
