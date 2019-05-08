@@ -426,7 +426,8 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     @Override
     public void changeBackground() {
         viewType = DAY_VIEW;
-
+        //chnage the button color while click
+        changeButtonBackground(buttonDayView);
     }
 
     // This will remove the event from calendar
