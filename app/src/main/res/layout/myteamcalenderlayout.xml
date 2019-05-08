@@ -66,4 +66,11 @@
         app:typeface="fonts/RalewayMedium.ttf"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
+    <LinearLayout
+        android:id="@+id/calendar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_below="@id/button_container"
+        android:orientation="vertical" />
 </RelativeLayout>
