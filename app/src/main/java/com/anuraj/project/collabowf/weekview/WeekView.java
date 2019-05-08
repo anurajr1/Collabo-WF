@@ -55,7 +55,6 @@ public class WeekView extends View {
     String textTypefaceName;
     @Deprecated
     private int mDayNameLength = LENGTH_LONG;
-    private SharedPreferences calendarPreference;
     private Calendar mToday;
     private Calendar mStartDate;
     private int mStartMinute;
@@ -519,8 +518,8 @@ public class WeekView extends View {
 
         // Initialise Shared Preferences
 
-        calendarPreference = mContext.getSharedPreferences
-                (CALENDAR_PREFERENCES, Context.MODE_PRIVATE);
+//        calendarPreference = mContext.getSharedPreferences
+//                (CALENDAR_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     // Set the typeface of all the texts
@@ -1688,9 +1687,9 @@ public class WeekView extends View {
                     setNumberOfVisibleDays(1);
                     Calendar date = rectanglesWithDate.get(rectF);
                     // Store date in the shared preference
-                    SharedPreferences.Editor editor = calendarPreference.edit();
-                    editor.putLong(DATE_KEY_WEEK, date.getTimeInMillis());
-                    editor.commit();
+//                    SharedPreferences.Editor editor = calendarPreference.edit();
+//                    editor.putLong(DATE_KEY_WEEK, date.getTimeInMillis());
+//                    editor.commit();
                     goToDate(date);
 
                     rectanglesWithDate.clear();
