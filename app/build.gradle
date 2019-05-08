@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.github.tibolte:agendacalendarview:1.0.4'
 
 
+    implementation 'com.roomorama:caldroid:3.0.1'
     //sticky header
 //    implementation 'se.emilsjolander:stickylistheaders:2.7.0'
 //    implementation 'io.reactivex:rxjava:1.1.1'
