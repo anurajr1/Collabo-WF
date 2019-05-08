@@ -8,7 +8,6 @@
 package com.anuraj.project.collabowf.bottom_sheet;
 
 import android.app.Dialog;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -18,13 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.anuraj.project.collabowf.MainActivity;
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.model.AlertModel;
-import com.anuraj.project.collabowf.model.OperatorList;
 import com.anuraj.project.collabowf.model.RecordModel;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 import static com.anuraj.project.collabowf.utils.AppConstants.AFTERNOON_SHIFT;
@@ -70,7 +65,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         TextView opDateText = (TextView) view.findViewById(R.id.textView_zero_date);
         opDateText.setText(SelectedDate);
 
-
         tickMng = (ImageView) view.findViewById(R.id.imageView5);
         tickMng.setVisibility(View.GONE);
         tickAfternoon = (ImageView) view.findViewById(R.id.imageView6);
@@ -80,6 +74,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         tickLeave = (ImageView) view.findViewById(R.id.imageView8);
         tickLeave.setVisibility(View.GONE);
 
+        //Set the visibility of the Tick Mark based on SHIFT
         if(shift.equalsIgnoreCase(MORNING_SHIFT)){
             tickMng.setVisibility(View.VISIBLE);
         }else if(shift.equalsIgnoreCase(AFTERNOON_SHIFT)){
@@ -91,7 +86,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         }else{
             System.out.println("Do Nothing");
         }
-
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) view.getParent()).getLayoutParams();
         final CoordinatorLayout.Behavior behavior = params.getBehavior();
@@ -125,7 +119,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                             break;
                         }
                     }
-//                    Toast.makeText(getContext(), "Bottom Sheet State Changed to: " + state, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
