@@ -216,6 +216,14 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         AlertModel alertmod = new AlertModel(opID, opName, shiftSelect,"false","false",SelectedDate);
                         mFirebaseDatabaseAlert.child((format.format(date))).child(opID).setValue(alertmod);
                         //Toast.makeText(getActivity(), "Operator "+ opName + " assigned to"+ shiftSelect + " on "+ SelectedDate, Toast.LENGTH_SHORT).show();
+                    }else{
+                        //update to the record table
+                        RecordModel recordmod = new RecordModel(opID,opName,shiftSelect);
+                        mFirebaseDatabaseDate.child((SelectedDate)).child(opID).setValue(recordmod);
+
+                        //update the record in alert table
+                        AlertModel alertmod = new AlertModel(opID, opName, shiftSelect,"false","false",SelectedDate);
+                        mFirebaseDatabaseAlert.child((format.format(date))).child(opID).setValue(alertmod);
                     }
                 }
 
