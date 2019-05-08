@@ -161,30 +161,42 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
                 for (String key : user.keySet()) {
                     for (DataSnapshot userSnapshot : dataSnapshot.child(key).getChildren()) {
                         records = userSnapshot.getValue(RecordModel.class);
-
                         String[] splitValue = key.split(",");
                         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, HH:mm:ss yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                         String nameMap = "00:00:00";
-                        String dateInString = splitValue[0]+","+" "+ nameMap + " "+splitValue[1];
-
-                        Date date = prevDate;
-
-                        try {
-                            if(prevDate==null) {
-                                date = formatter.parse(dateInString);
-                            }else{
-                                date = prevDate;
+                        for(int j =0; j<operatorNameList.size();j++){
+                            if(operatorNameList.get(j).getId().equalsIgnoreCase(records.getId())) {
+                                nameMap = operatorNameList.get(j).getListmap();
                             }
                         }
-                        catch (Exception   e){
+                        //String nameMap = "00:00:00";
+                        String dateInString = splitValue[0]+","+" "+ nameMap + " "+splitValue[1];
+                        Date date = null;
+                        try {
+                            date = formatter.parse(dateInString);
+                        }catch (Exception e){
 
                         }
+
+//                        Date date = prevDate;
+//
+//                        try {
+//                            if(prevDate==null) {
+//                                date = formatter.parse(dateInString);
+//                            }else{
+//                                date = prevDate;
+//                            }
+//                        }
+//                        catch (Exception   e){
+//
+//                        }
                         //setting the time and add 15mins
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(date);
                         cal.add(Calendar.MINUTE, 15);
-
-                        prevDate = cal.getTime();
+//
+//                        prevDate = cal.getTime();
 
                         //adding the event
                         addEvent(date,cal.getTime(),records.getStatus());
@@ -326,15 +338,32 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     @Override
     public void onEmptyViewClicked(Calendar time) {
         startEndTime = convertTime(time);
-        {
-            // This tries to add event
-            if (addEvent(startEndTime[0], startEndTime[1], "On Leave")) {
-                Toast.makeText(getContext(), "Successful", Toast.LENGTH_SHORT).show();
-                count++;
-            } else {
-                Toast.makeText(getContext(), EVENT_ADD_FAILURE_MESSAGE, Toast.LENGTH_SHORT).show();
+//        {
+//            // This tries to add event
+//            if (addEvent(startEndTime[0], startEndTime[1], "On Leave")) {
+//                Toast.makeText(getContext(), "Successful", Toast.LENGTH_SHORT).show();
+//                count++;
+//            } else {
+//                Toast.makeText(getContext(), EVENT_ADD_FAILURE_MESSAGE, Toast.LENGTH_SHORT).show();
+//            }
+//        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        Bundle bundle=new Bundle();
+        for(int j =0; j<operatorNameList.size();j++){
+            if(operatorNameList.get(j).listmap.equalsIgnoreCase(sdf.format(startEndTime[0]))){
+                bundle.putString("opName", operatorNameList.get(j).getName());
+                bundle.putString("opID", operatorNameList.get(j).getId());
+                bundle.putString("opNameListTime", sdf.format(startEndTime[0]));
             }
         }
+        bundle.putString("shift", "");
+        SimpleDateFormat dateSelectedFormat = new SimpleDateFormat("MMM d,yyyy");
+        bundle.putString("selectedTime", dateSelectedFormat.format(startEndTime[0]));
+
+        BottomSheetFragment fragment = new BottomSheetFragment();
+        fragment.setArguments(bundle);
+        fragment.show(getFragmentManager(), TAG);
     }
 
     @Override
