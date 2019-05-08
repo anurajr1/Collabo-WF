@@ -548,9 +548,8 @@ public class WeekView extends View {
         // Hide everything in the first cell (top left corner).
         //canvas.drawRect(0, 0, mTimeTextWidth + mHeaderColumnPadding * 2, mHeaderTextHeight + mHeaderRowPadding * 2, mHeaderBackgroundPaint);
         monthRect = new RectF(0, 0, mTimeTextWidth + mHeaderColumnPadding * 8, mHeaderTextHeight + mHeaderRowPadding * 68 / 15);
-        canvas.drawRect(monthRect, mHeaderBackgroundPaint); // Edited by Lakshmi
+        canvas.drawRect(monthRect, mHeaderBackgroundPaint);
 
-        // Edited by Lakshmi
         if (dayDate != null) {
             mHeaderTextPaint.setColor(Color.WHITE);
             canvas.drawText(dayDate[0], mHeaderColumnPadding * 8, mHeaderRowPadding * 3.5f, mHeaderRowTextPaint);
