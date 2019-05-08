@@ -3,7 +3,6 @@ package com.anuraj.project.collabowf.fragment;
 /**
  * Created by Anuraj R(i321994) a4anurajr@gmail.com
  */
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -38,7 +37,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import static android.content.ContentValues.TAG;
@@ -46,7 +44,6 @@ import static com.anuraj.project.collabowf.utils.AppConstants.DAY_EVENT_SIZE;
 import static com.anuraj.project.collabowf.utils.AppConstants.DAY_VIEW;
 import static com.anuraj.project.collabowf.utils.AppConstants.DD_MMM_YYYY;
 import static com.anuraj.project.collabowf.utils.AppConstants.END;
-import static com.anuraj.project.collabowf.utils.AppConstants.EVENT_ADD_FAILURE_MESSAGE;
 import static com.anuraj.project.collabowf.utils.AppConstants.MONTH_VIEW;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_LIGHT;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_REGULAR;
@@ -88,7 +85,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     Date prevDate = null;
 
     List<OperatorList> operatorNameList = new ArrayList<OperatorList>();
-
 
     // Month view fragment object
     private CustomMonthCalendar customMonthCalendar;
@@ -386,7 +382,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        //Toast.makeText(getContext(), "Pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Bundle bundle=new Bundle();
         for(int j =0; j<operatorNameList.size();j++){
@@ -419,15 +414,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
     @Override
     public void onEmptyViewClicked(Calendar time) {
         startEndTime = convertTime(time);
-//        {
-//            // This tries to add event
-//            if (addEvent(startEndTime[0], startEndTime[1], "On Leave")) {
-//                Toast.makeText(getContext(), "Successful", Toast.LENGTH_SHORT).show();
-//                count++;
-//            } else {
-//                Toast.makeText(getContext(), EVENT_ADD_FAILURE_MESSAGE, Toast.LENGTH_SHORT).show();
-//            }
-//        }
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Bundle bundle=new Bundle();
@@ -477,11 +463,7 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         endEventTime.setTime(endTime);
         events = extractEvent(month + 1);
         event = new WeekViewEvent(count, eventTitle, startEventTime, endEventTime);
-//        if (startTime.getTime() < today.getTime()) {
-//            event.setColor(getResources().getColor(R.color.event_color_past));
-//        } else {
 
-       // }
         try {
             if (eventTitle.equalsIgnoreCase("Morning Shift")) {
                 event.setColor(getResources().getColor(R.color.sapUiNegativeElement_mng));
