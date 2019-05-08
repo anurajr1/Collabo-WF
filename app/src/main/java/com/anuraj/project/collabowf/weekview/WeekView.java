@@ -332,8 +332,8 @@ public class WeekView extends View {
             mOverlappingEventGap = a.getDimensionPixelSize(R.styleable.WeekView_overlappingEventGap, mOverlappingEventGap);
             mEventMarginVertical = a.getDimensionPixelSize(R.styleable.WeekView_eventMarginVertical, mEventMarginVertical);
             mXScrollingSpeed = a.getFloat(R.styleable.WeekView_xScrollingSpeed, mXScrollingSpeed);
-            textTypefaceName = a.getString(R.styleable.WeekView_typeface); // added by Muddassir
-            mHeaderRowTextColor = a.getInt(R.styleable.WeekView_headerRowTextColor, mHeaderRowTextColor); // added by Muddassir
+            textTypefaceName = a.getString(R.styleable.WeekView_typeface);
+            mHeaderRowTextColor = a.getInt(R.styleable.WeekView_headerRowTextColor, mHeaderRowTextColor);
         } finally {
             a.recycle();
         }
@@ -707,7 +707,7 @@ public class WeekView extends View {
 
         // Draw the header background.
         headerRect = new RectF(0, 0, getWidth(), mHeaderTextHeight + mHeaderRowPadding * 68 / 15);
-        canvas.drawRect(headerRect, mHeaderBackgroundPaint); // Edited by Muddassir to be changed back to 68 /15
+        canvas.drawRect(headerRect, mHeaderBackgroundPaint);
 
         // Draw the header row texts.
         startPixel = startFromPixel;
@@ -726,7 +726,7 @@ public class WeekView extends View {
                     mHeaderTextHeight + mHeaderRowPadding, sameDay ? mTodayHeaderTextPaint : mHeaderTextPaint);*/
 
             /** Edited to show different texts in one day view and week view
-             *  Added by Muddassir
+             *
              */
             if (this.mNumberOfVisibleDays == 1) {
                 /*canvas.drawText(dayLabel, startPixel + mWidthPerDay / 2,
