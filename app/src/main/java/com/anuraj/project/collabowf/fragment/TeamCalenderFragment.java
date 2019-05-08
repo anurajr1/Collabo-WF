@@ -3,8 +3,11 @@ package com.anuraj.project.collabowf.fragment;
 /**
  * Created by Anuraj R(i321994) a4anurajr@gmail.com
  */
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -27,6 +30,7 @@ import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.bottom_sheet.BottomSheetFragment;
 import com.anuraj.project.collabowf.model.OperatorList;
 import com.anuraj.project.collabowf.model.RecordModel;
+import com.anuraj.project.collabowf.weekview.CustomMonthCalendar;
 import com.anuraj.project.collabowf.weekview.WeekView;
 import com.anuraj.project.collabowf.weekview.WeekViewEvent;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +38,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 
 import static android.content.ContentValues.TAG;
 import static com.anuraj.project.collabowf.utils.AppConstants.DAY_EVENT_SIZE;
@@ -41,6 +47,7 @@ import static com.anuraj.project.collabowf.utils.AppConstants.DAY_VIEW;
 import static com.anuraj.project.collabowf.utils.AppConstants.DD_MMM_YYYY;
 import static com.anuraj.project.collabowf.utils.AppConstants.END;
 import static com.anuraj.project.collabowf.utils.AppConstants.EVENT_ADD_FAILURE_MESSAGE;
+import static com.anuraj.project.collabowf.utils.AppConstants.MONTH_VIEW;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_LIGHT;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_REGULAR;
 import static com.anuraj.project.collabowf.utils.AppConstants.RALEWAY_SEMI_BOLD;
@@ -82,6 +89,56 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
 
     List<OperatorList> operatorNameList = new ArrayList<OperatorList>();
 
+
+    // Month view fragment object
+    private CustomMonthCalendar customMonthCalendar;
+
+    // Month view listener
+    final CaldroidListener listener = new CaldroidListener() {
+
+        @Override
+        public void onSelectDate(Date date, View view) {
+            // this is setting background of the selected date
+            //customMonthCalendar.setBackgroundResourceForDate(R.color.event_color_upcoming, date);
+            customMonthCalendar.setTextColorForDate(R.color.caldroid_black, date);
+            customMonthCalendar.refreshView();
+            FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
+            t.remove(customMonthCalendar);
+            t.commit();
+
+            // this is opening the day view of the selected date
+            Calendar requiredDate = Calendar.getInstance();
+            requiredDate.setTime(date);
+            mWeekView.setVisibility(View.VISIBLE);
+            mWeekView.setNumberOfVisibleDays(1);
+            mWeekView.goToDate(requiredDate);
+            changeButtonBackground(buttonDayView);
+
+            // Set the view type to Day view - Helps to navigate to Weekview when your are inside the selected Date from month calender
+            viewType = DAY_VIEW;
+        }
+
+        @Override
+        public void onChangeMonth(int month, int year) {
+        }
+
+        @Override
+        public void onLongClickDate(Date date, View view) {
+            Toast.makeText(getContext(),
+                    "Long click " + formatter.format(date),
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCaldroidViewCreated() {
+            if (customMonthCalendar.getLeftArrowButton() != null) {
+                //monthText = customMonthCalendar.getMonthTitleTextView();
+                //monthText.setTypeface(ralewaySemiBold); // Added by Muddassir
+            }
+        }
+
+    };
+
     public TeamCalenderFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,7 +157,7 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
             @Override
             public void onClick(View v) {
                 if (viewType != DAY_VIEW) {
-                    //getActivity().getSupportFragmentManager().beginTransaction().remove(customMonthCalendar).commitAllowingStateLoss();
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(customMonthCalendar).commitAllowingStateLoss();
                     mWeekView.setVisibility(View.VISIBLE);
 
                     // Lets change some dimensions to best fit the view.
@@ -123,7 +180,7 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
             @Override
             public void onClick(View v) {
                 if (viewType != WEEK_VIEW) {
-                    //getActivity().getSupportFragmentManager().beginTransaction().remove(customMonthCalendar).commitAllowingStateLoss();
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(customMonthCalendar).commitAllowingStateLoss();
                     mWeekView.setVisibility(View.VISIBLE);
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension
                             (TypedValue.COMPLEX_UNIT_SP, WEEK_EVENT_SIZE, getResources().getDisplayMetrics()));
@@ -132,15 +189,34 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
                     mWeekView.setNumberOfVisibleDays(WEEK_VIEW);
                     viewType = WEEK_VIEW;
                     changeButtonBackground(buttonWeekView);
-
-//                    if (calendarPreference.contains(DATE_KEY_WEEK)) {
-//                        long dateInMillis = calendarPreference.getLong(DATE_KEY_WEEK, 0);
-//                        Calendar calendar = Calendar.getInstance();
-//                        calendar.setTimeInMillis(dateInMillis);
-//                        mWeekView.goToDate(calendar);
-//                        mWeekView.notifyDatasetChanged();
-//                    }
                     mWeekView.setFromMonthView(false);
+                }
+            }
+        });
+
+
+        buttonMonthView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("");
+                if (viewType != MONTH_VIEW) {
+                    if (viewType == WEEK_VIEW) {
+                        mWeekView.setFromMonthView(true);
+                    }
+                    viewType = MONTH_VIEW;
+                    mWeekView.setVisibility(View.GONE);
+                    FragmentManager manager;
+                    // open the month view calendar
+                    Bundle args = new Bundle();
+                    Calendar cal = Calendar.getInstance();
+
+                    customMonthCalendar.setArguments(args);
+                    manager = getActivity().getSupportFragmentManager();
+                    manager.beginTransaction()
+                            .replace(R.id.calendar_layout, customMonthCalendar).commitAllowingStateLoss();
+
+                    customMonthCalendar.refreshView();
+                    changeButtonBackground(buttonMonthView);
                 }
             }
         });
@@ -279,6 +355,11 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
        // mWeekView.setOperatorNames(strOperator);
         //mWeekView.setOperatorLength(3);
         mWeekView.setEmptyViewClickListener(this);
+
+        // Caldroid fragment for month view calendar
+        customMonthCalendar = new CustomMonthCalendar();
+
+        customMonthCalendar.setCaldroidListener(listener);
     }
 
 
