@@ -150,15 +150,15 @@ public class WeekView extends View {
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             // Swipe gesture detection on Empty view or event and assign listeners to it
-            if (mNumberOfVisibleDays == 1
-                    && (e1.getY() > headerRect.height() && e2.getY() > headerRect.height())
-                    && (e1.getX() > columnRect.width() && e2.getX() > columnRect.width())) {
-                if (Math.abs(e2.getY() - e1.getY()) > minYDistance) {
-                    mCurrentFlingDirection = Direction.VERTICAL;
-                } else {
-                    mCurrentFlingDirection = Direction.HORIZONTAL;
-                }
-            } else {
+//            if (mNumberOfVisibleDays == 1
+//                    && (e1.getY() > headerRect.height() && e2.getY() > headerRect.height())
+//                    && (e1.getX() > columnRect.width() && e2.getX() > columnRect.width())) {
+//                if (Math.abs(e2.getY() - e1.getY()) > minYDistance) {
+//                    mCurrentFlingDirection = Direction.VERTICAL;
+//                } else {
+//                    mCurrentFlingDirection = Direction.HORIZONTAL;
+//                }
+//            } else {
                 if (mCurrentScrollDirection == Direction.NONE) {
                     if (Math.abs(distanceX) > Math.abs(distanceY)) {
                         mCurrentScrollDirection = Direction.HORIZONTAL;
@@ -170,7 +170,7 @@ public class WeekView extends View {
                 }
                 mDistanceX = distanceX;
                 mDistanceY = distanceY;
-            }
+         //   }
             invalidate();
             return true;
         }
@@ -181,37 +181,37 @@ public class WeekView extends View {
             mStickyScroller.forceFinished(true);
 
             // Swipe gesture detection on Empty view or event and assign listeners to it
-            if (mNumberOfVisibleDays == 1
-                    && mCurrentFlingDirection == Direction.HORIZONTAL
-                    && (e1.getY() > headerRect.height() && e2.getY() > headerRect.height())
-                    && (e1.getX() > columnRect.width() && e2.getX() > columnRect.width())) {
-                mScroller.forceFinished(true);
-                mStickyScroller.forceFinished(true);
-                mScroller.fling((int) mCurrentOrigin.x, 0, 0, 0,
-                        Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 0);
-                // If the swipe was on an event then trigger the callback.
-                if (mEventRects != null && mEventClickListener != null) {
-                    List<EventRect> reversedEventRects = mEventRects;
-                    Collections.reverse(reversedEventRects);
-                    for (EventRect event : reversedEventRects) {
-                        if (event.rectF != null && e1.getX() > event.rectF.left && e1.getX() < event.rectF.right && e1.getY() > event.rectF.top && e1.getY() < event.rectF.bottom) {
-                            mEventClickListener.onEventSwipe(event.originalEvent, event.rectF);
-                            playSoundEffect(SoundEffectConstants.CLICK);
-                            return true;
-                        }
-                    }
-                }
-
-                // If the swipe was on an empty space, then trigger the callback.
-                if (mEmptyViewClickListener != null && e1.getX() > mHeaderColumnWidth && e1.getY() > (mHeaderTextHeight + mHeaderRowPadding * 68 / 15 + mHeaderMarginBottom)) { // Changed
-                    Calendar selectedTime = getTimeFromPoint(e1.getX(), e1.getY());
-                    if (selectedTime != null) {
-                        playSoundEffect(SoundEffectConstants.CLICK);
-                        mEmptyViewClickListener.onEmptyViewSwiped(selectedTime);
-                        return true;
-                    }
-                }
-            } else {
+//            if (mNumberOfVisibleDays == 1
+//                    && mCurrentFlingDirection == Direction.HORIZONTAL
+//                    && (e1.getY() > headerRect.height() && e2.getY() > headerRect.height())
+//                    && (e1.getX() > columnRect.width() && e2.getX() > columnRect.width())) {
+//                mScroller.forceFinished(true);
+//                mStickyScroller.forceFinished(true);
+//                mScroller.fling((int) mCurrentOrigin.x, 0, 0, 0,
+//                        Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 0);
+//                // If the swipe was on an event then trigger the callback.
+//                if (mEventRects != null && mEventClickListener != null) {
+//                    List<EventRect> reversedEventRects = mEventRects;
+//                    Collections.reverse(reversedEventRects);
+//                    for (EventRect event : reversedEventRects) {
+//                        if (event.rectF != null && e1.getX() > event.rectF.left && e1.getX() < event.rectF.right && e1.getY() > event.rectF.top && e1.getY() < event.rectF.bottom) {
+//                            mEventClickListener.onEventSwipe(event.originalEvent, event.rectF);
+//                            playSoundEffect(SoundEffectConstants.CLICK);
+//                            return true;
+//                        }
+//                    }
+//                }
+//
+//                // If the swipe was on an empty space, then trigger the callback.
+//                if (mEmptyViewClickListener != null && e1.getX() > mHeaderColumnWidth && e1.getY() > (mHeaderTextHeight + mHeaderRowPadding * 68 / 15 + mHeaderMarginBottom)) { // Changed
+//                    Calendar selectedTime = getTimeFromPoint(e1.getX(), e1.getY());
+//                    if (selectedTime != null) {
+//                        playSoundEffect(SoundEffectConstants.CLICK);
+//                        mEmptyViewClickListener.onEmptyViewSwiped(selectedTime);
+//                        return true;
+//                    }
+//                }
+//            } else {
                 //quarterCount = ((mEndMinute - mStartMinute) / 15);
                 quarterCount = operatorLength;
                 if (mCurrentFlingDirection == Direction.HORIZONTAL) {
@@ -234,7 +234,7 @@ public class WeekView extends View {
                     }
                 }
                 ViewCompat.postInvalidateOnAnimation(WeekView.this);
-            }
+        //    }
             return true;
         }
 
