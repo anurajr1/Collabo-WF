@@ -14,6 +14,15 @@ public class User {
     public String qualification;
     public String certificate;
     public String propic;
+    public String supid;
+
+    public String getSupid() {
+        return supid;
+    }
+
+    public void setSupid(String supid) {
+        this.supid = supid;
+    }
 
     public String getPropic() {
         return propic;
