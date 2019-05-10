@@ -96,6 +96,7 @@ public class LoginActivity extends Activity {
                                     pref = getApplicationContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
                                     SharedPreferences.Editor editor = pref.edit();
                                     editor.putString("employeeId", users.id);
+                                    editor.putString("supId", users.supid);
                                     editor.putString("employeePassword", users.password);
                                     editor.putString("employeeDomain", users.domain);
                                     editor.putString("employeeName", users.name);
@@ -219,6 +220,7 @@ public class LoginActivity extends Activity {
                                     pref = getApplicationContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
                                     SharedPreferences.Editor editor = pref.edit();
                                     editor.putString("employeeId", users.id);
+                                    editor.putString("supId", users.supid);
                                     editor.putString("employeePassword", users.password);
                                     editor.putString("employeeDomain", users.domain);
                                     editor.putString("employeeName", users.name);
