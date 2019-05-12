@@ -26,8 +26,8 @@ public class AlertDataAdapter extends RecyclerView.Adapter<AlertDataAdapter.Aler
         public AlertViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
-            nationality = (TextView) view.findViewById(R.id.nationality);
-            club = (TextView) view.findViewById(R.id.club);
+//            nationality = (TextView) view.findViewById(R.id.nationality);
+//            club = (TextView) view.findViewById(R.id.club);
 //            rating = (TextView) view.findViewById(R.id.rating);
 //            age = (TextView) view.findViewById(R.id.age);
         }
