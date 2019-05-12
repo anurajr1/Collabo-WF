@@ -13,6 +13,26 @@ public class Events {
     private  String eventAlertDate;
     private  String eventStatus;
     private  String eventOPName;
+    private  String eventSupervisorStatus;
+
+
+    public String getEventSupervisorStatus() {
+        return eventSupervisorStatus;
+    }
+
+    public void setEventSupervisorStatus(String eventSupervisorStatus) {
+        this.eventSupervisorStatus = eventSupervisorStatus;
+    }
+
+    public String getEventPrimaryKey() {
+        return eventPrimaryKey;
+    }
+
+    public void setEventPrimaryKey(String eventPrimaryKey) {
+        this.eventPrimaryKey = eventPrimaryKey;
+    }
+
+    private  String eventPrimaryKey;
 
     public String getEventOPName() {
         return eventOPName;
