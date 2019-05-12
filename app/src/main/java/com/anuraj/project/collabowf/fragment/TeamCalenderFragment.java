@@ -27,6 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.bottom_sheet.BottomSheetFragment;
+import com.anuraj.project.collabowf.bottom_sheet.BottomSheetMonthView;
 import com.anuraj.project.collabowf.model.OperatorList;
 import com.anuraj.project.collabowf.model.RecordModel;
 import com.anuraj.project.collabowf.weekview.CustomMonthCalendar;
@@ -120,9 +121,12 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
 
         @Override
         public void onLongClickDate(Date date, View view) {
-            Toast.makeText(getContext(),
-                    "Long click " + formatter.format(date),
-                    Toast.LENGTH_SHORT).show();
+            Bundle bundle=new Bundle();
+            SimpleDateFormat dateFormater = new SimpleDateFormat("MMM d,yyyy");
+            bundle.putString("selectedDate", dateFormater.format(date));
+            BottomSheetMonthView fragment = new BottomSheetMonthView();
+            fragment.setArguments(bundle);
+            fragment.show(getFragmentManager(), TAG);
         }
 
         @Override
