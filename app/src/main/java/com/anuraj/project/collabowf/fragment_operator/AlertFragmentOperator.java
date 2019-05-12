@@ -77,19 +77,21 @@ public class AlertFragmentOperator extends Fragment {
                     for (DataSnapshot dataAlert : dataSnapshot.getChildren()) {
                         alertModel = dataAlert.getValue(AlertModel.class);
                         Events events = new Events();
-                        if((alertModel.getStatus().equalsIgnoreCase("On Leave")) && (alertModel.getSupervisorseen().equalsIgnoreCase("false"))) {
+                        if((alertModel.getStatus().equalsIgnoreCase("On Leave"))) {
                             events.setEventId(alertModel.getId());
                             events.setEventDate(alertModel.getSelecteddate());
                             events.setEventAlertDate(eventDates.getDate());
                             events.setEventOPName(alertModel.getName());
                             events.setEventStatus(alertModel.getStatus());
-                            events.setEventName(alertModel.getName() + " requested for Leave on " + alertModel.getSelecteddate());
-                        }else if(alertModel.getSupervisorseen().equalsIgnoreCase("false")){
+                            events.setEventName("You requested for Leave on " + alertModel.getSelecteddate());
+                            events.setEventSupervisorStatus(alertModel.getSupervisorseen());
+                        }else {
                             events.setEventId(alertModel.getId());
                             events.setEventDate(alertModel.getSelecteddate());
                             events.setEventAlertDate(eventDates.getDate());
                             events.setEventOPName(alertModel.getName());
                             events.setEventStatus(alertModel.getStatus());
+                            events.setEventSupervisorStatus(alertModel.getSupervisorseen());
                             events.setEventName(alertModel.getName() + " assigned to " + alertModel.getStatus() + " on " + alertModel.getSelecteddate());
                         }
                         //to handle the null alert listing and filtering of only specific operator related alerts
