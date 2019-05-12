@@ -189,7 +189,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         //get current date
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
-
+        Long dateLong = date.getTime();
         try {
             // Read from the database
             // get reference to 'recordmodel/date' node
@@ -207,7 +207,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                         //update the record in alert table
                         AlertModel alertmod = new AlertModel(opID, opName, shiftSelect,"false","false",SelectedDate);
-                        mFirebaseDatabaseAlert.child((format.format(date))).child(opID).setValue(alertmod);
+                        mFirebaseDatabaseAlert.child((format.format(date))).child(dateLong.toString()).setValue(alertmod);
                         //Toast.makeText(getActivity(), "Operator "+ opName + " assigned to"+ shiftSelect + " on "+ SelectedDate, Toast.LENGTH_SHORT).show();
                     }else{
                         //update to the record table
@@ -216,7 +216,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                         //update the record in alert table
                         AlertModel alertmod = new AlertModel(opID, opName, shiftSelect,"false","false",SelectedDate);
-                        mFirebaseDatabaseAlert.child((format.format(date))).child(opID).setValue(alertmod);
+                        mFirebaseDatabaseAlert.child((format.format(date))).child(dateLong.toString()).setValue(alertmod);
                     }
                 }
 
