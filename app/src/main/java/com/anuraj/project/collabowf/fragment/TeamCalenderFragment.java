@@ -128,8 +128,6 @@ public class TeamCalenderFragment extends Fragment implements WeekView.MonthChan
         @Override
         public void onCaldroidViewCreated() {
             if (customMonthCalendar.getLeftArrowButton() != null) {
-                //monthText = customMonthCalendar.getMonthTitleTextView();
-                //monthText.setTypeface(ralewaySemiBold); // Added by Muddassir
             }
         }
 
