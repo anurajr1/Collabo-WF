@@ -38,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -345,12 +346,55 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
     }
 
 
+
+
+
+
+
+
+//    public void updateEventCalender(String SelectedDate){
+//        //get current date
+//        Date date = Calendar.getInstance().getTime();
+//        SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
+//
+//    // get reference to 'recordmodel/date' node
+//        mFirebaseDatabaseDate = mFirebaseInstance.getReference("recordmodel");
+//        // Read from the database
+//        mFirebaseDatabaseDate.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                //Calendar calendar = null;
+//                if (dataSnapshot.child(SelectedDate).child(pref.getString("employeeId", null)).getValue()!=null) {
+//                    //update in record table
+//                    mFirebaseDatabaseDate.child(SelectedDate).child(pref.getString("employeeId", null)).child("status").setValue("On Leave");
+//
+//                    //update the record in alert table
+//                    AlertModel recordmod = new AlertModel(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false", dateSelected);
+//                    mFirebaseDatabaseAlert.child((format.format(date))).child(pref.getString("employeeId", null)).setValue(recordmod);
+//                }else{
+//                    createEvent(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false",dateSelected);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
+//
+//    }
+
+
+
+
     public void updateEventCalender(String SelectedDate){
         //get current date
         Date date = Calendar.getInstance().getTime();
+        Long dateLong = date.getTime();
         SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
 
-    // get reference to 'recordmodel/date' node
+        // get reference to 'recordmodel/date' node
         mFirebaseDatabaseDate = mFirebaseInstance.getReference("recordmodel");
         // Read from the database
         mFirebaseDatabaseDate.addValueEventListener(new ValueEventListener() {
@@ -363,8 +407,9 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
 
                     //update the record in alert table
                     AlertModel recordmod = new AlertModel(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false", dateSelected);
-                    mFirebaseDatabaseAlert.child((format.format(date))).child(pref.getString("employeeId", null)).setValue(recordmod);
-                }else{
+                    mFirebaseDatabaseAlert.child((format.format(date))).child(dateLong.toString()).setValue(recordmod);
+                }
+                else{
                     createEvent(pref.getString("employeeId", null),pref.getString("employeeName", null),"On Leave","false","false",dateSelected);
                 }
             }
@@ -377,9 +422,11 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         });
 
     }
-
-
     private void createEvent(String id, String name, String status, String operatorseen, String supervisorseen, String selecteddate) {
+        //get current date
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("MMM d,yyyy");
+        Long dateLong = date.getTime();
 
         RecordModel recordmod = new RecordModel(id,name,status);
         AlertModel alertNew = new AlertModel(id,name,status,operatorseen,supervisorseen,selecteddate);
@@ -387,10 +434,36 @@ public class HomeFragmentOperator extends Fragment implements CalendarPickerCont
         //update the record in records table
         mFirebaseDatabaseRecords.child((selecteddate)).child(id).setValue(recordmod);
         //update the record in alert table
-        mFirebaseDatabaseAlert.child((selecteddate)).child(id).setValue(alertNew);
-
-        // addUserChangeListener();
+        mFirebaseDatabaseAlert.child(format.format(date)).child(dateLong.toString()).setValue(alertNew);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    private void createEvent(String id, String name, String status, String operatorseen, String supervisorseen, String selecteddate) {
+//
+//        RecordModel recordmod = new RecordModel(id,name,status);
+//        AlertModel alertNew = new AlertModel(id,name,status,operatorseen,supervisorseen,selecteddate);
+//
+//        //update the record in records table
+//        mFirebaseDatabaseRecords.child((selecteddate)).child(id).setValue(recordmod);
+//        //update the record in alert table
+//        mFirebaseDatabaseAlert.child((selecteddate)).child(id).setValue(alertNew);
+//
+//        // addUserChangeListener();
+//    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
