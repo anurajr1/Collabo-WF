@@ -63,51 +63,51 @@ public class EventListParentAdapterOperator extends RecyclerView.Adapter<EventLi
         EventListChildAdapter eventListChildAdapter = new EventListChildAdapter(this.activity,eventInformation.getEventsDatesList().get(position).getEventsArrayList());
         holder.event_recycler_view_child.setAdapter(eventListChildAdapter);
 
-        SwipeController swipeController = new SwipeController(new SwipeControllerActions() {
-            @Override
-            public void onRightClicked(int position) {
-
-                //for alert model
-                mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
-                // Read from the database
-                mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.child(eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate()).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).getValue() != null) {
-                            //update the record in alert table
-                            AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"false","true",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
-
-                            mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).setValue(alertmod);
-
-                          //  eventListChildAdapter.notifyItemRemoved(position);
-                          //  eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
-
-                            eventListChildAdapter.notifyDataSetChanged();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-                        Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
-
-
-
-            }
-        });
-
-        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-        itemTouchhelper.attachToRecyclerView(holder.event_recycler_view_child);
-
-        holder.event_recycler_view_child.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                swipeController.onDraw(c);
-            }
-        });
+//        SwipeController swipeController = new SwipeController(new SwipeControllerActions() {
+//            @Override
+//            public void onRightClicked(int position) {
+//
+//                //for alert model
+//                mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
+//                // Read from the database
+//                mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                        if (dataSnapshot.child(eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate()).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).getValue() != null) {
+//                            //update the record in alert table
+//                            AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"false","true",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
+//
+//                            mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).setValue(alertmod);
+//
+//                          //  eventListChildAdapter.notifyItemRemoved(position);
+//                          //  eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
+//
+//                            eventListChildAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError error) {
+//                        // Failed to read value
+//                        Log.w(TAG, "Failed to read value.", error.toException());
+//                    }
+//                });
+//
+//
+//
+//            }
+//        });
+//
+//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+//        itemTouchhelper.attachToRecyclerView(holder.event_recycler_view_child);
+//
+//        holder.event_recycler_view_child.addItemDecoration(new RecyclerView.ItemDecoration() {
+//            @Override
+//            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+//                swipeController.onDraw(c);
+//            }
+//        });
 
     }
 
