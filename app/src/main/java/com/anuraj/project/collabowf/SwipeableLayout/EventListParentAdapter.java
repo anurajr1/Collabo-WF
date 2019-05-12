@@ -75,18 +75,14 @@ public class EventListParentAdapter extends RecyclerView.Adapter<EventListParent
                 mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.child(eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate()).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).getValue() != null) {
                             //update the record in alert table
-                            AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"false","true",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
+                            AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"false","Rejected",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
 
-                            mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).setValue(alertmod);
+                            mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventPrimaryKey()).setValue(alertmod);
 
-                          //  eventListChildAdapter.notifyItemRemoved(position);
-                          //  eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
-
+                            eventListChildAdapter.notifyItemRemoved(position);
+                            eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
                             eventListChildAdapter.notifyDataSetChanged();
-                        }
                     }
 
                     @Override
@@ -110,18 +106,14 @@ public class EventListParentAdapter extends RecyclerView.Adapter<EventListParent
                 mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        //update the record in alert table
+                        AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"false","Accepted",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
 
-                        if (dataSnapshot.child(eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate()).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).getValue() != null) {
-                            //update the record in alert table
-                            AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"true","true",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
+                        mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventPrimaryKey()).setValue(alertmod);
 
-                            mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventId()).setValue(alertmod);
-
-                            //  eventListChildAdapter.notifyItemRemoved(position);
-                            //  eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
-
-                            eventListChildAdapter.notifyDataSetChanged();
-                        }
+                        eventListChildAdapter.notifyItemRemoved(position);
+                        eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
+                        eventListChildAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -163,4 +155,5 @@ public class EventListParentAdapter extends RecyclerView.Adapter<EventListParent
             mFirebaseInstance = FirebaseDatabase.getInstance();
         }
     }
+
 }
