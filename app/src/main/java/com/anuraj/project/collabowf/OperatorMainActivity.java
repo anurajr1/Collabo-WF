@@ -98,6 +98,11 @@ public class OperatorMainActivity extends AppCompatActivity
                 title =getString(R.string.nav_alert);
                 break;
 
+            case R.id.nav_my_profile:
+                fragment = new ProfileFragment();
+                title =getString(R.string.nav_profile);
+                break;
+
             case R.id.nav_send:
 //                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 //                sharingIntent.setType("text/plain");
