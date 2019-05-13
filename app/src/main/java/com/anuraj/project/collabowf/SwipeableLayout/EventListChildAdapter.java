@@ -48,9 +48,9 @@ public class EventListChildAdapter extends RecyclerView.Adapter<EventListChildAd
         Events events = eventsArrayList.get(position);
         holder.event_list_event_name.setText(events.getEventName());
         if(events.getEventSupervisorStatus().equalsIgnoreCase("Accepted")){
-            holder.statusView.setImageResource(R.drawable.appr);
+            holder.statusView.setImageResource(R.drawable.approve);
         }else if(events.getEventSupervisorStatus().equalsIgnoreCase("Rejected")){
-            holder.statusView.setImageResource(R.drawable.rejected);
+            holder.statusView.setImageResource(R.drawable.reject);
         }
 
 
