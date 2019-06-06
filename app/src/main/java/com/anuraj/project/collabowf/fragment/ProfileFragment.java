@@ -26,6 +26,7 @@ import com.anuraj.project.collabowf.model.User;
 import com.anuraj.project.collabowf.operator_activity.TeamMoreDetailsActivity;
 import com.anuraj.project.collabowf.operator_adapter.RecyclerViewAdapter;
 import com.anuraj.project.collabowf.operator_adapter.TeamDetails;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -91,7 +92,8 @@ public class ProfileFragment extends Fragment {
                         empMob.setText(users.getMobile());
                         empQuali.setText(users.getQualification());
                         empCerti.setText(users.getCertificate());
-                        imageLoader.DisplayImage(users.getPropic(),proPic);
+                        //imageLoader.DisplayImage(users.getPropic(),proPic);
+                        Glide.with(getContext()).load(users.getPropic()).into(proPic);
 
                     }
                 }
