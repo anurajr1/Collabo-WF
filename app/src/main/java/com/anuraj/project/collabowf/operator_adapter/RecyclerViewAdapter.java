@@ -22,6 +22,7 @@ import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.SplashScreen;
 import com.anuraj.project.collabowf.image_util.ImageLoader;
 import com.anuraj.project.collabowf.operator_activity.TeamMoreDetailsActivity;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -60,7 +61,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.TeamNameText.setText(teamDetails.getName());
 
 
-        imageLoader.DisplayImage(teamDetails.getPropic(), holder.propic);
+        //imageLoader.DisplayImage(teamDetails.getPropic(), holder.propic);
+        Glide.with(context).load(teamDetails.getPropic()).into(holder.propic);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener(){
