@@ -8,6 +8,8 @@
 package com.anuraj.project.collabowf.SwipeableLayout;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -100,28 +102,94 @@ public class EventListParentAdapter extends RecyclerView.Adapter<EventListParent
 
             @Override
             public void onLeftClicked(int position) {
-                //for alert model
-                mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
-                // Read from the database
-                mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        //update the record in alert table
-                        AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"false","Accepted",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
 
-                        mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventPrimaryKey()).setValue(alertmod);
+                new AlertDialog.Builder(activity)
+                        .setTitle("Notify All")
+                        .setMessage("Do you want to notify all the teammates?")
+                        .setPositiveButton("Yes, Send", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d("Clicked on Send button", "");
 
-                        eventListChildAdapter.notifyItemRemoved(position);
-                        eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
-                        eventListChildAdapter.notifyDataSetChanged();
-                    }
+                                    //for alert model
+                                    mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
+                                    // Read from the database
+                                    mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            //update the record in alert table
+                                            AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"send","Accepted",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
 
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-                        Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
+                                            mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventPrimaryKey()).setValue(alertmod);
+
+                                            eventListChildAdapter.notifyItemRemoved(position);
+                                            eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
+                                            eventListChildAdapter.notifyDataSetChanged();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError error) {
+                                            // Failed to read value
+                                            Log.w(TAG, "Failed to read value.", error.toException());
+                                        }
+                                    });
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d("Cancel the sending", "");
+                                                                    //for alert model
+                                    mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
+                                    // Read from the database
+                                    mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            //update the record in alert table
+                                            AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"false","Accepted",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
+
+                                            mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventPrimaryKey()).setValue(alertmod);
+
+                                            eventListChildAdapter.notifyItemRemoved(position);
+                                            eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
+                                            eventListChildAdapter.notifyDataSetChanged();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError error) {
+                                            // Failed to read value
+                                            Log.w(TAG, "Failed to read value.", error.toException());
+                                        }
+                                    });
+
+                            }
+                        })
+                        .show();
+
+
+//                //for alert model
+//                mFirebaseDatabaseAlert = mFirebaseInstance.getReference("alerts");
+//                // Read from the database
+//                mFirebaseDatabaseAlert.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        //update the record in alert table
+//                        AlertModel alertmod = new AlertModel(eventListChildAdapter.eventsArrayList.get(position).getEventId(), eventListChildAdapter.eventsArrayList.get(position).getEventOPName(), eventListChildAdapter.eventsArrayList.get(position).getEventStatus(),"false","Accepted",eventListChildAdapter.eventsArrayList.get(position).getEventDate());
+//
+//                        mFirebaseDatabaseAlert.child((eventListChildAdapter.eventsArrayList.get(position).getEventAlertDate())).child(eventListChildAdapter.eventsArrayList.get(position).getEventPrimaryKey()).setValue(alertmod);
+//
+//                        eventListChildAdapter.notifyItemRemoved(position);
+//                        eventListChildAdapter.notifyItemRangeChanged(position, holder.event_recycler_view_child.getChildCount());
+//                        eventListChildAdapter.notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError error) {
+//                        // Failed to read value
+//                        Log.w(TAG, "Failed to read value.", error.toException());
+//                    }
+//                });
             }
 
 
