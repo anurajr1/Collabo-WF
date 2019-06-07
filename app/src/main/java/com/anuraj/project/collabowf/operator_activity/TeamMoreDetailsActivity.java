@@ -23,6 +23,7 @@ import com.anuraj.project.collabowf.image_util.ImageLoader;
 import com.anuraj.project.collabowf.model.User;
 import com.anuraj.project.collabowf.operator_adapter.RecyclerViewAdapter;
 import com.anuraj.project.collabowf.operator_adapter.TeamDetails;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +37,7 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
     ImageView proPic, closeImage,emailImage,MobileImage;
     String employeeID;
     DatabaseReference databaseReference;
-    ImageLoader imageLoader;
+    //ImageLoader imageLoader;
     User user;
 
     ProgressDialog progressDialog;
@@ -85,7 +86,7 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(TeamMoreDetailsActivity.this);
 
-        imageLoader = new ImageLoader(TeamMoreDetailsActivity.this);
+        //imageLoader = new ImageLoader(TeamMoreDetailsActivity.this);
 
         progressDialog.setMessage("Loading Data");
 
@@ -107,7 +108,8 @@ public class TeamMoreDetailsActivity extends AppCompatActivity {
                 empID = findViewById(R.id.emp_ID);
                 empCerti = findViewById(R.id.empCerti);
 
-                imageLoader.DisplayImage(user.getPropic(),proPic);
+                //imageLoader.DisplayImage(user.getPropic(),proPic);
+                Glide.with(TeamMoreDetailsActivity.this).load(user.getPropic()).into(proPic);
                 operatorName.setText(user.getName());
                 operatorDomain.setText(user.getDomain());
                 empQuali.setText(user.getQualification());
