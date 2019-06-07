@@ -32,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.anuraj.project.collabowf.snackbar.GlobalSnackBar.setSnackBar;
+
 public class TeamFragment extends Fragment {
     DatabaseReference databaseReference;
 
@@ -95,17 +97,17 @@ public class TeamFragment extends Fragment {
         return rootView;
     }
 
-    public static void setSnackBar(View root, String snackTitle) {
-        Snackbar snackbar = Snackbar.make(root, snackTitle, Snackbar.LENGTH_SHORT);
-        snackbar.show();
-        View view = snackbar.getView();
-
-        CoordinatorLayout.LayoutParams params =(CoordinatorLayout.LayoutParams)view.getLayoutParams();
-        params.gravity = Gravity.TOP;
-        params.topMargin = 140;
-        view.setLayoutParams(params);
-
-        TextView txtv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
-        txtv.setGravity(Gravity.CENTER_HORIZONTAL);
-    }
+//    public static void setSnackBar(View root, String snackTitle) {
+//        Snackbar snackbar = Snackbar.make(root, snackTitle, Snackbar.LENGTH_SHORT);
+//        snackbar.show();
+//        View view = snackbar.getView();
+//
+//        CoordinatorLayout.LayoutParams params =(CoordinatorLayout.LayoutParams)view.getLayoutParams();
+//        params.gravity = Gravity.TOP;
+//        params.topMargin = 140;
+//        view.setLayoutParams(params);
+//
+//        TextView txtv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+//        txtv.setGravity(Gravity.CENTER_HORIZONTAL);
+//    }
 }
