@@ -44,7 +44,6 @@ public class ProfileFragment extends Fragment {
     ProgressDialog progressDialog;
     User users;
     TextView navUsername,navUserdomain,empID,empQuali,empCerti,empMob,empMail;
-    ImageLoader imageLoader;
     ImageView proPic;
 
     List<TeamDetails> list = new ArrayList<>();
@@ -66,8 +65,6 @@ public class ProfileFragment extends Fragment {
 
 
         SharedPreferences pref = getContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
-
-        imageLoader = new ImageLoader(getContext());
 
         progressDialog = new ProgressDialog(getContext());
 
