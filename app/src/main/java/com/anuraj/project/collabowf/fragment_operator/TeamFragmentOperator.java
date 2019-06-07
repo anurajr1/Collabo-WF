@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.anuraj.project.collabowf.snackbar.GlobalSnackBar.setSnackBar;
+
 public class TeamFragmentOperator extends Fragment {
 
     DatabaseReference databaseReference;
@@ -76,6 +78,9 @@ public class TeamFragmentOperator extends Fragment {
                 recyclerView.setAdapter(adapter);
 
                 progressDialog.dismiss();
+
+                //calling the teammember count
+                setSnackBar(rootView,"Hi, Found " + list.size() + " Team Members");
             }
 
             @Override
