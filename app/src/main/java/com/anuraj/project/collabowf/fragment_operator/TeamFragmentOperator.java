@@ -8,6 +8,7 @@
 package com.anuraj.project.collabowf.fragment_operator;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.anuraj.project.collabowf.snackbar.GlobalSnackBar.setSnackBar;
+import static com.anuraj.project.collabowf.utils.AppConstants.LOGIN_PREFERENCES;
 
 public class TeamFragmentOperator extends Fragment {
 
@@ -41,12 +43,16 @@ public class TeamFragmentOperator extends Fragment {
     RecyclerView recyclerView;
 
     RecyclerView.Adapter adapter ;
+
+    SharedPreferences pref;
     public TeamFragmentOperator(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.teamfragment, container, false);
 
+        //shared prefereance insatnce
+        pref = getContext().getSharedPreferences(LOGIN_PREFERENCES, 0); // 0 - for private mode
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
 
@@ -69,8 +75,9 @@ public class TeamFragmentOperator extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                     TeamDetails teamDetails = dataSnapshot.getValue(TeamDetails.class);
-
-                    list.add(teamDetails);
+                    if(!(teamDetails.getId().equalsIgnoreCase(pref.getString("employeeId", null)))){
+                        list.add(teamDetails);
+                    }
                 }
 
                 adapter = new RecyclerViewAdapter(getActivity(), list);
