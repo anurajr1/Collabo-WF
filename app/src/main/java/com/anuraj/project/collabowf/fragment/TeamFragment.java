@@ -8,17 +8,12 @@ package com.anuraj.project.collabowf.fragment;
  */
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.operator_adapter.RecyclerViewAdapter;
@@ -96,18 +91,4 @@ public class TeamFragment extends Fragment {
 
         return rootView;
     }
-
-//    public static void setSnackBar(View root, String snackTitle) {
-//        Snackbar snackbar = Snackbar.make(root, snackTitle, Snackbar.LENGTH_SHORT);
-//        snackbar.show();
-//        View view = snackbar.getView();
-//
-//        CoordinatorLayout.LayoutParams params =(CoordinatorLayout.LayoutParams)view.getLayoutParams();
-//        params.gravity = Gravity.TOP;
-//        params.topMargin = 140;
-//        view.setLayoutParams(params);
-//
-//        TextView txtv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
-//        txtv.setGravity(Gravity.CENTER_HORIZONTAL);
-//    }
 }
