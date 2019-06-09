@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_account_group"
             android:title="My Team Calender" />
         <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/ic_report_nav"
+            android:title="Team Reports" />
+        <item
             android:id="@+id/nav_team"
             android:icon="@drawable/ic_account_tie"
             android:title="My Team" />
