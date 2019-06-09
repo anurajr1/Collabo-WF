@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.anuraj.project.collabowf.fragment.AlertFragment;
 import com.anuraj.project.collabowf.fragment.ProfileFragment;
+import com.anuraj.project.collabowf.fragment.ReportFragment;
 import com.anuraj.project.collabowf.fragment.TeamCalenderFragment;
 import com.anuraj.project.collabowf.fragment.TeamFragment;
 
@@ -133,6 +134,11 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_team_calender:
                 fragment = new TeamCalenderFragment();
                 title =getString(R.string.nav_team_calender);
+                break;
+
+            case R.id.nav_report:
+                fragment = new ReportFragment();
+                title =getString(R.string.nav_report);
                 break;
 
             case R.id.nav_team:
