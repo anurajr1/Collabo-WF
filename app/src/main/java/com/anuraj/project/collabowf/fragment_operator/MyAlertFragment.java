@@ -90,6 +90,8 @@ public class MyAlertFragment extends Fragment {
                             events.setEventStatus(alertModel.getStatus());
                             events.setEventName("You requested for Leave on " + alertModel.getSelecteddate());
                             events.setEventSupervisorStatus(alertModel.getSupervisorseen());
+                            events.setEventOperatorSeen(alertModel.getOperatorseen());
+                            events.setEventPrimaryKey(dataAlert.getKey());
                         }else {
                             events.setEventId(alertModel.getId());
                             events.setEventDate(alertModel.getSelecteddate());
@@ -98,6 +100,8 @@ public class MyAlertFragment extends Fragment {
                             events.setEventStatus(alertModel.getStatus());
                             events.setEventSupervisorStatus(alertModel.getSupervisorseen());
                             events.setEventName(alertModel.getName() + " assigned to " + alertModel.getStatus() + " on " + alertModel.getSelecteddate());
+                            events.setEventOperatorSeen(alertModel.getOperatorseen());
+                            events.setEventPrimaryKey(dataAlert.getKey());
                         }
                         //to handle the null alert listing and filtering of only specific operator related alerts
                         if(events.getEventId()!=null) {

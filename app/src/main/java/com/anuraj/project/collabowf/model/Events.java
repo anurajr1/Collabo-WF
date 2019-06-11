@@ -14,7 +14,15 @@ public class Events {
     private  String eventStatus;
     private  String eventOPName;
     private  String eventSupervisorStatus;
+    private  String eventOperatorSeen;
 
+    public String getEventOperatorSeen() {
+        return eventOperatorSeen;
+    }
+
+    public void setEventOperatorSeen(String eventOperatorSeen) {
+        this.eventOperatorSeen = eventOperatorSeen;
+    }
 
     public String getEventSupervisorStatus() {
         return eventSupervisorStatus;

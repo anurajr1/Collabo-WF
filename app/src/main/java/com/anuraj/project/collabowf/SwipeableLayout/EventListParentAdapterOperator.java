@@ -1,35 +1,24 @@
 /*
  * *
  *  * Created by Anuraj R (a4anurajr@gmail.com) on 2019
- *  * Last modified 7/5/19 10:00 PM
+ *  * Last modified 10/5/19 10:00 PM
  *
  */
 package com.anuraj.project.collabowf.SwipeableLayout;
 
 import android.app.Activity;
-import android.graphics.Canvas;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anuraj.project.collabowf.R;
-import com.anuraj.project.collabowf.model.AlertModel;
 import com.anuraj.project.collabowf.model.EventDates;
 import com.anuraj.project.collabowf.model.EventInformation;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 public class EventListParentAdapterOperator extends RecyclerView.Adapter<EventListParentAdapterOperator.MyViewHolder> {
 
@@ -60,7 +49,7 @@ public class EventListParentAdapterOperator extends RecyclerView.Adapter<EventLi
         LinearLayoutManager hs_linearLayout = new LinearLayoutManager(this.activity, LinearLayoutManager.VERTICAL, false);
         holder.event_recycler_view_child.setLayoutManager(hs_linearLayout);
         holder.event_recycler_view_child.setHasFixedSize(true);
-        EventListChildAdapter eventListChildAdapter = new EventListChildAdapter(this.activity,eventInformation.getEventsDatesList().get(position).getEventsArrayList());
+        EventListChildAdapterOperator eventListChildAdapter = new EventListChildAdapterOperator(this.activity,eventInformation.getEventsDatesList().get(position).getEventsArrayList());
         holder.event_recycler_view_child.setAdapter(eventListChildAdapter);
 
 //        SwipeController swipeController = new SwipeController(new SwipeControllerActions() {
