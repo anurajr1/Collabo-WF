@@ -24,6 +24,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
+
 import static android.content.ContentValues.TAG;
 
 public class ReportTodayFragment extends Fragment {
@@ -57,8 +63,10 @@ public class ReportTodayFragment extends Fragment {
         progressDialog.setMessage("Loading Data");
 
         progressDialog.show();
-        daySelected("");
-
+        DateFormat dateFormat = new SimpleDateFormat("MMM d,yyyy");
+        Date date = new Date();
+        daySelected(dateFormat.format(date));
+        progressDialog.dismiss();
         return rootView;
     }
 
@@ -73,26 +81,34 @@ public class ReportTodayFragment extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    if (dataSnapshot.child(selectedDate)!= null) {
-                        for (DataSnapshot userSnapshot : dataSnapshot.child(selectedDate).getChildren()) {
-                            records = userSnapshot.getValue(RecordModel.class);
-                            if(records.getStatus().equalsIgnoreCase("Morning Shift")){
-                                MorningCounter++;
-                            }else if(records.getStatus().equalsIgnoreCase("Afternoon shift")){
-                                AfternoonCounter++;
-                            }else if(records.getStatus().equalsIgnoreCase("Night Shift")){
-                                NightCounter++;
-                            }else if(records.getStatus().equalsIgnoreCase("On Leave")){
-                                LeaveCounter++;
+                    if (dataSnapshot.child(selectedDate) != null) {
+
+                        Map<String, Object> user = (Map<String, Object>) dataSnapshot.getValue();
+
+                        for (String key : user.keySet()) {
+                            if(selectedDate.equalsIgnoreCase(key)) {
+                                for (DataSnapshot userSnapshot : dataSnapshot.child(key).getChildren()) {
+                                    records = userSnapshot.getValue(RecordModel.class);
+
+                                    if (records.getStatus().equalsIgnoreCase("Morning Shift")) {
+                                        MorningCounter++;
+                                    } else if (records.getStatus().equalsIgnoreCase("Afternoon shift")) {
+                                        AfternoonCounter++;
+                                    } else if (records.getStatus().equalsIgnoreCase("Night Shift")) {
+                                        NightCounter++;
+                                    } else if (records.getStatus().equalsIgnoreCase("On Leave")) {
+                                        LeaveCounter++;
+                                    }
+                                    todayMngTextview.setText(String.valueOf(MorningCounter));
+                                    todayAftTextView.setText(String.valueOf(AfternoonCounter));
+                                    todayNightTextView.setText(String.valueOf(NightCounter));
+                                    todayLeaveTextView.setText(String.valueOf(LeaveCounter));
+                                }
                             }
+
                         }
                     }
-                    todayMngTextview.setText(String.valueOf(MorningCounter));
-                    todayAftTextView.setText(String.valueOf(AfternoonCounter));
-                    todayNightTextView.setText(String.valueOf(NightCounter));
-                    todayLeaveTextView.setText(String.valueOf(LeaveCounter));
                 }
-
                 @Override
                 public void onCancelled(DatabaseError error) {
                     // Failed to read value
