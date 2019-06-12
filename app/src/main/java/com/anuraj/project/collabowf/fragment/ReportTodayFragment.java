@@ -74,6 +74,7 @@ public class ReportTodayFragment extends Fragment {
         todayAftTextView = rootView.findViewById(R.id.aft_count);
         todayNightTextView = rootView.findViewById(R.id.night_count);
         todayLeaveTextView = rootView.findViewById(R.id.leave_count);
+        TextView today_date_text = rootView.findViewById(R.id.material_date_text);
 
         progressDialog = new ProgressDialog(getContext());
 
@@ -131,16 +132,11 @@ public class ReportTodayFragment extends Fragment {
         chart.setEntryLabelTextSize(12f);
 
 
-
-
-
-
-
-
-
         DateFormat dateFormat = new SimpleDateFormat("MMM d,yyyy");
         Date date = new Date();
         daySelected(dateFormat.format(date));
+
+        today_date_text.setText(dateFormat.format(date));
         progressDialog.dismiss();
         return rootView;
     }
