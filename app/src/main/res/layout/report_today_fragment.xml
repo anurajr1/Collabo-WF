@@ -14,7 +14,7 @@
     <android.support.design.card.MaterialCardView
         android:id="@+id/material_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_margin="5dp"
         app:cardCornerRadius="5dp">
         <LinearLayout
@@ -27,7 +27,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Today's Date"
-                android:textStyle="bold"
                 android:textSize="30dp"/>
 
         </LinearLayout>
