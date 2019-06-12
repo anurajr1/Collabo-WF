@@ -45,8 +45,8 @@ public class ReportFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager) {
         ReportFragment.Adapter adapter = new ReportFragment.Adapter(getChildFragmentManager());
         adapter.addFragment(new ReportTodayFragment(), "Today's Report");
-        adapter.addFragment(new ReportWeekFragment(), "Week Report");
-        adapter.addFragment(new ReportMonthFragment(), "Monthly Report");
+//        adapter.addFragment(new ReportWeekFragment(), "Week Report");
+//        adapter.addFragment(new ReportMonthFragment(), "Monthly Report");
         viewPager.setAdapter(adapter);
     }
 
