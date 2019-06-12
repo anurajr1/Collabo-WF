@@ -84,6 +84,9 @@ public class ReportTodayFragment extends Fragment {
                     if (dataSnapshot.child(selectedDate) != null) {
 
                         Map<String, Object> user = (Map<String, Object>) dataSnapshot.getValue();
+                        MorningCounter = 0;
+                        AfternoonCounter = 0;
+                        NightCounter = 0;
 
                         for (String key : user.keySet()) {
                             if(selectedDate.equalsIgnoreCase(key)) {
