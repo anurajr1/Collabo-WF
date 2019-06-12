@@ -7,8 +7,14 @@
 package com.anuraj.project.collabowf.fragment;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +23,15 @@ import android.widget.TextView;
 
 import com.anuraj.project.collabowf.R;
 import com.anuraj.project.collabowf.model.RecordModel;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.MPPointF;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -42,6 +58,7 @@ public class ReportTodayFragment extends Fragment {
     String selectedDate;
     RecordModel records;
     public int MorningCounter, AfternoonCounter,NightCounter, LeaveCounter = 0;
+    private PieChart chart;
 
     public ReportTodayFragment() {
     }
@@ -63,6 +80,64 @@ public class ReportTodayFragment extends Fragment {
         progressDialog.setMessage("Loading Data");
 
         progressDialog.show();
+
+        chart = rootView.findViewById(R.id.chart1);
+        chart.setUsePercentValues(true);
+        chart.getDescription().setEnabled(false);
+        chart.setExtraOffsets(5, 10, 5, 5);
+
+        chart.setDragDecelerationFrictionCoef(0.95f);
+
+        chart.setCenterText(generateCenterSpannableText());
+
+        chart.setDrawHoleEnabled(true);
+        chart.setHoleColor(Color.WHITE);
+
+        chart.setTransparentCircleColor(Color.WHITE);
+        chart.setTransparentCircleAlpha(110);
+
+        chart.setHoleRadius(58f);
+        chart.setTransparentCircleRadius(61f);
+
+        chart.setDrawCenterText(true);
+
+        chart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        chart.setRotationEnabled(true);
+        chart.setHighlightPerTapEnabled(true);
+
+        // chart.setUnit(" €");
+        // chart.setDrawUnitsInChart(true);
+
+        // add a selection listener
+        //chart.setOnChartValueSelectedListener(ReportTodayFragment.this);
+
+
+        chart.animateY(1400, Easing.EaseInOutQuad);
+        // chart.spin(2000, 0, 360);
+
+        Legend l = chart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);
+
+        // entry label styling
+        chart.setEntryLabelColor(Color.WHITE);
+        //chart.setEntryLabelTypeface(tfRegular);
+        chart.setEntryLabelTextSize(12f);
+
+
+
+
+
+
+
+
+
         DateFormat dateFormat = new SimpleDateFormat("MMM d,yyyy");
         Date date = new Date();
         daySelected(dateFormat.format(date));
@@ -106,6 +181,16 @@ public class ReportTodayFragment extends Fragment {
                                     todayAftTextView.setText(String.valueOf(AfternoonCounter));
                                     todayNightTextView.setText(String.valueOf(NightCounter));
                                     todayLeaveTextView.setText(String.valueOf(LeaveCounter));
+
+                                    ArrayList<PieEntry> values = new ArrayList<>();
+
+                                    values.add(new PieEntry(MorningCounter, "Morning"));
+                                    values.add(new PieEntry(AfternoonCounter, "Afternoon"));
+                                    values.add(new PieEntry(NightCounter, "Night"));
+                                    values.add(new PieEntry(LeaveCounter, "Leave"));
+
+                                    setData(values);
+                                   // setData(3,4);
                                 }
                             }
 
@@ -122,5 +207,30 @@ public class ReportTodayFragment extends Fragment {
         }catch (Exception e){
 
         }
+    }
+
+    private SpannableString generateCenterSpannableText() {
+
+        SpannableString s = new SpannableString("Today's Report\nPercentage of Availability");
+        return s;
+    }
+
+    private void setData(ArrayList<PieEntry> value) {
+
+        PieDataSet dataSet = new PieDataSet(value, "");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+
+        dataSet.setColors(Color.parseColor("#FF8888"),Color.parseColor("#FABD64"),Color.parseColor("#ABE2AB"),Color.parseColor("#5E696E"));
+        //dataSet.setSelectionShift(0f);
+
+        PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(15f);
+        data.setValueTextColor(Color.WHITE);
+        //   data.setValueTypeface(tfLight);
+        chart.setData(data);
+
+        chart.invalidate();
     }
 }

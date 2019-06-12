@@ -12,6 +12,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.card.MaterialCardView
+        android:id="@+id/material_Counter"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="5dp"
@@ -191,5 +192,18 @@
 
 
 
+    </android.support.design.card.MaterialCardView>
+    <android.support.design.card.MaterialCardView
+        android:id="@+id/material_Counter_chart"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/material_Counter"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="5dp">
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            />
     </android.support.design.card.MaterialCardView>
 </RelativeLayout>
